@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RandomMovie.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            VerticalOptions="StartAndExpand">
+
+            <CarouselView HeightRequest="500" x:Name="Carousel" PeekAreaInsets="50">
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" />
+                </CarouselView.ItemsLayout>
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout>
+                            <Image MaximumHeightRequest="345">
+                                <Image.Source>
+                                    <UriImageSource Uri="{Binding PosterWebsiteLink}" CacheValidity="31:0:0:0" />
+                                </Image.Source>
+                            </Image>
+                            <Label VerticalOptions="CenterAndExpand" LineBreakMode="WordWrap" FontSize="Medium" Text="{Binding Name}" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <Button x:Name="RandomMovie" Text="Random Movie" Clicked="RandomMovie_Clicked" />
+            <Button x:Name="LetterBoxd" Text="LetterBoxd" Clicked="LetterBoxd_Clicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
