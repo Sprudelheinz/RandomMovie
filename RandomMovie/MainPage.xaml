@@ -7,7 +7,7 @@
         <VerticalStackLayout
             VerticalOptions="StartAndExpand">
             <SearchBar TextChanged="SearchBar_TextChanged" />
-            <CarouselView Loop="False" HeightRequest="550" x:Name="Carousel" PeekAreaInsets="50">
+            <CarouselView Loop="False" MaximumHeightRequest="550" x:Name="Carousel" PeekAreaInsets="60">
                 <CarouselView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal" />
                 </CarouselView.ItemsLayout>
@@ -27,8 +27,8 @@
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
-            <Button x:Name="RandomMovie" Text="Random Movie" Clicked="RandomMovie_Clicked" />
-            <Button x:Name="LetterBoxd" Text="LetterBoxd" Clicked="LetterBoxd_Clicked" />
+            <Button Margin="10" VerticalOptions="Start" x:Name="RandomMovie" Text="Random Movie" Clicked="RandomMovie_Clicked" />
+            <Button Margin="10" VerticalOptions="Start" x:Name="LetterBoxd" Text="LetterBoxd" Clicked="LetterBoxd_Clicked" />
         </VerticalStackLayout>
     </ScrollView>
 
