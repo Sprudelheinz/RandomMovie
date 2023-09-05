@@ -4,11 +4,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:RandomMovie"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Flyout">
 
-    <ShellContent
-        Title="Random Movie"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+    <FlyoutItem FlyoutDisplayOptions="AsSingleItem">
+        <ShellContent
+         Title="Random Movie"
+         ContentTemplate="{DataTemplate local:MainPage}"
+         Route="MainPage" />
+    </FlyoutItem>
+    <MenuItem x:Name="MenuDelete" Text="Delete Cache" Clicked="MenuItem_Clicked" />
 </Shell>

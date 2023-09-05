@@ -1,5 +1,8 @@
-﻿using System.IO.Compression;
+﻿using System.Diagnostics;
+using System.IO.Compression;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using RandomMovie.Extensions;
 
 namespace RandomMovie;
 
@@ -15,7 +18,8 @@ public partial class MainPage : ContentPage
 
     private void Carousel_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
     {
-        LetterBoxd.Text = (e.CurrentItem as Movie).Name;
+        if (e.CurrentItem is Movie)
+            LetterBoxd.Text = (e.CurrentItem as Movie)?.Name;
     }
 
     private async void ReadJsonAsync()
@@ -32,7 +36,7 @@ public partial class MainPage : ContentPage
                 var movies = JsonConvert.DeserializeObject<List<Movie>>(json);
                 Movies = movies.ToList();
                 Carousel.ItemsSource = Movies;
-                GenerateRandomMovie();
+                //GenerateRandomMovie();
 
             }
         }
@@ -43,7 +47,9 @@ public partial class MainPage : ContentPage
         var randgen = new Random();
         var movie = Movies[randgen.Next(Movies.Count)];
         Carousel.IsScrollAnimated = false;
+        Carousel.SetBinding(CarouselView.CurrentItemProperty, "Current", BindingMode.TwoWay);
         Carousel.CurrentItem = movie;
+        Carousel.ScrollTo(movie, animate: false);
         Carousel.IsScrollAnimated = true;
     }
 
@@ -59,11 +65,27 @@ public partial class MainPage : ContentPage
         try
         {
             var movie = Carousel.CurrentItem as Movie;
+            if (movie == null)
+                return;
             Uri uri = new Uri(movie.LetterboxdURI);
             await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         }
         catch
         { }
+    }
+
+    private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        SearchBar searchBar = (SearchBar)sender;
+        Carousel.ItemsSource = Movies.Where(x => x.Name.ToLowerInvariant().Contains(searchBar.Text.ToLowerInvariant()));
+    }
+
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+        if (sender is VerticalStackLayout vsl && vsl.BindingContext is Movie movie)
+        {
+            Carousel.CurrentItem = movie;
+        }
     }
 }
 
