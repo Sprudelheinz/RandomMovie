@@ -7,9 +7,9 @@
     Shell.FlyoutBehavior="Flyout">
     
     <Shell.FlyoutHeader>
-        <Label Text="Test" />
+        <Label HorizontalOptions="Center" Text="Settings" FontSize="Large" />
     </Shell.FlyoutHeader>
-    <FlyoutItem FlyoutDisplayOptions="AsSingleItem">
+    <FlyoutItem Title="Home" FlyoutDisplayOptions="AsSingleItem">
         <ShellContent
          Title="Random Movie"
          ContentTemplate="{DataTemplate local:MainPage}"

@@ -46,13 +46,17 @@ public partial class MainPage : ContentPage
     {
         var randgen = new Random();
         var movie = Movies[randgen.Next(Movies.Count)];
+        SetCurrentItem(movie);
+    }
+
+    private void SetCurrentItem(Movie movie)
+    {
         Carousel.IsScrollAnimated = false;
         Carousel.SetBinding(CarouselView.CurrentItemProperty, "Current", BindingMode.TwoWay);
         Carousel.CurrentItem = movie;
         Carousel.ScrollTo(movie, animate: false);
         Carousel.IsScrollAnimated = true;
     }
-
 
     private void RandomMovie_Clicked(object sender, EventArgs e)
     {
@@ -77,7 +81,12 @@ public partial class MainPage : ContentPage
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
         SearchBar searchBar = (SearchBar)sender;
+        var currentItem = Carousel.CurrentItem as Movie;
         Carousel.ItemsSource = Movies.Where(x => x.Name.ToLowerInvariant().Contains(searchBar.Text.ToLowerInvariant()));
+        if (currentItem != null && string.IsNullOrEmpty(searchBar.Text))
+        {
+            SetCurrentItem(currentItem);
+        }
     }
 
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)

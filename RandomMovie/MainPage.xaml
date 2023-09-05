@@ -7,22 +7,22 @@
         <VerticalStackLayout
             VerticalOptions="StartAndExpand">
             <SearchBar TextChanged="SearchBar_TextChanged" />
-            <CarouselView Loop="False" MaximumHeightRequest="550" x:Name="Carousel" PeekAreaInsets="60">
+            <CarouselView Loop="False"  x:Name="Carousel" PeekAreaInsets="60">
                 <CarouselView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal" />
                 </CarouselView.ItemsLayout>
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <VerticalStackLayout>
+                        <VerticalStackLayout VerticalOptions="FillAndExpand" MaximumHeightRequest="550" MaximumWidthRequest="230">
                             <VerticalStackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1" />
                             </VerticalStackLayout.GestureRecognizers>
                             <Image VerticalOptions="Start" MaximumHeightRequest="345">
                                 <Image.Source>
-                                    <UriImageSource Uri="{Binding PosterWebsiteLink}" CacheValidity="31:0:0:0" />
+                                    <UriImageSource Uri="{Binding PosterWebsiteLink}" CachingEnabled="True" CacheValidity="31:0:0:0" />
                                 </Image.Source>
                             </Image>
-                            <Label MaximumWidthRequest="230" HorizontalOptions="Center" LineBreakMode="WordWrap" FontSize="Medium" Text="{Binding Name}" />
+                            <Label HorizontalOptions="Center" LineBreakMode="WordWrap" FontSize="Medium" Text="{Binding Name}" />
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
