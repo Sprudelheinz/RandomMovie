@@ -16,5 +16,5 @@
          Route="MainPage" />
     </FlyoutItem>
     
-    <MenuItem x:Name="MenuDelete" Text="Delete Cache" Clicked="MenuItem_Clicked" />
+    <MenuItem x:Name="MenuDelete" Text="Reset Watchlist" Clicked="MenuItem_Clicked" />
 </Shell>

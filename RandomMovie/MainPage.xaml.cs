@@ -1,19 +1,20 @@
-﻿using System.Diagnostics;
-using System.IO.Compression;
-using Microsoft.Extensions.Logging;
+﻿using System.Net;
+using Microsoft.Maui.Controls;
 using Newtonsoft.Json;
-using RandomMovie.Extensions;
+using RandomMovie.ViewModels;
 
 namespace RandomMovie;
 
 public partial class MainPage : ContentPage
 {
-    List<Movie> Movies { get; set; }
-	public MainPage()
+    internal MainPageViewModel MainPageViewModel { get; set; }
+
+    public MainPage()
 	{
 		InitializeComponent();
-        ReadJsonAsync();
         Carousel.CurrentItemChanged += Carousel_CurrentItemChanged;
+        MainPageViewModel = new MainPageViewModel();
+        BindingContext = MainPageViewModel;
     }
 
     private void Carousel_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
@@ -22,30 +23,16 @@ public partial class MainPage : ContentPage
             LetterBoxd.Text = (e.CurrentItem as Movie)?.Name;
     }
 
-    private async void ReadJsonAsync()
-    {
-        using (var stream = await FileSystem.OpenAppPackageFileAsync("brightToDark.json"))
-        {
-
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                var json = reader.ReadToEnd();
-                if (string.IsNullOrEmpty(json))
-                {
-                }
-                var movies = JsonConvert.DeserializeObject<List<Movie>>(json);
-                Movies = movies.ToList();
-                Carousel.ItemsSource = Movies;
-                //GenerateRandomMovie();
-
-            }
-        }
-    }
-
     void GenerateRandomMovie()
     {
         var randgen = new Random();
-        var movie = Movies[randgen.Next(Movies.Count)];
+        var movie = MainPageViewModel.Movies[randgen.Next(MainPageViewModel.Movies.Count)];
+        SetCurrentItem(movie);
+    }
+    void GenerateRandomMovieWatchlist()
+    {
+        var randgen = new Random();
+        var movie = MainPageViewModel.Watchlist[randgen.Next(MainPageViewModel.Watchlist.Count)];
         SetCurrentItem(movie);
     }
 
@@ -82,7 +69,7 @@ public partial class MainPage : ContentPage
     {
         SearchBar searchBar = (SearchBar)sender;
         var currentItem = Carousel.CurrentItem as Movie;
-        Carousel.ItemsSource = Movies.Where(x => x.Name.ToLowerInvariant().Contains(searchBar.Text.ToLowerInvariant()));
+        Carousel.ItemsSource = MainPageViewModel.Movies.Where(x => x.Name.ToLowerInvariant().Contains(searchBar.Text.ToLowerInvariant()));
         if (currentItem != null && string.IsNullOrEmpty(searchBar.Text))
         {
             SetCurrentItem(currentItem);
@@ -96,5 +83,23 @@ public partial class MainPage : ContentPage
             Carousel.CurrentItem = movie;
         }
     }
+
+    private void WatchlistLetterBoxdButton_Clicked(object sender, EventArgs e)
+    {
+        if (MainPageViewModel.Watchlist.Any())
+        {
+            Carousel.ItemsSource = MainPageViewModel.Watchlist;
+        }
+        else
+        {
+            ActivityIndicator.IsRunning = true;
+            Services.Services.ReadWatchlistFromUser(MainPageViewModel);
+            Carousel.ItemsSource = MainPageViewModel.Watchlist;
+            ActivityIndicator.IsRunning = false;
+        }
+        GenerateRandomMovieWatchlist();
+    }
+
+    
 }
 

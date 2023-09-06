@@ -7,7 +7,7 @@
         <VerticalStackLayout
             VerticalOptions="StartAndExpand">
             <SearchBar TextChanged="SearchBar_TextChanged" />
-            <CarouselView Loop="False"  x:Name="Carousel" PeekAreaInsets="60">
+            <CarouselView ItemsSource="{Binding Movies}" Loop="False" x:Name="Carousel" PeekAreaInsets="60">
                 <CarouselView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal" />
                 </CarouselView.ItemsLayout>
@@ -17,18 +17,26 @@
                             <VerticalStackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1" />
                             </VerticalStackLayout.GestureRecognizers>
-                            <Image VerticalOptions="Start" MaximumHeightRequest="345">
-                                <Image.Source>
-                                    <UriImageSource Uri="{Binding PosterWebsiteLink}" CachingEnabled="True" CacheValidity="31:0:0:0" />
-                                </Image.Source>
-                            </Image>
+                            <!--<Frame MaximumHeightRequest="345" BorderColor="{Binding MainColorMaui}" CornerRadius="10">-->
+                                <Image Aspect="AspectFill">
+                                    <Image.Source>
+                                        <UriImageSource Uri="{Binding PosterWebsiteLink}" CachingEnabled="True" CacheValidity="31:0:0:0" />
+                                    </Image.Source>
+                                </Image>
+                            <!--</Frame>-->
                             <Label HorizontalOptions="Center" LineBreakMode="WordWrap" FontSize="Medium" Text="{Binding Name}" />
+                            
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
             <Button Margin="10" VerticalOptions="Start" x:Name="RandomMovie" Text="Random Movie" Clicked="RandomMovie_Clicked" />
             <Button Margin="10" VerticalOptions="Start" x:Name="LetterBoxd" Text="LetterBoxd" Clicked="LetterBoxd_Clicked" />
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+                <Entry Text="{Binding LetterBoxdUserName}" Placeholder="Letterboxd Username" />
+                <Button Text="Watchlist Random" Clicked="WatchlistLetterBoxdButton_Clicked" />
+                <ActivityIndicator x:Name="ActivityIndicator" Color="DarkGray" />
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 

@@ -14,11 +14,6 @@ public partial class AppShell : Shell
         {
             file.Delete();
         }
-
-        di = new DirectoryInfo(FileSystem.CacheDirectory);
-        foreach (var file in di.GetFiles())
-        {
-            file.Delete();
-        }
+        FlyoutIsPresented = false;
     }
 }
