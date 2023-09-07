@@ -2,20 +2,16 @@
 {
     internal class Movie
     {
-        public int SortValue;
-        public DateTime Date;
+        public int SortValue { get; set; }
+        public DateTime Date { get; set; }
         public string Name { get; set; }
-        public int Year;
-        public string LetterboxdURI;
-        public double Rating;
-        public string Tags;
-        public string FileName;
+        public int Year { get; set; }
+        public string LetterboxdURI { get; set; }
+        public string FileName { get; set; }
         public string PosterWebsiteLink { get; set; }
-        public string IMBD;
-        public string TMDB;
         public System.Drawing.Color MainColor { get; set; }
-        public bool IsDark;
-        public string FilmID;
+        public bool IsDark { get; set; }
+        public string FilmID { get; set; }
 
         public Color MainColorMaui => GetColor(MainColor);
 

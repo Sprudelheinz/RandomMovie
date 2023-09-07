@@ -4,7 +4,7 @@ namespace RandomMovie.ViewModels
 {
     internal class MainPageViewModel : ObservableViewModelBase
     {
-        private List<Movie> movies;
+        private List<Movie> movies = new List<Movie>();
 
         public List<Movie> Movies 
         { 
@@ -16,21 +16,26 @@ namespace RandomMovie.ViewModels
         }
         public List<Movie> Watchlist { get; set; } = new List<Movie>();
         public string LetterBoxdUserName { get; set; } = "Sprudelheinz";
-
+        public bool ActivityRunning { get; set; } = false;
+        public List<Movie> AllTheMovies { get; set; }
         public MainPageViewModel()
         {
             ReadJsonFiles();           
         }
 
-        private async void ReadJsonFiles()
+        private void ReadJsonFiles()
         {
-            Movies = await Services.Services.ReadJsonFromFileAsync("brightToDark.json");
-            var watchlistFileName = Path.Combine(Microsoft.Maui.Storage.FileSystem.Current.AppDataDirectory, Services.Services.WATCHLIST_FILENAME);
-            if (File.Exists(watchlistFileName))
+            MainThread.BeginInvokeOnMainThread(async () =>
             {
-                var watchlistJson = await Services.Services.ReadTextFile(watchlistFileName);
-                Watchlist = Services.Services.ReadJson(watchlistJson);
-            }
+                AllTheMovies = await Services.Services.ReadJsonFromFileAsync("brightToDark.json");
+                var watchlistFileName = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.WATCHLIST_FILENAME);
+                if (File.Exists(watchlistFileName))
+                {
+                    var watchlistJson = await Services.Services.ReadTextFile(watchlistFileName);
+                    Watchlist = Services.Services.ReadJson(watchlistJson);
+                }
+                Movies = AllTheMovies;
+            });
         }
     }
 }

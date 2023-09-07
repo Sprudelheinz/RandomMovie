@@ -11,6 +11,7 @@
     </Shell.FlyoutHeader>
     <FlyoutItem Title="Home" FlyoutDisplayOptions="AsSingleItem">
         <ShellContent
+         x:Name="ShellContent"
          Title="Random Movie"
          ContentTemplate="{DataTemplate local:MainPage}"
          Route="MainPage" />

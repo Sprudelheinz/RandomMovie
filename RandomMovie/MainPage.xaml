@@ -18,7 +18,7 @@
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1" />
                             </VerticalStackLayout.GestureRecognizers>
                             <!--<Frame MaximumHeightRequest="345" BorderColor="{Binding MainColorMaui}" CornerRadius="10">-->
-                                <Image Aspect="AspectFill">
+                                <Image MaximumHeightRequest="300">
                                     <Image.Source>
                                         <UriImageSource Uri="{Binding PosterWebsiteLink}" CachingEnabled="True" CacheValidity="31:0:0:0" />
                                     </Image.Source>
@@ -35,7 +35,7 @@
             <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
                 <Entry Text="{Binding LetterBoxdUserName}" Placeholder="Letterboxd Username" />
                 <Button Text="Watchlist Random" Clicked="WatchlistLetterBoxdButton_Clicked" />
-                <ActivityIndicator x:Name="ActivityIndicator" Color="DarkGray" />
+                <ActivityIndicator WidthRequest="50" HeightRequest="50" x:Name="ActivityIndicator" Color="White" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

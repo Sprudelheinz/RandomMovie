@@ -7,15 +7,14 @@ namespace RandomMovie;
 
 public partial class MainPage : ContentPage
 {
-    internal MainPageViewModel MainPageViewModel { get; set; }
-
+    private MainPageViewModel m_mainPageViewModel;
     public MainPage()
 	{
 		InitializeComponent();
         Carousel.CurrentItemChanged += Carousel_CurrentItemChanged;
-        MainPageViewModel = new MainPageViewModel();
-        BindingContext = MainPageViewModel;
-    }
+        m_mainPageViewModel = new MainPageViewModel();
+        BindingContext = m_mainPageViewModel;
+}
 
     private void Carousel_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
     {
@@ -26,13 +25,7 @@ public partial class MainPage : ContentPage
     void GenerateRandomMovie()
     {
         var randgen = new Random();
-        var movie = MainPageViewModel.Movies[randgen.Next(MainPageViewModel.Movies.Count)];
-        SetCurrentItem(movie);
-    }
-    void GenerateRandomMovieWatchlist()
-    {
-        var randgen = new Random();
-        var movie = MainPageViewModel.Watchlist[randgen.Next(MainPageViewModel.Watchlist.Count)];
+        var movie = m_mainPageViewModel.Movies[randgen.Next(m_mainPageViewModel.Movies.Count)];
         SetCurrentItem(movie);
     }
 
@@ -69,7 +62,7 @@ public partial class MainPage : ContentPage
     {
         SearchBar searchBar = (SearchBar)sender;
         var currentItem = Carousel.CurrentItem as Movie;
-        Carousel.ItemsSource = MainPageViewModel.Movies.Where(x => x.Name.ToLowerInvariant().Contains(searchBar.Text.ToLowerInvariant()));
+        m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies.Where(x => x.Name.ToLowerInvariant().Contains(searchBar.Text.ToLowerInvariant())).ToList();
         if (currentItem != null && string.IsNullOrEmpty(searchBar.Text))
         {
             SetCurrentItem(currentItem);
@@ -86,20 +79,29 @@ public partial class MainPage : ContentPage
 
     private void WatchlistLetterBoxdButton_Clicked(object sender, EventArgs e)
     {
-        if (MainPageViewModel.Watchlist.Any())
+        MainThread.BeginInvokeOnMainThread(() =>
         {
-            Carousel.ItemsSource = MainPageViewModel.Watchlist;
+            ActivityIndicator.IsEnabled = true;
+            ActivityIndicator.IsRunning = true;
+        });
+   
+        
+        if (m_mainPageViewModel.Watchlist.Any())
+        {
+            m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
         }
         else
         {
-            ActivityIndicator.IsRunning = true;
-            Services.Services.ReadWatchlistFromUser(MainPageViewModel);
-            Carousel.ItemsSource = MainPageViewModel.Watchlist;
-            ActivityIndicator.IsRunning = false;
+            
+            Services.Services.ReadWatchlistFromUser(m_mainPageViewModel);
+            m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;  
         }
-        GenerateRandomMovieWatchlist();
-    }
-
-    
+        GenerateRandomMovie();
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            ActivityIndicator.IsEnabled = false;
+            ActivityIndicator.IsRunning = false;
+        });
+    }    
 }
 
