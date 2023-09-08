@@ -18,6 +18,8 @@ namespace RandomMovie.ViewModels
         public string LetterBoxdUserName { get; set; } = "Sprudelheinz";
         public bool ActivityRunning { get; set; } = false;
         public List<Movie> AllTheMovies { get; set; }
+
+        public bool SortAscending { get; set; } = true;
         public MainPageViewModel()
         {
             ReadJsonFiles();           

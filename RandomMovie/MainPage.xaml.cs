@@ -81,27 +81,55 @@ public partial class MainPage : ContentPage
     {
         MainThread.BeginInvokeOnMainThread(() =>
         {
-            ActivityIndicator.IsEnabled = true;
-            ActivityIndicator.IsRunning = true;
+            ActivityIndicator.IsVisible = true;
         });
-   
-        
+
+
         if (m_mainPageViewModel.Watchlist.Any())
         {
             m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
         }
         else
         {
-            
+
             Services.Services.ReadWatchlistFromUser(m_mainPageViewModel);
-            m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;  
+            m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
         }
         GenerateRandomMovie();
         MainThread.BeginInvokeOnMainThread(() =>
         {
-            ActivityIndicator.IsEnabled = false;
-            ActivityIndicator.IsRunning = false;
+            ActivityIndicator.IsVisible = false;
         });
-    }    
+    }
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+        m_mainPageViewModel.SortAscending = !m_mainPageViewModel.SortAscending;
+        m_mainPageViewModel.Movies = m_mainPageViewModel.SortAscending
+                                        ? m_mainPageViewModel.Movies.OrderBy(x => x.SortValue).ToList()
+                                        : m_mainPageViewModel.Movies.OrderByDescending(x => x.SortValue).ToList();
+    }
+
+    private void RestoreButton_Clicked(object sender, EventArgs e)
+    {
+        m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies;
+    }
+
+    //private void ActivityButton_Tapped(object sender, EventArgs e)
+    //{
+    //    activityButton.IsInProgress = true;
+    //    if (m_mainPageViewModel.Watchlist.Any())
+    //    {
+    //        m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
+    //    }
+    //    else
+    //    {
+
+    //        Services.Services.ReadWatchlistFromUser(m_mainPageViewModel);
+    //        m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
+    //    }
+    //    GenerateRandomMovie();
+    //    activityButton.IsInProgress = false;
+    //}
 }
 
