@@ -33,8 +33,16 @@ namespace RandomMovie.ViewModels
                 var watchlistFileName = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.WATCHLIST_FILENAME);
                 if (File.Exists(watchlistFileName))
                 {
-                    var watchlistJson = await Services.Services.ReadTextFile(watchlistFileName);
-                    Watchlist = Services.Services.ReadJson(watchlistJson);
+                    try
+                    {
+                        var watchlistJson = await Services.Services.ReadTextFile(watchlistFileName);
+                        Watchlist = Services.Services.ReadJson(watchlistJson);
+                    }
+                    catch
+                    {
+                        Watchlist = new List<Movie>();
+                        File.Delete(watchlistFileName);
+                    }
                 }
                 Movies = AllTheMovies;
             });

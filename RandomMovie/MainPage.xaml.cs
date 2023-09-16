@@ -1,6 +1,9 @@
 ﻿using System.Net;
+using CommunityToolkit.Maui.Views;
+using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls;
 using Newtonsoft.Json;
+using RandomMovie.Controls.PopUp;
 using RandomMovie.ViewModels;
 
 namespace RandomMovie;
@@ -77,14 +80,10 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private void WatchlistLetterBoxdButton_Clicked(object sender, EventArgs e)
+    private async void WatchlistLetterBoxdButton_Clicked(object sender, EventArgs e)
     {
-        MainThread.BeginInvokeOnMainThread(() =>
-        {
-            ActivityIndicator.IsVisible = true;
-        });
-
-
+        var popUp = new ActivityIndicatorPopUp();
+        this.ShowPopup(popUp);
         if (m_mainPageViewModel.Watchlist.Any())
         {
             m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
@@ -92,14 +91,17 @@ public partial class MainPage : ContentPage
         else
         {
 
-            Services.Services.ReadWatchlistFromUser(m_mainPageViewModel);
+            await Services.Services.ReadWatchlistFromUserAsync(m_mainPageViewModel);
             m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
         }
         GenerateRandomMovie();
-        MainThread.BeginInvokeOnMainThread(() =>
+        try
         {
-            ActivityIndicator.IsVisible = false;
-        });
+            popUp.Close();
+        }
+        catch
+        {
+        }
     }
 
     private void Button_Clicked(object sender, EventArgs e)

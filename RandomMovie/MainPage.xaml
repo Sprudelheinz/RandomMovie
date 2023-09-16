@@ -16,7 +16,7 @@
                 <ImageButton Grid.Column="1" HeightRequest="40" WidthRequest="40" Source="{AppThemeBinding Light=sort.png, Dark=sort_dark.png}"  Clicked="Button_Clicked" />
                 <ImageButton Grid.Column="2" HeightRequest="40" WidthRequest="40" Source="{AppThemeBinding Light=restore.png, Dark=restore_dark.png}"  Clicked="RestoreButton_Clicked" />
             </Grid>
-            <ActivityIndicator IsVisible="False" IsRunning="True" WidthRequest="50" HeightRequest="50" x:Name="ActivityIndicator" Color="White" />
+            <!--<ActivityIndicator IsVisible="False" IsRunning="True" WidthRequest="50" HeightRequest="50" x:Name="ActivityIndicator" Color="White" />-->
             <CarouselView ItemsSource="{Binding Movies}" Loop="False" x:Name="Carousel" PeekAreaInsets="60">
                 <CarouselView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal" />
@@ -45,6 +45,7 @@
             <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
                 <Entry Text="{Binding LetterBoxdUserName}" Placeholder="Letterboxd Username" />
                 <Button Text="Watchlist Random" Clicked="WatchlistLetterBoxdButton_Clicked" />
+                <ActivityIndicator x:Name="loadWatchlist" IsVisible="true" Color="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}" />
                 <!--<controls:ActivityButton x:Name="activityButton" Tapped="ActivityButton_Tapped" Text="Watchlist Random" HorizontalOptions="Center" />-->
             </HorizontalStackLayout>
         </VerticalStackLayout>

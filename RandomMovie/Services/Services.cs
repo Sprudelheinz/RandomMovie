@@ -48,19 +48,19 @@ namespace RandomMovie.Services
             return await reader.ReadToEndAsync();
         }
 
-        internal static void ReadWatchlistFromUser(MainPageViewModel mainPageViewModel)
+        internal async static Task ReadWatchlistFromUserAsync(MainPageViewModel mainPageViewModel)
         {
             var doc = new HtmlAgilityPack.HtmlDocument();
             try
             {
                 var pageFound = true;
                 int i = 0;
-                using (var webClient = new WebClient())
+                using (var httpClient = new HttpClient())
                 {
                     while (pageFound)
                     {
                         var uri = $"https://letterboxd.com/" + mainPageViewModel.LetterBoxdUserName + $"/watchlist/page/" + i;
-                        var webstring = webClient.DownloadString(uri);
+                        var webstring = await httpClient.GetStringAsync(uri);
                         doc.LoadHtml(webstring);
                         var ul = doc.DocumentNode.SelectSingleNode("//ul[contains(@class,'poster-list')]");
                         if (ul == null)

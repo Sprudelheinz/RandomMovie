@@ -10,7 +10,7 @@ namespace RandomMovie.Extensions
 {
     internal static class TaskExtensions
     {
-        public static async void FireAndForgetSafeAsync(this Task task, ILogger? logger = null, bool continueOnCapturedContext = true)
+        public static async void FireAndForgetSafeAsync(this Task task, ILogger logger = null, bool continueOnCapturedContext = true)
         {
             try
             {
