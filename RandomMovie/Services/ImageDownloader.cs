@@ -1,10 +1,6 @@
 ﻿namespace RandomMovie.Services
 {
-    public interface IImageDownloader
-    {
-        Task DownloadImageAsync(string directoryPath, string fileName, Uri uri);
-    }
-    public class ImageDownloader : IImageDownloader, IDisposable
+    public class ImageDownloader : IDisposable
     {
         private bool _disposed;
         private readonly HttpClient _httpClient;
@@ -21,7 +17,7 @@
         /// <param name="directoryPath">The relative or absolute path to the directory to place the image in.</param>
         /// <param name="fileName">The name of the file without the file extension.</param>
         /// <param name="uri">The URI for the image to download.</param>
-        public async Task DownloadImageAsync(string directoryPath, string fileName, Uri uri)
+        public async Task DownloadImageAsync(string directoryPath, string fileName, Uri uri, Movie movie)
         {
             if (_disposed) { throw new ObjectDisposedException(GetType().FullName); }
 
@@ -36,6 +32,7 @@
             // Download the image and write to the file
             var imageBytes = await _httpClient.GetByteArrayAsync(uri);
             await File.WriteAllBytesAsync(path, imageBytes);
+            movie.PosterImageSource = ImageSource.FromFile(path);
         }
 
         public void Dispose()

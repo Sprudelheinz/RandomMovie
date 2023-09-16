@@ -116,22 +116,5 @@ public partial class MainPage : ContentPage
     {
         m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies;
     }
-
-    //private void ActivityButton_Tapped(object sender, EventArgs e)
-    //{
-    //    activityButton.IsInProgress = true;
-    //    if (m_mainPageViewModel.Watchlist.Any())
-    //    {
-    //        m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
-    //    }
-    //    else
-    //    {
-
-    //        Services.Services.ReadWatchlistFromUser(m_mainPageViewModel);
-    //        m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
-    //    }
-    //    GenerateRandomMovie();
-    //    activityButton.IsInProgress = false;
-    //}
 }
 

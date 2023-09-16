@@ -5,10 +5,12 @@ using System.Net;
 
 namespace RandomMovie.Services
 {
+   
     public static class Services
     {
         public const string WATCHLIST_FILENAME = "watchlist.json";
-
+        public const string POSTER_CACHE_FOLDER = "postercache";
+        public static ImageDownloader ImageDownloaderInstance { get; set; } = new ImageDownloader();
         internal static void SaveJson(List<Movie> watchlist)
         {
             var json = JsonConvert.SerializeObject(watchlist);

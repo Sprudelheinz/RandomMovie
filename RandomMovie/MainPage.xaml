@@ -28,10 +28,10 @@
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1" />
                             </VerticalStackLayout.GestureRecognizers>
                             <!--<Frame MaximumHeightRequest="345" BorderColor="{Binding MainColorMaui}" CornerRadius="10">-->
-                                <Image MaximumHeightRequest="300">
-                                    <Image.Source>
+                            <Image MaximumHeightRequest="300" Source="{Binding PosterImageSource}">
+                                    <!--<Image.Source>
                                         <UriImageSource Uri="{Binding PosterWebsiteLink}" CachingEnabled="True" CacheValidity="31:0:0:0" />
-                                    </Image.Source>
+                                    </Image.Source>-->
                                 </Image>
                             <!--</Frame>-->
                             <Label HorizontalOptions="Center" LineBreakMode="WordWrap" FontSize="Medium" Text="{Binding Name}" />

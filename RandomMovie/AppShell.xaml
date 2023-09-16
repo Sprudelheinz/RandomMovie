@@ -18,4 +18,5 @@
     </FlyoutItem>
     
     <MenuItem x:Name="MenuDelete" Text="Reset Watchlist" Clicked="MenuItem_Clicked" />
+    <MenuItem x:Name="ResetPosterCache" Text="Reset Poster Cache" Clicked="ResetPosterCache_Clicked" />
 </Shell>
