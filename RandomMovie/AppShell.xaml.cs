@@ -42,4 +42,14 @@ public partial class AppShell : Shell
         }
         FlyoutIsPresented = false;
     }
+
+    private void ChangeMode_Clicked(object sender, EventArgs e)
+    {
+        var currentTheme = Application.Current.RequestedTheme;
+        if (currentTheme == AppTheme.Dark)
+            Application.Current.UserAppTheme = AppTheme.Light;
+        else
+            Application.Current.UserAppTheme = AppTheme.Dark;
+
+    }
 }

@@ -5,6 +5,7 @@ namespace RandomMovie.ViewModels
     internal class MainPageViewModel : ObservableViewModelBase
     {
         private List<Movie> movies = new List<Movie>();
+        
 
         public List<Movie> Movies 
         { 
@@ -15,14 +16,23 @@ namespace RandomMovie.ViewModels
             }
         }
         public List<Movie> Watchlist { get; set; } = new List<Movie>();
-        public string LetterBoxdUserName { get; set; } = "Sprudelheinz";
+        private string m_letterBoxdUserName;
+        public string LetterBoxdUserName 
+        { 
+            get => m_letterBoxdUserName;
+            set
+            {
+                m_letterBoxdUserName = value;
+                RaisePropertyChanged(nameof(LetterBoxdUserName));
+            }
+        }
         public bool ActivityRunning { get; set; } = false;
         public List<Movie> AllTheMovies { get; set; }
 
         public bool SortAscending { get; set; } = true;
         public MainPageViewModel()
         {
-            ReadJsonFiles();           
+            ReadJsonFiles();
         }
 
         private void ReadJsonFiles()
@@ -45,6 +55,7 @@ namespace RandomMovie.ViewModels
                     }
                 }
                 Movies = AllTheMovies;
+                Services.Services.ReadUserName(this);
             });
         }
     }

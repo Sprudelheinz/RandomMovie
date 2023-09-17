@@ -28,8 +28,11 @@ public partial class MainPage : ContentPage
     void GenerateRandomMovie()
     {
         var randgen = new Random();
-        var movie = m_mainPageViewModel.Movies[randgen.Next(m_mainPageViewModel.Movies.Count)];
-        SetCurrentItem(movie);
+        if (m_mainPageViewModel.Movies.Any())
+        {
+            var movie = m_mainPageViewModel.Movies[randgen.Next(m_mainPageViewModel.Movies.Count)];
+            SetCurrentItem(movie);
+        }
     }
 
     private void SetCurrentItem(Movie movie)
@@ -82,26 +85,29 @@ public partial class MainPage : ContentPage
 
     private async void WatchlistLetterBoxdButton_Clicked(object sender, EventArgs e)
     {
-        var popUp = new ActivityIndicatorPopUp();
-        this.ShowPopup(popUp);
         if (m_mainPageViewModel.Watchlist.Any())
         {
             m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
+            GenerateRandomMovie();
         }
         else
         {
-
+            var popUp = new ActivityIndicatorPopUp();
+            this.ShowPopup(popUp);
             await Services.Services.ReadWatchlistFromUserAsync(m_mainPageViewModel);
-            m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
-        }
-        GenerateRandomMovie();
-        try
-        {
-            popUp.Close();
-        }
-        catch
-        {
-        }
+            if (m_mainPageViewModel.Watchlist.Any())
+            {
+                m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
+                GenerateRandomMovie();
+            }
+            try
+            {
+                popUp.Close();
+            }
+            catch
+            {
+            }
+        }     
     }
 
     private void Button_Clicked(object sender, EventArgs e)

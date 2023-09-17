@@ -10,6 +10,7 @@ namespace RandomMovie.Services
     {
         public const string WATCHLIST_FILENAME = "watchlist.json";
         public const string POSTER_CACHE_FOLDER = "postercache";
+        public const string SETTINGS_FILE = "settings.json";
         public static ImageDownloader ImageDownloaderInstance { get; set; } = new ImageDownloader();
         internal static void SaveJson(List<Movie> watchlist)
         {
@@ -45,9 +46,13 @@ namespace RandomMovie.Services
         public static async Task<string> ReadTextFile(string targetFileName)
         {
             string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, targetFileName);
-            using FileStream InputStream = File.OpenRead(targetFile);
-            using StreamReader reader = new StreamReader(InputStream);
-            return await reader.ReadToEndAsync();
+            if (File.Exists(targetFile))
+            {
+                using FileStream InputStream = File.OpenRead(targetFile);
+                using StreamReader reader = new StreamReader(InputStream);
+                return await reader.ReadToEndAsync();
+            }
+            return null;
         }
 
         internal async static Task ReadWatchlistFromUserAsync(MainPageViewModel mainPageViewModel)
@@ -57,6 +62,11 @@ namespace RandomMovie.Services
             {
                 var pageFound = true;
                 int i = 0;
+                if (string.IsNullOrEmpty(mainPageViewModel.LetterBoxdUserName))
+                {
+                    SaveUserName(string.Empty);
+                    return;
+                }
                 using (var httpClient = new HttpClient())
                 {
                     while (pageFound)
@@ -86,10 +96,25 @@ namespace RandomMovie.Services
                     }
                 }
                 mainPageViewModel.Watchlist = mainPageViewModel.Watchlist.OrderBy(x => x.SortValue).Distinct().ToList();
-                SaveJson(mainPageViewModel.Watchlist);              
+                SaveJson(mainPageViewModel.Watchlist);
+                SaveUserName(mainPageViewModel.LetterBoxdUserName);
             }
-            catch
-            { }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private static void SaveUserName(string letterBoxdUserName)
+        {
+            var json = JsonConvert.SerializeObject(letterBoxdUserName);
+            WriteTextToFile(json, SETTINGS_FILE);
+        }
+
+        internal static async void ReadUserName(MainPageViewModel mvm)
+        {
+            var settingsJson = await ReadTextFile(SETTINGS_FILE);
+            if (settingsJson != null)
+                mvm.LetterBoxdUserName = JsonConvert.DeserializeObject<string>(settingsJson);
         }
     }
 }

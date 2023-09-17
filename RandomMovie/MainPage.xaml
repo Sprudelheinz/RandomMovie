@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:RandomMovie.Controls"
              x:Class="RandomMovie.MainPage">
 
     <ScrollView>
@@ -38,10 +37,14 @@
             </CarouselView>
             <Button Margin="10" VerticalOptions="Start" x:Name="RandomMovie" Text="Random Movie" Clicked="RandomMovie_Clicked" />
             <Button Margin="10" VerticalOptions="Start" x:Name="LetterBoxd" Text="LetterBoxd" Clicked="LetterBoxd_Clicked" />
-            <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
-                <Entry Text="{Binding LetterBoxdUserName}" Placeholder="Letterboxd Username" />
-                <Button Text="Watchlist Random" Clicked="WatchlistLetterBoxdButton_Clicked" />
-            </HorizontalStackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Entry Grid.Column="0" Text="{Binding LetterBoxdUserName}" Placeholder="Letterboxd Username" HorizontalOptions="FillAndExpand" />
+                <Button Grid.Column="1" Text="Watchlist Random" Clicked="WatchlistLetterBoxdButton_Clicked" HorizontalOptions="FillAndExpand" />
+            </Grid>
         </VerticalStackLayout>
     </ScrollView>
 
