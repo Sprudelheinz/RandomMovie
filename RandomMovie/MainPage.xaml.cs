@@ -22,7 +22,7 @@ public partial class MainPage : ContentPage
     private void Carousel_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
     {
         if (e.CurrentItem is Movie)
-            LetterBoxd.Text = (e.CurrentItem as Movie)?.Name;
+            LetterBoxd.Text = (e.CurrentItem as Movie)?.MovieTitle;
     }
 
     void GenerateRandomMovie()
@@ -121,6 +121,7 @@ public partial class MainPage : ContentPage
     private void RestoreButton_Clicked(object sender, EventArgs e)
     {
         m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies;
+        SetCurrentItem(m_mainPageViewModel.Movies.First());
     }
 }
 

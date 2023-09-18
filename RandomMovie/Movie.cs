@@ -15,6 +15,7 @@ namespace RandomMovie
         public System.Drawing.Color MainColor { get; set; }
         public bool IsDark { get; set; }
         public string FilmID { get; set; }
+        public string MovieTitle => Name + " (" + Year + ")";
         private ImageSource posterImageSource;
         public ImageSource PosterImageSource 
         {

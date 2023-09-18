@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:RandomMovie"
+    xmlns:resource="clr-namespace:RandomMovie.Resources"
     Shell.FlyoutBehavior="Flyout">
     
     <Shell.FlyoutHeader>
@@ -16,8 +17,8 @@
          ContentTemplate="{DataTemplate local:MainPage}"
          Route="MainPage" />
     </FlyoutItem>
-    
-    <MenuItem x:Name="MenuDelete" Text="Reset Watchlist" Clicked="MenuItem_Clicked" />
-    <MenuItem x:Name="ResetPosterCache" Text="Reset Poster Cache" Clicked="ResetPosterCache_Clicked" />
-    <MenuItem x:Name="ChangeMode" Text="Change App Theme" Clicked="ChangeMode_Clicked" />
+
+    <MenuItem x:Name="MenuDelete" Text="{x:Static resource:Localisation.ResetWatchlist}" Clicked="MenuItem_Clicked" />
+    <MenuItem x:Name="ResetPosterCache" Text="{x:Static resource:Localisation.ResetPosterCache}" Clicked="ResetPosterCache_Clicked" />
+    <MenuItem x:Name="ChangeMode" Text="{x:Static resource:Localisation.ChangeAppTheme}" Clicked="ChangeMode_Clicked" />
 </Shell>
