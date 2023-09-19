@@ -17,11 +17,13 @@ public partial class AppShell : Shell
             var mainPageViewModel = mainPage.BindingContext as MainPageViewModel;
             mainPageViewModel.Watchlist.Clear();
             mainPageViewModel.Movies = mainPageViewModel.AllTheMovies;
+            mainPageViewModel.LetterBoxdUserName = string.Empty;
         }
-        var di = new DirectoryInfo(FileSystem.AppDataDirectory);
-        foreach(var file in di.GetFiles()) 
+
+        var watchlistFileName = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.WATCHLIST_FILENAME);
+        if (File.Exists(watchlistFileName))
         {
-            file.Delete();
+            File.Delete(watchlistFileName);
         }
         FlyoutIsPresented = false;
     }
@@ -50,6 +52,13 @@ public partial class AppShell : Shell
             Application.Current.UserAppTheme = AppTheme.Light;
         else
             Application.Current.UserAppTheme = AppTheme.Dark;
-
+        var mainPage = CurrentPage as MainPage;
+        if (mainPage != null)
+        {
+            var mainPageViewModel = mainPage.BindingContext as MainPageViewModel;
+            mainPageViewModel.Settings.Theme = Application.Current.UserAppTheme;
+            Services.Services.SaveSettings(mainPageViewModel.Settings);
+        }
+        FlyoutIsPresented = false;
     }
 }

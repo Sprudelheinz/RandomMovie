@@ -1,12 +1,11 @@
-﻿using System.ComponentModel;
+﻿using RandomMovie.Services;
+using System.ComponentModel;
 
 namespace RandomMovie.ViewModels
 {
     internal class MainPageViewModel : ObservableViewModelBase
     {
-        private List<Movie> movies = new List<Movie>();
-        
-
+        private List<Movie> movies = new List<Movie>();  
         public List<Movie> Movies 
         { 
             get => movies;
@@ -30,6 +29,8 @@ namespace RandomMovie.ViewModels
         public List<Movie> AllTheMovies { get; set; }
 
         public bool SortAscending { get; set; } = true;
+
+        public Settings Settings { get; set; }
         public MainPageViewModel()
         {
             ReadJsonFiles();
@@ -55,7 +56,9 @@ namespace RandomMovie.ViewModels
                     }
                 }
                 Movies = AllTheMovies;
-                Services.Services.ReadUserName(this);
+                Settings = await Services.Services.ReadSettings();
+                LetterBoxdUserName = Settings.LetterBoxdUserName;
+                Application.Current.UserAppTheme = Settings.Theme;
             });
         }
     }

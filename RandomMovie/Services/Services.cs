@@ -1,7 +1,6 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RandomMovie.ViewModels;
-using System.Net;
+
 
 namespace RandomMovie.Services
 {
@@ -64,11 +63,14 @@ namespace RandomMovie.Services
                 int i = 0;
                 if (string.IsNullOrEmpty(mainPageViewModel.LetterBoxdUserName))
                 {
-                    SaveUserName(string.Empty);
+                    mainPageViewModel.Settings.LetterBoxdUserName = null;
+                    SaveSettings(mainPageViewModel.Settings);
+                    mainPageViewModel.Watchlist = new List<Movie>();
                     return;
                 }
                 using (var httpClient = new HttpClient())
                 {
+                    mainPageViewModel.Watchlist = new List<Movie>();
                     while (pageFound)
                     {
                         var uri = $"https://letterboxd.com/" + mainPageViewModel.LetterBoxdUserName + $"/watchlist/page/" + i;
@@ -97,24 +99,27 @@ namespace RandomMovie.Services
                 }
                 mainPageViewModel.Watchlist = mainPageViewModel.Watchlist.OrderBy(x => x.SortValue).Distinct().ToList();
                 SaveJson(mainPageViewModel.Watchlist);
-                SaveUserName(mainPageViewModel.LetterBoxdUserName);
+                mainPageViewModel.Settings.LetterBoxdUserName = mainPageViewModel.LetterBoxdUserName;
+                SaveSettings(mainPageViewModel.Settings);
             }
-            catch (Exception ex)
+            catch
             {
             }
         }
 
-        private static void SaveUserName(string letterBoxdUserName)
+        public static void SaveSettings(Settings settings)
         {
-            var json = JsonConvert.SerializeObject(letterBoxdUserName);
+            var json = JsonConvert.SerializeObject(settings);
             WriteTextToFile(json, SETTINGS_FILE);
         }
 
-        internal static async void ReadUserName(MainPageViewModel mvm)
+        internal static async Task<Settings> ReadSettings()
         {
             var settingsJson = await ReadTextFile(SETTINGS_FILE);
             if (settingsJson != null)
-                mvm.LetterBoxdUserName = JsonConvert.DeserializeObject<string>(settingsJson);
+               return JsonConvert.DeserializeObject<Settings>(settingsJson);
+            else
+                return new Settings();
         }
     }
 }

@@ -8,7 +8,7 @@
     Shell.FlyoutBehavior="Flyout">
     
     <Shell.FlyoutHeader>
-        <Label HorizontalOptions="Center" Text="Settings" FontSize="Large" />
+        <Label HorizontalOptions="StartAndExpand" Text="Menu" FontSize="Large" />
     </Shell.FlyoutHeader>
     <FlyoutItem Title="Home" FlyoutDisplayOptions="AsSingleItem">
         <ShellContent
