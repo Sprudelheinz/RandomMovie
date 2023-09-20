@@ -85,6 +85,8 @@ public partial class MainPage : ContentPage
 
     private async void WatchlistLetterBoxdButton_Clicked(object sender, EventArgs e)
     {
+        if (string.IsNullOrEmpty(m_mainPageViewModel.LetterBoxdUserName))
+            return;
         if (m_mainPageViewModel.Watchlist.Any() 
             && m_mainPageViewModel.LetterBoxdUserName == m_mainPageViewModel.Settings.LetterBoxdUserName)
         {
@@ -104,7 +106,6 @@ public partial class MainPage : ContentPage
             else
             {
                 m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies;
-                GenerateRandomMovie();
             }
             try
             {
