@@ -7,9 +7,6 @@
     xmlns:resource="clr-namespace:RandomMovie.Resources"
     Shell.FlyoutBehavior="Flyout">
     
-    <Shell.FlyoutHeader>
-        <Label HorizontalOptions="StartAndExpand" Text="Menu" FontSize="Large" />
-    </Shell.FlyoutHeader>
     <FlyoutItem Title="Home" FlyoutDisplayOptions="AsSingleItem">
         <ShellContent
          x:Name="ShellContent"
