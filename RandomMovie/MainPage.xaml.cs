@@ -17,7 +17,11 @@ public partial class MainPage : ContentPage
         Carousel.CurrentItemChanged += Carousel_CurrentItemChanged;
         m_mainPageViewModel = new MainPageViewModel();
         BindingContext = m_mainPageViewModel;
-}
+        var width = DeviceDisplay.Current.MainDisplayInfo.Width;
+        var density = DeviceDisplay.Current.MainDisplayInfo.Density;
+        width = width / density;
+        Carousel.PeekAreaInsets = new Thickness((width - 220) / 2);
+    }
 
     private void Carousel_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
     {
