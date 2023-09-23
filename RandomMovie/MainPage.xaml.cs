@@ -20,7 +20,11 @@ public partial class MainPage : ContentPage
         var width = DeviceDisplay.Current.MainDisplayInfo.Width;
         var density = DeviceDisplay.Current.MainDisplayInfo.Density;
         width = width / density;
+#if ANDROID
         Carousel.PeekAreaInsets = new Thickness((width - 220) / 2);
+#else
+        Carousel.HeightRequest = 500;
+#endif
     }
 
     private void Carousel_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
@@ -44,7 +48,7 @@ public partial class MainPage : ContentPage
         Carousel.IsScrollAnimated = false;
         Carousel.SetBinding(CarouselView.CurrentItemProperty, "Current", BindingMode.TwoWay);
         Carousel.CurrentItem = movie;
-        Carousel.ScrollTo(movie, animate: false);
+        Carousel.ScrollTo(movie, animate: false, position: ScrollToPosition.Center);
         Carousel.IsScrollAnimated = true;
     }
 
