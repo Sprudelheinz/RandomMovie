@@ -37,9 +37,13 @@ namespace RandomMovie.Services
         public static async void WriteTextToFile(string text, string targetFileName)
         {
             string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, targetFileName);
-            using FileStream outputStream = File.OpenWrite(targetFile);
-            using StreamWriter streamWriter = new StreamWriter(outputStream);
-            await streamWriter.WriteAsync(text);
+            using (var outputStream = File.Open(targetFile, FileMode.Create))
+            {
+                using (var streamWriter = new StreamWriter(outputStream))
+                {
+                    await streamWriter.WriteAsync(text);
+                }
+            }
         }
 
         public static async Task<string> ReadTextFile(string targetFileName)
@@ -47,9 +51,14 @@ namespace RandomMovie.Services
             string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, targetFileName);
             if (File.Exists(targetFile))
             {
-                using FileStream InputStream = File.OpenRead(targetFile);
-                using StreamReader reader = new StreamReader(InputStream);
-                return await reader.ReadToEndAsync();
+                using (var InputStream = File.OpenRead(targetFile))
+                {
+                    using (var reader = new StreamReader(InputStream))
+                    {
+                        return await reader.ReadToEndAsync();
+                    }
+                }
+                
             }
             return null;
         }
@@ -117,7 +126,16 @@ namespace RandomMovie.Services
         {
             var settingsJson = await ReadTextFile(SETTINGS_FILE);
             if (settingsJson != null)
-               return JsonConvert.DeserializeObject<Settings>(settingsJson);
+            {
+                try
+                {
+                    return JsonConvert.DeserializeObject<Settings>(settingsJson);
+                }
+                catch 
+                {
+                    return new Settings();
+                }
+            }
             else
                 return new Settings();
         }

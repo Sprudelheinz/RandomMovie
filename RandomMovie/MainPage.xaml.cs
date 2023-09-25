@@ -112,7 +112,6 @@ public partial class MainPage : ContentPage
             else
             {
                 m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies;
-                GenerateRandomMovie();
             }
             try
             {
