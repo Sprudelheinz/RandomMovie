@@ -9,12 +9,12 @@ namespace RandomMovie.Services
     {
         public const string WATCHLIST_FILENAME = "watchlist.json";
         public const string POSTER_CACHE_FOLDER = "postercache";
-        public const string SETTINGS_FILE = "settings.json";
+
         public static ImageDownloader ImageDownloaderInstance { get; set; } = new ImageDownloader();
         internal static void SaveJson(List<Movie> watchlist)
         {
             var json = JsonConvert.SerializeObject(watchlist);
-            WriteTextToFile(json, WATCHLIST_FILENAME);
+            WriteTextToFileAsync(json, WATCHLIST_FILENAME);
         }
 
         internal static async Task<List<Movie>> ReadJsonFromFileAsync(string file)
@@ -34,10 +34,10 @@ namespace RandomMovie.Services
             return movies.ToList();
         }
 
-        public static async void WriteTextToFile(string text, string targetFileName)
+        public static async void WriteTextToFileAsync(string text, string targetFileName)
         {
             string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, targetFileName);
-            using (var outputStream = File.Open(targetFile, FileMode.Create))
+            using (var outputStream = File.Create(targetFile))
             {
                 using (var streamWriter = new StreamWriter(outputStream))
                 {
@@ -46,7 +46,7 @@ namespace RandomMovie.Services
             }
         }
 
-        public static async Task<string> ReadTextFile(string targetFileName)
+        public static async Task<string> ReadTextFileAsync(string targetFileName)
         {
             string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, targetFileName);
             if (File.Exists(targetFile))
@@ -72,8 +72,8 @@ namespace RandomMovie.Services
                 int i = 0;
                 if (string.IsNullOrEmpty(mainPageViewModel.LetterBoxdUserName))
                 {
-                    mainPageViewModel.Settings.LetterBoxdUserName = null;
-                    SaveSettings(mainPageViewModel.Settings);
+                    SettingsService.Instance.Settings.LetterBoxdUserName = null;
+                    SettingsService.Instance.SaveSettingsAsync();
                     mainPageViewModel.Watchlist = new List<Movie>();
                     return;
                 }
@@ -108,36 +108,12 @@ namespace RandomMovie.Services
                 }
                 mainPageViewModel.Watchlist = mainPageViewModel.Watchlist.OrderBy(x => x.SortValue).Distinct().ToList();
                 SaveJson(mainPageViewModel.Watchlist);
-                mainPageViewModel.Settings.LetterBoxdUserName = mainPageViewModel.LetterBoxdUserName;
-                SaveSettings(mainPageViewModel.Settings);
+                SettingsService.Instance.Settings.LetterBoxdUserName = mainPageViewModel.LetterBoxdUserName;
+                SettingsService.Instance.SaveSettingsAsync();
             }
             catch
             {
             }
-        }
-
-        public static void SaveSettings(Settings settings)
-        {
-            var json = JsonConvert.SerializeObject(settings);
-            WriteTextToFile(json, SETTINGS_FILE);
-        }
-
-        internal static async Task<Settings> ReadSettings()
-        {
-            var settingsJson = await ReadTextFile(SETTINGS_FILE);
-            if (settingsJson != null)
-            {
-                try
-                {
-                    return JsonConvert.DeserializeObject<Settings>(settingsJson);
-                }
-                catch 
-                {
-                    return new Settings();
-                }
-            }
-            else
-                return new Settings();
         }
     }
 }

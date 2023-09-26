@@ -27,10 +27,8 @@ namespace RandomMovie.ViewModels
         }
         public bool ActivityRunning { get; set; } = false;
         public List<Movie> AllTheMovies { get; set; }
-
         public bool SortAscending { get; set; } = true;
 
-        public Settings Settings { get; set; }
         public MainPageViewModel()
         {
             ReadJsonFiles();
@@ -46,7 +44,7 @@ namespace RandomMovie.ViewModels
                 {
                     try
                     {
-                        var watchlistJson = await Services.Services.ReadTextFile(watchlistFileName);
+                        var watchlistJson = await Services.Services.ReadTextFileAsync(watchlistFileName);
                         Watchlist = Services.Services.ReadJson(watchlistJson);
                     }
                     catch
@@ -56,9 +54,9 @@ namespace RandomMovie.ViewModels
                     }
                 }
                 Movies = AllTheMovies;
-                Settings = await Services.Services.ReadSettings();
-                LetterBoxdUserName = Settings.LetterBoxdUserName;
-                Application.Current.UserAppTheme = Settings.Theme;
+                
+                LetterBoxdUserName = SettingsService.Instance.Settings.LetterBoxdUserName;
+                Application.Current.UserAppTheme = SettingsService.Instance.Settings.Theme;
             });
         }
     }

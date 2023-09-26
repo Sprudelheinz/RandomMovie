@@ -1,4 +1,5 @@
-﻿using RandomMovie.ViewModels;
+﻿using RandomMovie.Services;
+using RandomMovie.ViewModels;
 
 namespace RandomMovie;
 
@@ -52,13 +53,8 @@ public partial class AppShell : Shell
             Application.Current.UserAppTheme = AppTheme.Light;
         else
             Application.Current.UserAppTheme = AppTheme.Dark;
-        var mainPage = CurrentPage as MainPage;
-        if (mainPage != null)
-        {
-            var mainPageViewModel = mainPage.BindingContext as MainPageViewModel;
-            mainPageViewModel.Settings.Theme = Application.Current.UserAppTheme;
-            Services.Services.SaveSettings(mainPageViewModel.Settings);
-        }
+        SettingsService.Instance.Settings.Theme = Application.Current.UserAppTheme;
+        SettingsService.Instance.SaveSettingsAsync();
         FlyoutIsPresented = false;
     }
 }

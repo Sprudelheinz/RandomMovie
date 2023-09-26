@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using RandomMovie.Services;
 
 namespace RandomMovie;
 
@@ -20,7 +21,8 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+		SettingsService.Init();
 
-		return builder.Build();
+        return builder.Build();
 	}
 }

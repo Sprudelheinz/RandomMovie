@@ -1,9 +1,6 @@
-﻿using System.Net;
-using CommunityToolkit.Maui.Views;
-using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Controls;
-using Newtonsoft.Json;
+﻿using CommunityToolkit.Maui.Views;
 using RandomMovie.Controls.PopUp;
+using RandomMovie.Services;
 using RandomMovie.ViewModels;
 
 namespace RandomMovie;
@@ -94,7 +91,7 @@ public partial class MainPage : ContentPage
     private async void WatchlistLetterBoxdButton_Clicked(object sender, EventArgs e)
     {
         if (m_mainPageViewModel.Watchlist.Any() 
-            && m_mainPageViewModel.LetterBoxdUserName == m_mainPageViewModel.Settings.LetterBoxdUserName)
+            && m_mainPageViewModel.LetterBoxdUserName == SettingsService.Instance.Settings.LetterBoxdUserName)
         {
             m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
             GenerateRandomMovie();
