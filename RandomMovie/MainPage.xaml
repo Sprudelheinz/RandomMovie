@@ -45,6 +45,19 @@
                 <Entry  Grid.Column="0" Text="{Binding LetterBoxdUserName}" Placeholder="{x:Static resource:Localisation.LetterboxdUsername}" HorizontalOptions="FillAndExpand" />
                 <Button Grid.Column="1" Text="{x:Static resource:Localisation.WatchlistRandom}" Clicked="WatchlistLetterBoxdButton_Clicked" HorizontalOptions="FillAndExpand" />
             </Grid>
+            <ImageButton
+                Margin="10"
+                BackgroundColor="Gray"
+                CornerRadius="20"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Clicked="ImageButton_Clicked">
+                <ImageButton.Source>
+                    <FontImageSource
+	                    FontFamily="FASolid"
+	                    Glyph="&#x3f;" />
+                </ImageButton.Source>
+            </ImageButton>
         </VerticalStackLayout>
     </ScrollView>
 
