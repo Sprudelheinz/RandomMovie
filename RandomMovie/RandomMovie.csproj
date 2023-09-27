@@ -92,6 +92,9 @@
 	  <Compile Update="Controls\PopUp\ChooseListPopUp.xaml.cs">
 	    <DependentUpon>ChooseListPopUp.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Controls\PopUp\InfoPopUp.xaml.cs">
+	    <DependentUpon>InfoPopUp.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Resources\Localisation.de.Designer.cs">
 	    <DependentUpon>Localisation.de.resx</DependentUpon>
 	    <DesignTime>True</DesignTime>
@@ -117,6 +120,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Controls\PopUp\ChooseListPopUp.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\PopUp\InfoPopUp.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\PopUp\ActivityIndicatorPopUp.xaml">

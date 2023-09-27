@@ -180,5 +180,11 @@ public partial class MainPage : ContentPage
         m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies;
         SetCurrentItem(m_mainPageViewModel.Movies.First());
     }
+
+    private void ImageButton_Clicked(object sender, EventArgs e)
+    {
+        var popUp = new InfoPopUp();
+        this.ShowPopup(popUp);
+    }
 }
 
