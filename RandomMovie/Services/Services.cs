@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RandomMovie.ViewModels;
 
-
 namespace RandomMovie.Services
 {
    
@@ -46,7 +45,7 @@ namespace RandomMovie.Services
             }
         }
 
-        public static async Task<string> ReadTextFileAsync(string targetFileName)
+        public static string ReadTextFile(string targetFileName)
         {
             string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, targetFileName);
             if (File.Exists(targetFile))
@@ -55,35 +54,25 @@ namespace RandomMovie.Services
                 {
                     using (var reader = new StreamReader(InputStream))
                     {
-                        return await reader.ReadToEndAsync();
+                        return reader.ReadToEnd();
                     }
-                }
-                
+                }        
             }
             return null;
         }
 
-        internal async static Task ReadWatchlistFromUserAsync(MainPageViewModel mainPageViewModel)
-        {
-            var doc = new HtmlAgilityPack.HtmlDocument();
+        internal async static Task ReadListFromUri(string uri, MainPageViewModel mainPageViewModel)
+        {        
             try
             {
-                var pageFound = true;
-                int i = 0;
-                if (string.IsNullOrEmpty(mainPageViewModel.LetterBoxdUserName))
-                {
-                    SettingsService.Instance.Settings.LetterBoxdUserName = null;
-                    SettingsService.Instance.SaveSettingsAsync();
-                    mainPageViewModel.Watchlist = new List<Movie>();
-                    return;
-                }
                 using (var httpClient = new HttpClient())
                 {
+                    var doc = new HtmlAgilityPack.HtmlDocument();
+                    int pages = await GetPageNumbersAsync(httpClient, uri);
                     mainPageViewModel.Watchlist = new List<Movie>();
-                    while (pageFound)
+                    var webStrings = await GetWebStrings(httpClient, uri, pages);
+                    foreach (var webstring in webStrings)
                     {
-                        var uri = $"https://letterboxd.com/" + mainPageViewModel.LetterBoxdUserName + $"/watchlist/page/" + i;
-                        var webstring = await httpClient.GetStringAsync(uri);
                         doc.LoadHtml(webstring);
                         var ul = doc.DocumentNode.SelectSingleNode("//ul[contains(@class,'poster-list')]");
                         if (ul == null)
@@ -92,8 +81,7 @@ namespace RandomMovie.Services
                         if (divs.Any())
                             foreach (var div in divs)
                             {
-                                var node = div as HtmlAgilityPack.HtmlNode;
-                                var value = node.GetAttributes();
+                                var value = div.GetAttributes();
                                 var part = value.First(x => x.Name == "data-film-id").Value;
                                 var movie = mainPageViewModel.Movies.FirstOrDefault(x => x.FilmID == part);
                                 if (movie != null)
@@ -101,9 +89,6 @@ namespace RandomMovie.Services
                                     mainPageViewModel.Watchlist.Add(movie);
                                 }
                             }
-                        else
-                            pageFound = false;
-                        i++;
                     }
                 }
                 mainPageViewModel.Watchlist = mainPageViewModel.Watchlist.OrderBy(x => x.SortValue).Distinct().ToList();
@@ -114,6 +99,70 @@ namespace RandomMovie.Services
             catch
             {
             }
+        }
+
+        internal async static Task<Dictionary<string, string>> GetListsFromUserName(MainPageViewModel mainPageViewModel)
+        {
+            var doc = new HtmlAgilityPack.HtmlDocument();
+            var returnList = new Dictionary<string,string>();
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    
+                    var listsUri = $"https://letterboxd.com/" + mainPageViewModel.LetterBoxdUserName + $"/lists";
+                    var pages = await GetPageNumbersAsync(httpClient, listsUri);
+                    var webstrings = await GetWebStrings(httpClient, listsUri, pages);
+                    foreach (var webstring in webstrings)
+                    {
+                        doc.LoadHtml(webstring);
+                        var headlines = doc.DocumentNode.SelectNodes("//h2[contains(@class,'title-2 title prettify')]");
+                        foreach (var headline in headlines)
+                        {
+                            var a = headline.ChildNodes.First(x => x.Name == "a");
+                            var link = a.Attributes.First().Value;
+                            var name = a.InnerHtml;
+                            returnList.Add(name, link);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+            }
+            return returnList;
+        }
+
+        public static async Task<IEnumerable<string>> GetWebStrings(HttpClient client, string letterboxdUri, int pages)
+        {
+            var getWebStringTasks = new List<Task<string>>();
+            for (int i = 1;i <= pages; i++)
+            {
+                var uri = letterboxdUri + "/page/" + i;
+                getWebStringTasks.Add(client.GetStringAsync(uri));
+            }
+
+            return await Task.WhenAll(getWebStringTasks);
+        }
+
+        private static async Task<int> GetPageNumbersAsync(HttpClient httpClient, string uri)
+        {
+            var doc = new HtmlAgilityPack.HtmlDocument();
+            var webstring = await httpClient.GetStringAsync(uri);
+            doc.LoadHtml(webstring);
+            var nodes = doc.DocumentNode.SelectNodes("//li[contains(@class,'paginate-page')]");
+            if (nodes != null && nodes.Any())
+            {
+                var allPages = nodes.Select(x => x.InnerText);
+                var numbers = new List<int>();
+                foreach (var page in allPages)
+                {
+                    int.TryParse(page, out int pageNumber);
+                    numbers.Add(pageNumber);
+                }
+                return numbers.Max();
+            }
+            return 1;
         }
     }
 }

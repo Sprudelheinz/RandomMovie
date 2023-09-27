@@ -22,15 +22,15 @@
                 </CarouselView.ItemsLayout>
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <VerticalStackLayout VerticalOptions="FillAndExpand" MaximumWidthRequest="200">
+                        <VerticalStackLayout VerticalOptions="FillAndExpand" WidthRequest="200">
                             <VerticalStackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1" />
                             </VerticalStackLayout.GestureRecognizers>
                             <Frame HeightRequest="300" BackgroundColor="{Binding MainColorMaui}" CornerRadius="10">
                                 <Image Source="{Binding PosterImageSource}" />
                             </Frame>
-                            <Label Margin="10,5,0,0" HorizontalOptions="CenterAndExpand" LineBreakMode="WordWrap" FontSize="Medium" Text="{Binding MovieTitle}" />
-                            
+                            <Label Margin="10,5,0,0" HorizontalOptions="CenterAndExpand" LineBreakMode="WordWrap" FontSize="Small" Text="{Binding MovieTitle}" />
+
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
@@ -42,8 +42,13 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Entry  Grid.Column="0" Text="{Binding LetterBoxdUserName}" Placeholder="{x:Static resource:Localisation.LetterboxdUsername}" HorizontalOptions="FillAndExpand" />
-                <Button Grid.Column="1" Text="{x:Static resource:Localisation.WatchlistRandom}" Clicked="WatchlistLetterBoxdButton_Clicked" HorizontalOptions="FillAndExpand" />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Entry Grid.Row="0" Grid.Column="0" Text="{Binding LetterBoxdUserName}" Placeholder="{x:Static resource:Localisation.LetterboxdUsername}" HorizontalOptions="FillAndExpand" />
+                <Button Grid.Row="0" Grid.Column="1" Text="{x:Static resource:Localisation.WatchlistRandom}" Clicked="WatchlistLetterBoxdButton_Clicked" HorizontalOptions="FillAndExpand" />
+                <Button Grid.Row="1" Grid.Column="1" Text="{x:Static resource:Localisation.ChooseList}" Clicked="ChooseList_Clicked" HorizontalOptions="FillAndExpand" />
             </Grid>
         </VerticalStackLayout>
     </ScrollView>

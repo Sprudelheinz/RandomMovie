@@ -70,6 +70,15 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Choose Letterboxd List ähnelt.
+        /// </summary>
+        internal static string ChooseList {
+            get {
+                return ResourceManager.GetString("ChooseList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Letterboxd Username ähnelt.
         /// </summary>
         internal static string LetterboxdUsername {
@@ -88,7 +97,7 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Random Movie ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Get Random Movie ähnelt.
         /// </summary>
         internal static string RandomMovie {
             get {

@@ -2,6 +2,7 @@
 using RandomMovie.Controls.PopUp;
 using RandomMovie.Services;
 using RandomMovie.ViewModels;
+using System;
 
 namespace RandomMovie;
 
@@ -87,6 +88,60 @@ public partial class MainPage : ContentPage
             Carousel.CurrentItem = movie;
         }
     }
+    private async void ChooseList_Clicked(object sender, EventArgs e)
+    {
+        var popUp = new ActivityIndicatorPopUp();
+        if (string.IsNullOrEmpty(m_mainPageViewModel.LetterBoxdUserName))
+        {
+            SettingsService.Instance.Settings.LetterBoxdUserName = null;
+            SettingsService.Instance.SaveSettingsAsync();
+            m_mainPageViewModel.Watchlist = new List<Movie>();
+            return;
+        }
+        if (m_mainPageViewModel.List == null || !m_mainPageViewModel.List.Any())
+        {
+
+            this.ShowPopup(popUp);
+            var lists = await Services.Services.GetListsFromUserName(m_mainPageViewModel);
+            try
+            {
+                popUp.Close();
+            }
+            catch
+            {
+            }
+            m_mainPageViewModel.List = lists;
+        }
+        var chooseListPopUp = new ChooseListPopUp(m_mainPageViewModel);
+        var result = await this.ShowPopupAsync(chooseListPopUp);
+
+        var uri = $"https://letterboxd.com" + ((KeyValuePair<string, string>)result).Value;
+        GetListFromUri(uri);
+    }
+
+    private async void GetListFromUri(string uri)
+    {
+        ActivityIndicatorPopUp popUp = new ActivityIndicatorPopUp();
+        this.ShowPopup(popUp);
+        await Services.Services.ReadListFromUri(uri, m_mainPageViewModel);
+
+        if (m_mainPageViewModel.Watchlist.Any())
+        {
+            m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
+            GenerateRandomMovie();
+        }
+        else
+        {
+            m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies;
+        }
+        try
+        {
+            popUp.Close();
+        }
+        catch
+        {
+        }
+    }
 
     private async void WatchlistLetterBoxdButton_Clicked(object sender, EventArgs e)
     {
@@ -98,25 +153,15 @@ public partial class MainPage : ContentPage
         }
         else
         {
-            var popUp = new ActivityIndicatorPopUp();
-            this.ShowPopup(popUp);
-            await Services.Services.ReadWatchlistFromUserAsync(m_mainPageViewModel);
-            if (m_mainPageViewModel.Watchlist.Any())
+            if (string.IsNullOrEmpty(m_mainPageViewModel.LetterBoxdUserName))
             {
-                m_mainPageViewModel.Movies = m_mainPageViewModel.Watchlist;
-                GenerateRandomMovie();
+                SettingsService.Instance.Settings.LetterBoxdUserName = null;
+                SettingsService.Instance.SaveSettingsAsync();
+                m_mainPageViewModel.Watchlist = new List<Movie>();
+                return;
             }
-            else
-            {
-                m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies;
-            }
-            try
-            {
-                popUp.Close();
-            }
-            catch
-            {
-            }
+            var watchlistUri = $"https://letterboxd.com/" + m_mainPageViewModel.LetterBoxdUserName + $"/watchlist";
+            GetListFromUri(watchlistUri);
         }     
     }
 
