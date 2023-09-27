@@ -114,9 +114,11 @@ public partial class MainPage : ContentPage
         }
         var chooseListPopUp = new ChooseListPopUp(m_mainPageViewModel);
         var result = await this.ShowPopupAsync(chooseListPopUp);
-
-        var uri = $"https://letterboxd.com" + ((KeyValuePair<string, string>)result).Value;
-        GetListFromUri(uri);
+        if (result != null && result is KeyValuePair<string, string>)
+        {
+            var uri = $"https://letterboxd.com" + ((KeyValuePair<string, string>)result).Value;
+            GetListFromUri(uri);
+        }
     }
 
     private async void GetListFromUri(string uri)

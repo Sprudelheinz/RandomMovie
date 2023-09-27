@@ -38,12 +38,7 @@ namespace RandomMovie.ViewModels
             internal set
             {
                 selectedList = value;
-                SetList();
             }
-        }
-
-        private async void SetList()
-        {
         }
 
         public MainPageViewModel()

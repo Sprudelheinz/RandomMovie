@@ -10,7 +10,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Label Margin="10" VerticalOptions="Center" Text="{Binding Key}" FontAttributes="Bold" />
+                            <Label VerticalOptions="Center" Text="{Binding Key}" TextColor="Gray" FontAttributes="Bold" />
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

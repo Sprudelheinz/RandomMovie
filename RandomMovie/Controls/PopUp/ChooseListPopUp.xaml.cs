@@ -16,10 +16,10 @@ public partial class ChooseListPopUp : Popup
         BindingContext = mainPageViewModel;
     }
 
-    private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
         var item = (KeyValuePair<string, string>)e.SelectedItem; 
         (BindingContext as MainPageViewModel).SelectedList = item;
-        CloseAsync(item);
+        await CloseAsync(item);
     }
 }
