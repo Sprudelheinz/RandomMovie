@@ -9,12 +9,7 @@ namespace RandomMovie.Services
         public Settings Settings;
         public SettingsService() 
         {
-            ReadSettings();
-        }
-
-        private async void ReadSettings()
-        {
-            Settings = await ReadSettingsAsync();
+            Settings = ReadSettings();
         }
 
         public void SaveSettingsAsync()
@@ -23,9 +18,9 @@ namespace RandomMovie.Services
             Services.WriteTextToFileAsync(json, SETTINGS_FILE);
         }
 
-        internal async Task<Settings> ReadSettingsAsync()
+        internal Settings ReadSettings()
         {
-            var settingsJson = await Services.ReadTextFileAsync(SETTINGS_FILE);
+            var settingsJson = Services.ReadTextFile(SETTINGS_FILE);
             if (settingsJson != null)
             {
                 try

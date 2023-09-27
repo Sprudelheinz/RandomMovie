@@ -116,7 +116,10 @@
     <value>Watchlist zufällig</value>
   </data>
   <data name="RandomMovie" xml:space="preserve">
-    <value>Zufälliger Film</value>
+    <value>Zufälligen Film generieren</value>
+  </data>
+  <data name="ChooseList" xml:space="preserve">
+    <value>Letterboxd Liste auswählen</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Schließen</value>

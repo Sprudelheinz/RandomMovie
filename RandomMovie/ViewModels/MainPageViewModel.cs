@@ -1,9 +1,10 @@
-﻿using RandomMovie.Services;
+﻿using RandomMovie.Controls.PopUp;
+using RandomMovie.Services;
 using System.ComponentModel;
 
 namespace RandomMovie.ViewModels
 {
-    internal class MainPageViewModel : ObservableViewModelBase
+    public class MainPageViewModel : ObservableViewModelBase
     {
         private List<Movie> movies = new List<Movie>();  
         public List<Movie> Movies 
@@ -16,6 +17,8 @@ namespace RandomMovie.ViewModels
         }
         public List<Movie> Watchlist { get; set; } = new List<Movie>();
         private string m_letterBoxdUserName;
+        private KeyValuePair<string, string> selectedList;
+
         public string LetterBoxdUserName 
         { 
             get => m_letterBoxdUserName;
@@ -28,6 +31,20 @@ namespace RandomMovie.ViewModels
         public bool ActivityRunning { get; set; } = false;
         public List<Movie> AllTheMovies { get; set; }
         public bool SortAscending { get; set; } = true;
+        public Dictionary<string, string> List { get; internal set; }
+        public KeyValuePair<string, string> SelectedList 
+        { 
+            get => selectedList;
+            internal set
+            {
+                selectedList = value;
+                SetList();
+            }
+        }
+
+        private async void SetList()
+        {
+        }
 
         public MainPageViewModel()
         {
@@ -44,7 +61,7 @@ namespace RandomMovie.ViewModels
                 {
                     try
                     {
-                        var watchlistJson = await Services.Services.ReadTextFileAsync(watchlistFileName);
+                        var watchlistJson = Services.Services.ReadTextFile(watchlistFileName);
                         Watchlist = Services.Services.ReadJson(watchlistJson);
                     }
                     catch

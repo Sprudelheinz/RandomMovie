@@ -116,7 +116,10 @@
     <value>Watchlist Random</value>
   </data>
   <data name="RandomMovie" xml:space="preserve">
-    <value>Random Movie</value>
+    <value>Get Random Movie</value>
+  </data>
+  <data name="ChooseList" xml:space="preserve">
+    <value>Choose Letterboxd List</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
