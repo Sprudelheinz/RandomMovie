@@ -70,6 +70,15 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Choose Letterboxd List ähnelt.
+        /// </summary>
+        internal static string ChooseList {
+            get {
+                return ResourceManager.GetString("ChooseList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Close ähnelt.
         /// </summary>
         internal static string Close {
@@ -79,20 +88,20 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die No list could be found for the corresponding username. Please check the name for correct spelling. Must be specified as in the browser url of your Letterboxd profile. ähnelt.
+        /// </summary>
+        internal static string ErrorLetterboxdName {
+            get {
+                return ResourceManager.GetString("ErrorLetterboxdName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Ste [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string InfoText {
             get {
                 return ResourceManager.GetString("InfoText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Choose Letterboxd List ähnelt.
-        /// </summary>
-        internal static string ChooseList {
-            get {
-                return ResourceManager.GetString("ChooseList", resourceCulture);
             }
         }
         
@@ -115,11 +124,38 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die No ähnelt.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die OK ähnelt.
+        /// </summary>
+        internal static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Get Random Movie ähnelt.
         /// </summary>
         internal static string RandomMovie {
             get {
                 return ResourceManager.GetString("RandomMovie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Reset Letterboxd List ähnelt.
+        /// </summary>
+        internal static string ResetList {
+            get {
+                return ResourceManager.GetString("ResetList", resourceCulture);
             }
         }
         
@@ -133,20 +169,11 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Reset Watchlist ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Yes ähnelt.
         /// </summary>
-        internal static string ResetWatchlist {
+        internal static string Yes {
             get {
-                return ResourceManager.GetString("ResetWatchlist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Watchlist Random ähnelt.
-        /// </summary>
-        internal static string WatchlistRandom {
-            get {
-                return ResourceManager.GetString("WatchlistRandom", resourceCulture);
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

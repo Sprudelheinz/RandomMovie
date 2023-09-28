@@ -7,8 +7,8 @@
              x:Class="RandomMovie.Controls.PopUp.InfoPopUp">
     <Frame CornerRadius="10" Margin="10" HeightRequest="350" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
         <VerticalStackLayout>
-            <Label VerticalOptions="StartAndExpand" Grid.Row="0" Text="{x:Static resource:Localisation.InfoText}" LineBreakMode="WordWrap" />
-            <Button VerticalOptions="End" Grid.Row="1"  Text="{x:Static resource:Localisation.Close}" Clicked="Close_PopUp" />
+            <Label VerticalOptions="StartAndExpand" Text="{x:Static resource:Localisation.InfoText}" LineBreakMode="WordWrap" />
+            <Button VerticalOptions="End" Text="{x:Static resource:Localisation.Close}" Clicked="Close_PopUp" />
         </VerticalStackLayout>
     </Frame>
 </toolkit:Popup>

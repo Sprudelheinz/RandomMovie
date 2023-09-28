@@ -16,15 +16,15 @@ public partial class AppShell : Shell
         if (mainPage != null) 
         {
             var mainPageViewModel = mainPage.BindingContext as MainPageViewModel;
-            mainPageViewModel.Watchlist.Clear();
+            mainPageViewModel.SelectedLetterboxdList.Clear();
             mainPageViewModel.Movies = mainPageViewModel.AllTheMovies;
             mainPageViewModel.LetterBoxdUserName = string.Empty;
         }
 
-        var watchlistFileName = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.WATCHLIST_FILENAME);
-        if (File.Exists(watchlistFileName))
+        var letterboxdListFileName = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.LETTERBOXDLIST_FILENAME);
+        if (File.Exists(letterboxdListFileName))
         {
-            File.Delete(watchlistFileName);
+            File.Delete(letterboxdListFileName);
         }
         FlyoutIsPresented = false;
     }

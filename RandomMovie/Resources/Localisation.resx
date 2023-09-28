@@ -100,8 +100,8 @@
   <data name="MovieName" xml:space="preserve">
     <value>Movie name</value>
   </data>
-  <data name="ResetWatchlist" xml:space="preserve">
-    <value>Reset Watchlist</value>
+  <data name="ResetList" xml:space="preserve">
+    <value>Reset Letterboxd List</value>
   </data>
   <data name="ResetPosterCache" xml:space="preserve">
     <value>Reset Poster Cache</value>
@@ -111,9 +111,6 @@
   </data>
   <data name="LetterboxdUsername" xml:space="preserve">
     <value>Letterboxd Username</value>
-  </data>
-  <data name="WatchlistRandom" xml:space="preserve">
-    <value>Watchlist Random</value>
   </data>
   <data name="RandomMovie" xml:space="preserve">
     <value>Get Random Movie</value>
@@ -126,5 +123,17 @@
   </data>
   <data name="InfoText" xml:space="preserve">
     <value>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="ErrorLetterboxdName" xml:space="preserve">
+    <value>No list could be found for the corresponding username. Please check the name for correct spelling. Must be specified as in the browser url of your Letterboxd profile.</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
   </data>
 </root>

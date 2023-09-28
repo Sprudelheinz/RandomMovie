@@ -15,9 +15,8 @@ namespace RandomMovie.ViewModels
                 SetProperty(ref movies, value);
             }
         }
-        public List<Movie> Watchlist { get; set; } = new List<Movie>();
+        public List<Movie> SelectedLetterboxdList { get; set; } = new List<Movie>();
         private string m_letterBoxdUserName;
-        private KeyValuePair<string, string> selectedList;
 
         public string LetterBoxdUserName 
         { 
@@ -31,15 +30,7 @@ namespace RandomMovie.ViewModels
         public bool ActivityRunning { get; set; } = false;
         public List<Movie> AllTheMovies { get; set; }
         public bool SortAscending { get; set; } = true;
-        public Dictionary<string, string> List { get; internal set; }
-        public KeyValuePair<string, string> SelectedList 
-        { 
-            get => selectedList;
-            internal set
-            {
-                selectedList = value;
-            }
-        }
+        public Dictionary<string, string> LetterboxdLists { get; internal set; }
 
         public MainPageViewModel()
         {
@@ -51,18 +42,18 @@ namespace RandomMovie.ViewModels
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 AllTheMovies = await Services.Services.ReadJsonFromFileAsync("brightToDark.json");
-                var watchlistFileName = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.WATCHLIST_FILENAME);
-                if (File.Exists(watchlistFileName))
+                var letterboxdListFileName = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.LETTERBOXDLIST_FILENAME);
+                if (File.Exists(letterboxdListFileName))
                 {
                     try
                     {
-                        var watchlistJson = Services.Services.ReadTextFile(watchlistFileName);
-                        Watchlist = Services.Services.ReadJson(watchlistJson);
+                        var letterboxdListJson = Services.Services.ReadTextFile(letterboxdListFileName);
+                        SelectedLetterboxdList = Services.Services.ReadJson(letterboxdListJson);
                     }
                     catch
                     {
-                        Watchlist = new List<Movie>();
-                        File.Delete(watchlistFileName);
+                        SelectedLetterboxdList = new List<Movie>();
+                        File.Delete(letterboxdListFileName);
                     }
                 }
                 Movies = AllTheMovies;

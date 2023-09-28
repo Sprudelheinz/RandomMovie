@@ -1,10 +1,13 @@
 using CommunityToolkit.Maui.Views;
 using RandomMovie.ViewModels;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace RandomMovie.Controls.PopUp;
 
-public partial class ChooseListPopUp : Popup
+public partial class ChooseListPopUp : Popup, INotifyPropertyChanged
 {
+    public Dictionary<string, string> List { get; internal set; }
     public ChooseListPopUp()
 	{
 		InitializeComponent();
@@ -13,13 +16,16 @@ public partial class ChooseListPopUp : Popup
     public ChooseListPopUp(MainPageViewModel mainPageViewModel)
     {
         InitializeComponent();
-        BindingContext = mainPageViewModel;
+        List = mainPageViewModel.LetterboxdLists;
+        BindingContext = this;
+        ListChoosen = new Command<object>(OnTapped);
     }
 
-    private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    public Command<object> ListChoosen { get; set; }
+
+    private async void OnTapped(object obj)
     {
-        var item = (KeyValuePair<string, string>)e.SelectedItem; 
-        (BindingContext as MainPageViewModel).SelectedList = item;
+        var item = (KeyValuePair<string, string>)obj;
         await CloseAsync(item);
     }
 }

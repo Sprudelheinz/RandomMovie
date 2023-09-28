@@ -4,17 +4,15 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="RandomMovie.Controls.PopUp.ChooseListPopUp"
              Color="Transparent">
-    <VerticalStackLayout BackgroundColor="Transparent">
-        <Frame WidthRequest="400" HeightRequest="500">
-            <ListView ItemsSource="{ Binding List }" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ItemSelected="ListView_ItemSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Label VerticalOptions="Center" Text="{Binding Key}" TextColor="Gray" FontAttributes="Bold" />
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Frame>
-    </VerticalStackLayout>
+    <Frame HorizontalOptions="FillAndExpand" WidthRequest="300" CornerRadius="10" HeightRequest="450" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
+        <ListView  x:Name="listView" ItemsSource="{Binding List}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell Height="60">
+                        <Button Margin="0,0,0,5" VerticalOptions="Start" Text="{Binding Key}" Command="{Binding Path=BindingContext.ListChoosen, Source={x:Reference listView}}" CommandParameter="{Binding .}"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Frame>
 </toolkit:Popup>

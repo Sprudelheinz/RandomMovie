@@ -4,66 +4,64 @@
              xmlns:resource="clr-namespace:RandomMovie.Resources"
              x:Class="RandomMovie.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="30" />
-                    <ColumnDefinition Width="30" />
-                </Grid.ColumnDefinitions>
-                <SearchBar Placeholder="{x:Static resource:Localisation.MovieName}" Grid.Column="0" TextChanged="SearchBar_TextChanged" />
-                <ImageButton Grid.Column="1" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=sort.png, Light=sort.png, Dark=sort_dark.png}"  Clicked="Button_Clicked" />
-                <ImageButton Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="RestoreButton_Clicked" />
-            </Grid>
-            <CarouselView ItemsSource="{Binding Movies}" Loop="False" x:Name="Carousel">
-                <CarouselView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Horizontal" />
-                </CarouselView.ItemsLayout>
-                <CarouselView.ItemTemplate>
-                    <DataTemplate>
-                        <VerticalStackLayout VerticalOptions="FillAndExpand" WidthRequest="200">
-                            <VerticalStackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1" />
-                            </VerticalStackLayout.GestureRecognizers>
-                            <Frame HeightRequest="300" BackgroundColor="{Binding MainColorMaui}" CornerRadius="10">
-                                <Image Source="{Binding PosterImageSource}" />
-                            </Frame>
-                            <Label Margin="10,5,0,0" HorizontalOptions="CenterAndExpand" LineBreakMode="WordWrap" FontSize="Small" Text="{Binding MovieTitle}" />
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+            <SearchBar Placeholder="{x:Static resource:Localisation.MovieName}" Grid.Column="0" TextChanged="SearchBar_TextChanged" />
+            <ImageButton Grid.Column="1" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=sort.png, Light=sort.png, Dark=sort_dark.png}"  Clicked="Button_Clicked" />
+            <ImageButton Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="RestoreButton_Clicked" />
+        </Grid>
+        <CarouselView ItemsSource="{Binding Movies}" Loop="False" x:Name="Carousel">
+            <CarouselView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" />
+            </CarouselView.ItemsLayout>
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout VerticalOptions="FillAndExpand" WidthRequest="200">
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1" />
+                        </VerticalStackLayout.GestureRecognizers>
+                        <Frame HeightRequest="300" BackgroundColor="{Binding MainColorMaui}" CornerRadius="10">
+                            <Image Source="{Binding PosterImageSource}" />
+                        </Frame>
+                        <Label Margin="10,5,0,0" HorizontalOptions="CenterAndExpand" LineBreakMode="WordWrap" FontSize="Small" Text="{Binding MovieTitle}" />
 
-                        </VerticalStackLayout>
-                    </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
-            <Button Margin="10" VerticalOptions="Start" x:Name="RandomMovie" Text="{x:Static resource:Localisation.RandomMovie}" Clicked="RandomMovie_Clicked" />
-            <Button Margin="10" VerticalOptions="Start" x:Name="LetterBoxd" Text="LetterBoxd Link" Clicked="LetterBoxd_Clicked" />
-            <Grid Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Entry Grid.Row="0" Grid.Column="0" Text="{Binding LetterBoxdUserName}" Placeholder="{x:Static resource:Localisation.LetterboxdUsername}" HorizontalOptions="FillAndExpand" />
-                <Button Grid.Row="0" Grid.Column="1" Text="{x:Static resource:Localisation.WatchlistRandom}" Clicked="WatchlistLetterBoxdButton_Clicked" HorizontalOptions="FillAndExpand" />
-                <Button Grid.Row="1" Grid.Column="1" Text="{x:Static resource:Localisation.ChooseList}" Clicked="ChooseList_Clicked" HorizontalOptions="FillAndExpand" />
-            </Grid>
-            <ImageButton
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+        <Button Margin="10" VerticalOptions="Start" x:Name="RandomMovie" Text="{x:Static resource:Localisation.RandomMovie}" Clicked="RandomMovie_Clicked" />
+        <Button Margin="10" VerticalOptions="Start" x:Name="LetterBoxd" Text="LetterBoxd Link" Clicked="LetterBoxd_Clicked" />
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Entry Grid.Row="0" Grid.Column="0" Text="{Binding LetterBoxdUserName}" Placeholder="{x:Static resource:Localisation.LetterboxdUsername}" HorizontalOptions="FillAndExpand" />
+            <Button Grid.Row="0" Grid.Column="1" Text="{x:Static resource:Localisation.ChooseList}" Clicked="ChooseList_Clicked" HorizontalOptions="FillAndExpand" />
+            <BoxView BackgroundColor="Transparent" Grid.Row="1" />
+        </Grid>
+        <ImageButton
                 Margin="10"
                 BackgroundColor="Gray"
                 CornerRadius="20"
                 HorizontalOptions="End"
                 VerticalOptions="End"
                 Clicked="ImageButton_Clicked">
-                <ImageButton.Source>
-                    <FontImageSource
+            <ImageButton.Source>
+                <FontImageSource
 	                    FontFamily="FASolid"
 	                    Glyph="&#x3f;" />
-                </ImageButton.Source>
-            </ImageButton>
-        </VerticalStackLayout>
-    </ScrollView>
+            </ImageButton.Source>
+        </ImageButton>
+    </VerticalStackLayout>
 
 </ContentPage>

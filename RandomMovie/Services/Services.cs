@@ -1,19 +1,20 @@
 ﻿using Newtonsoft.Json;
 using RandomMovie.ViewModels;
+using System.Linq.Expressions;
 
 namespace RandomMovie.Services
 {
    
     public static class Services
     {
-        public const string WATCHLIST_FILENAME = "watchlist.json";
+        public const string LETTERBOXDLIST_FILENAME = "watchlist.json";
         public const string POSTER_CACHE_FOLDER = "postercache";
 
         public static ImageDownloader ImageDownloaderInstance { get; set; } = new ImageDownloader();
-        internal static void SaveJson(List<Movie> watchlist)
+        internal static void SaveJson(List<Movie> letterboxdList)
         {
-            var json = JsonConvert.SerializeObject(watchlist);
-            WriteTextToFileAsync(json, WATCHLIST_FILENAME);
+            var json = JsonConvert.SerializeObject(letterboxdList);
+            WriteTextToFileAsync(json, LETTERBOXDLIST_FILENAME);
         }
 
         internal static async Task<List<Movie>> ReadJsonFromFileAsync(string file)
@@ -69,7 +70,7 @@ namespace RandomMovie.Services
                 {
                     var doc = new HtmlAgilityPack.HtmlDocument();
                     int pages = await GetPageNumbersAsync(httpClient, uri);
-                    mainPageViewModel.Watchlist = new List<Movie>();
+                    mainPageViewModel.SelectedLetterboxdList = new List<Movie>();
                     var webStrings = await GetWebStrings(httpClient, uri, pages);
                     foreach (var webstring in webStrings)
                     {
@@ -86,13 +87,13 @@ namespace RandomMovie.Services
                                 var movie = mainPageViewModel.Movies.FirstOrDefault(x => x.FilmID == part);
                                 if (movie != null)
                                 {
-                                    mainPageViewModel.Watchlist.Add(movie);
+                                    mainPageViewModel.SelectedLetterboxdList.Add(movie);
                                 }
                             }
                     }
                 }
-                mainPageViewModel.Watchlist = mainPageViewModel.Watchlist.OrderBy(x => x.SortValue).Distinct().ToList();
-                SaveJson(mainPageViewModel.Watchlist);
+                mainPageViewModel.SelectedLetterboxdList = mainPageViewModel.SelectedLetterboxdList.OrderBy(x => x.SortValue).Distinct().ToList();
+                SaveJson(mainPageViewModel.SelectedLetterboxdList);
                 SettingsService.Instance.Settings.LetterBoxdUserName = mainPageViewModel.LetterBoxdUserName;
                 SettingsService.Instance.SaveSettingsAsync();
             }
@@ -104,7 +105,10 @@ namespace RandomMovie.Services
         internal async static Task<Dictionary<string, string>> GetListsFromUserName(MainPageViewModel mainPageViewModel)
         {
             var doc = new HtmlAgilityPack.HtmlDocument();
-            var returnList = new Dictionary<string,string>();
+            var returnList = new Dictionary<string, string>
+            {
+                { "Watchlist", $"/" + mainPageViewModel.LetterBoxdUserName + $"/watchlist" }
+            };
             try
             {
                 using (var httpClient = new HttpClient())
@@ -129,6 +133,7 @@ namespace RandomMovie.Services
             }
             catch
             {
+                return null;
             }
             return returnList;
         }
