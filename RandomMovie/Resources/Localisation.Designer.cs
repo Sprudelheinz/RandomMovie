@@ -88,7 +88,10 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die No list could be found for the corresponding username. Please check the name for correct spelling. Must be specified as in the browser url of your Letterboxd profile. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die No list could be found for the corresponding username. 
+        ///Please check the name for the correct spelling.
+        ///The username must be entered as it appears in the BrowserUrl. 
+        ///e.g.: https://letterboxd.com/Sprudelheinz/ ähnelt.
         /// </summary>
         internal static string ErrorLetterboxdName {
             get {
@@ -97,7 +100,7 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Ste [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
         internal static string InfoText {
             get {

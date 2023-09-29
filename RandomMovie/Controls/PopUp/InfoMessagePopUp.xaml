@@ -5,25 +5,16 @@
              xmlns:resource="clr-namespace:RandomMovie.Resources"
              Color="Transparent"
              x:Class="RandomMovie.Controls.PopUp.InfoMessagePopUp">
-    <Frame MinimumHeightRequest="250" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Margin="10" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
-        <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" FontSize="Small" Text="{Binding Message}" LineBreakMode="WordWrap" />
-            <Grid Margin="10" Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" IsVisible="{Binding OkVisible}" Text="{x:Static resource:Localisation.OK}" Clicked="YesClose_PopUp" />
-                <Button Grid.Column="1" IsVisible="{Binding YesVisible}" Text="{x:Static resource:Localisation.Yes}" Clicked="YesClose_PopUp" />
-                <Button Grid.Column="2" IsVisible="{Binding NoVisible}"  Text="{x:Static resource:Localisation.No}" Clicked="NoClose_PopUp" />
-                <Button Grid.Column="3" IsVisible="{Binding CloseVisible}" Text="{x:Static resource:Localisation.Close}" Clicked="NoClose_PopUp" />
-            </Grid>
-        </Grid>
+    <Frame CornerRadius="10" Margin="10" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
+        <VerticalStackLayout>
+            <Label HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" FontSize="Small" Text="{Binding Message}" LineBreakMode="WordWrap" />
+            <HorizontalStackLayout HeightRequest="60">
+                <Button HeightRequest="45" HorizontalOptions="EndAndExpand" IsVisible="{Binding OkVisible}" Text="{x:Static resource:Localisation.OK}" Clicked="YesClose_PopUp" />
+                <Button HeightRequest="45" HorizontalOptions="StartAndExpand" IsVisible="{Binding YesVisible}" Text="{x:Static resource:Localisation.Yes}" Clicked="YesClose_PopUp" />
+                <Button HeightRequest="45" HorizontalOptions="EndAndExpand" IsVisible="{Binding NoVisible}"  Text="{x:Static resource:Localisation.No}" Clicked="NoClose_PopUp" />
+                <Button HeightRequest="45" HorizontalOptions="EndAndExpand" IsVisible="{Binding CloseVisible}" Text="{x:Static resource:Localisation.Close}" Clicked="NoClose_PopUp" />
+            </HorizontalStackLayout>
+            <BoxView HeightRequest="40" Color="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
+        </VerticalStackLayout>
     </Frame>
 </toolkit:Popup>

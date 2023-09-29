@@ -47,9 +47,8 @@
             </Grid.RowDefinitions>
             <Entry Grid.Row="0" Grid.Column="0" Text="{Binding LetterBoxdUserName}" Placeholder="{x:Static resource:Localisation.LetterboxdUsername}" HorizontalOptions="FillAndExpand" />
             <Button Grid.Row="0" Grid.Column="1" Text="{x:Static resource:Localisation.ChooseList}" Clicked="ChooseList_Clicked" HorizontalOptions="FillAndExpand" />
-            <BoxView BackgroundColor="Transparent" Grid.Row="1" />
         </Grid>
-        <ImageButton
+        <!--<ImageButton
                 Margin="10"
                 BackgroundColor="Gray"
                 CornerRadius="20"
@@ -61,7 +60,7 @@
 	                    FontFamily="FASolid"
 	                    Glyph="&#x3f;" />
             </ImageButton.Source>
-        </ImageButton>
+        </ImageButton>-->
     </VerticalStackLayout>
 
 </ContentPage>

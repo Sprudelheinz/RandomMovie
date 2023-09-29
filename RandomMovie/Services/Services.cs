@@ -84,7 +84,7 @@ namespace RandomMovie.Services
                             {
                                 var value = div.GetAttributes();
                                 var part = value.First(x => x.Name == "data-film-id").Value;
-                                var movie = mainPageViewModel.Movies.FirstOrDefault(x => x.FilmID == part);
+                                var movie = mainPageViewModel.AllTheMovies.FirstOrDefault(x => x.FilmID == part);
                                 if (movie != null)
                                 {
                                     mainPageViewModel.SelectedLetterboxdList.Add(movie);
