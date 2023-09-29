@@ -41,12 +41,8 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Entry Grid.Row="0" Grid.Column="0" Text="{Binding LetterBoxdUserName}" Placeholder="{x:Static resource:Localisation.LetterboxdUsername}" HorizontalOptions="FillAndExpand" />
-            <Button Grid.Row="0" Grid.Column="1" Text="{x:Static resource:Localisation.ChooseList}" Clicked="ChooseList_Clicked" HorizontalOptions="FillAndExpand" />
+            <Entry Grid.Column="0" Text="{Binding LetterBoxdUserName}" Placeholder="{x:Static resource:Localisation.LetterboxdUsername}" />
+            <Button Grid.Column="1" Text="{x:Static resource:Localisation.ChooseList}" Clicked="ChooseList_Clicked" LineBreakMode="WordWrap" />
         </Grid>
         <!--<ImageButton
                 Margin="10"

@@ -87,7 +87,8 @@ public partial class MainPage : ContentPage
     {
         SearchBar searchBar = (SearchBar)sender;
         var currentItem = Carousel.CurrentItem as Movie;
-        m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies.Where(x => x.Name.ToLowerInvariant().Contains(searchBar.Text.ToLowerInvariant())).ToList();
+        m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies
+                                        .Where(x => x.MovieTitle.ToLowerInvariant().Contains(searchBar.Text.ToLowerInvariant())).ToList();
         if (currentItem != null && string.IsNullOrEmpty(searchBar.Text))
         {
             SetCurrentItem(currentItem);

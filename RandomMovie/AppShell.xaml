@@ -10,7 +10,7 @@
     <FlyoutItem Title="Home" FlyoutDisplayOptions="AsSingleItem">
         <ShellContent
          x:Name="ShellContent"
-         Title="Random Movie"
+         Title="Random Letterboxd Movie"
          ContentTemplate="{DataTemplate local:MainPage}"
          Route="MainPage" />
     </FlyoutItem>

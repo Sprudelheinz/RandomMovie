@@ -118,7 +118,7 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Movie name ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Movie name / year ähnelt.
         /// </summary>
         internal static string MovieName {
             get {
