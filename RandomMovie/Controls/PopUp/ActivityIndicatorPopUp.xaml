@@ -5,6 +5,6 @@
              x:Class="RandomMovie.Controls.PopUp.ActivityIndicatorPopUp"
             Color="Transparent">
     <VerticalStackLayout BackgroundColor="Transparent">
-        <ActivityIndicator HeightRequest="30" WidthRequest="30" BackgroundColor="Transparent" IsRunning="True" Color="Black" />
+        <ActivityIndicator HeightRequest="60" WidthRequest="60" BackgroundColor="Transparent" IsRunning="True" Color="DarkGray" />
     </VerticalStackLayout>
 </toolkit:Popup>

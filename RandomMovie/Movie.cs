@@ -1,4 +1,4 @@
-﻿using RandomMovie.Services;
+﻿using Newtonsoft.Json;
 using RandomMovie.ViewModels;
 
 namespace RandomMovie
@@ -17,6 +17,7 @@ namespace RandomMovie
         public string FilmID { get; set; }
         public string MovieTitle => Name + " (" + Year + ")";
         private ImageSource posterImageSource;
+        [JsonIgnore]
         public ImageSource PosterImageSource 
         {
             get
@@ -43,8 +44,9 @@ namespace RandomMovie
             if (File.Exists(fullFileName))
             {
                 PosterImageSource = ImageSource.FromFile(fullFileName);
+                return;
             }
-            Services.Services.ImageDownloaderInstance.DownloadImageAsync(cacheFolder, FilmID, new Uri(PosterWebsiteLink), this);
+            MainThread.BeginInvokeOnMainThread(async () => await Services.Services.ImageDownloaderInstance.DownloadImageAsync(cacheFolder, FilmID, new Uri(PosterWebsiteLink), this));
         }
 
         public Color MainColorMaui => GetColor(MainColor);
