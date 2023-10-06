@@ -36,11 +36,8 @@ namespace RandomMovie
         [JsonIgnore]
         public double Width => Services.Services.GetWidth();
 
-        
-        
-        public double Height => Services.Services.GetHeight();
-
-        
+        [JsonIgnore]
+        public double Height => Services.Services.GetHeight();        
 
         private void GetImageSource()
         {
