@@ -10,8 +10,8 @@ namespace RandomMovie;
 public partial class MainPage : ContentPage
 {
     private const int CAROUSEL_HEIGHTREQUEST = 500;
-    private const int CAROUSEL_PEEKAREAINSETS = 220;
     private const int MAX_MOVIES_FOR_ANIMATE = 200;
+    private const int MARGIN_PEEK = 20;
     private MainPageViewModel m_mainPageViewModel;
     public MainPage()
 	{
@@ -21,12 +21,32 @@ public partial class MainPage : ContentPage
         BindingContext = m_mainPageViewModel;
         var width = DeviceDisplay.Current.MainDisplayInfo.Width;
         var density = DeviceDisplay.Current.MainDisplayInfo.Density;
+        var peekAreaInsets = Services.Services.GetWidth() + MARGIN_PEEK;
         width = width / density;
 #if ANDROID
-        Carousel.PeekAreaInsets = new Thickness((width - CAROUSEL_PEEKAREAINSETS) / 2);
+        Carousel.PeekAreaInsets = new Thickness((width - peekAreaInsets) / 2);
 #else
         Carousel.HeightRequest = CAROUSEL_HEIGHTREQUEST;
 #endif
+
+        //int i = 0;
+        //var timer = Application.Current.Dispatcher.CreateTimer();
+        //timer.Interval = TimeSpan.FromSeconds(1);
+        //timer.Tick += (s, e) =>
+        //{
+
+        //    MainThread.BeginInvokeOnMainThread(() =>
+        //    {
+        //        if (m_mainPageViewModel.Movies.Any())
+        //        {
+        //            Carousel.Position = (Carousel.Position + 1) % m_mainPageViewModel.Movies.Count;
+        //            i++;
+        //        }
+        //    });
+        //    if (i == 5)
+        //        timer.Stop();
+        //};
+        //timer.Start();
     }
 
     private void Carousel_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
@@ -50,14 +70,14 @@ public partial class MainPage : ContentPage
         if (m_mainPageViewModel.Movies.Count > MAX_MOVIES_FOR_ANIMATE)
         {
             Carousel.IsScrollAnimated = false;
-            Carousel.SetBinding(CarouselView.CurrentItemProperty, "Current", BindingMode.TwoWay);
+            //Carousel.SetBinding(CarouselView.CurrentItemProperty, "Current", BindingMode.TwoWay);
             Carousel.CurrentItem = movie;
             Carousel.ScrollTo(movie, animate: false, position: ScrollToPosition.Center);
             Carousel.IsScrollAnimated = true;
         }
         else
         { 
-            Carousel.SetBinding(CarouselView.CurrentItemProperty, "Current", BindingMode.TwoWay);
+            //Carousel.SetBinding(CarouselView.CurrentItemProperty, "Current", BindingMode.TwoWay);
             Carousel.CurrentItem = movie;
             Carousel.ScrollTo(movie, animate: true, position: ScrollToPosition.Center);
         }

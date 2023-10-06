@@ -32,7 +32,15 @@ namespace RandomMovie
                 RaisePropertyChanged(nameof(PosterImageSource));
             }
         }
+        
+        [JsonIgnore]
+        public double Width => Services.Services.GetWidth();
 
+        
+        
+        public double Height => Services.Services.GetHeight();
+
+        
 
         private void GetImageSource()
         {

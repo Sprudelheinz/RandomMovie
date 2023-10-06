@@ -169,5 +169,43 @@ namespace RandomMovie.Services
             }
             return 1;
         }
+
+        private static double? m_width;
+        public static double GetWidth()
+        {
+            if (m_width != null && m_width.HasValue)
+                return m_width.Value;
+            var width = DeviceDisplay.Current.MainDisplayInfo.Width;
+            var density = DeviceDisplay.Current.MainDisplayInfo.Density;
+            width = width / density;
+            if (width is double.NaN)
+            {
+                m_width = 230;
+                return m_width.Value;
+            }
+            m_width = width * 0.55;
+            if (m_width.Value > 230)
+                m_width = 230;
+            return m_width.Value;
+        }
+
+        private static double? m_height;
+        public static double GetHeight()
+        {
+            if (m_height != null && m_height.HasValue)
+                return m_height.Value;
+            if (m_width != null && m_width.HasValue)
+            {
+                m_height = m_width * 1.5; 
+            }
+            else
+            {
+                var width = GetWidth();
+                m_height = width * 1.5;
+            }
+            if (m_height.Value > 345)
+                m_height = 345;
+            return m_height.Value;
+        }
     }
 }
