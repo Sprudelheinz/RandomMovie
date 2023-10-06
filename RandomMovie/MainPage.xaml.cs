@@ -130,6 +130,8 @@ public partial class MainPage : ContentPage
             SettingsService.Instance.Settings.LetterBoxdUserName = null;
             SettingsService.Instance.SaveSettingsAsync();
             m_mainPageViewModel.SelectedLetterboxdList = new List<Movie>();
+            var infoMessagePopUp = new InfoMessagePopUp(Localisation.ErrorLetterboxdName, Enums.InfoMessageAnswer.Ok);
+            var value = await this.ShowPopupAsync(infoMessagePopUp);
             return;
         }
         m_mainPageViewModel.LetterBoxdUserName = m_mainPageViewModel.LetterBoxdUserName.Trim();
