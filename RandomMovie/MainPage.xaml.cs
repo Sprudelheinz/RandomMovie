@@ -10,8 +10,8 @@ namespace RandomMovie;
 public partial class MainPage : ContentPage
 {
     private const int CAROUSEL_HEIGHTREQUEST = 500;
-    private const int CAROUSEL_PEEKAREAINSETS = 220;
     private const int MAX_MOVIES_FOR_ANIMATE = 200;
+    private const int MARGIN_PEEK = 20;
     private MainPageViewModel m_mainPageViewModel;
     public MainPage()
 	{
@@ -21,9 +21,10 @@ public partial class MainPage : ContentPage
         BindingContext = m_mainPageViewModel;
         var width = DeviceDisplay.Current.MainDisplayInfo.Width;
         var density = DeviceDisplay.Current.MainDisplayInfo.Density;
+        var peekAreaInsets = Services.Services.GetWidth() + MARGIN_PEEK;
         width = width / density;
 #if ANDROID
-        Carousel.PeekAreaInsets = new Thickness((width - CAROUSEL_PEEKAREAINSETS) / 2);
+        Carousel.PeekAreaInsets = new Thickness((width - peekAreaInsets) / 2);
 #else
         Carousel.HeightRequest = CAROUSEL_HEIGHTREQUEST;
 #endif

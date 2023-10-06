@@ -37,7 +37,7 @@
                             <Frame Margin="5" HeightRequest="{Binding Height}" WidthRequest="{Binding Width}" BackgroundColor="{Binding MainColorMaui}" CornerRadius="10">
                                 <Image Source="{Binding PosterImageSource}" />
                             </Frame>
-                            <Label Margin="10,5,0,0" HorizontalOptions="CenterAndExpand" LineBreakMode="WordWrap" FontSize="Small" Text="{Binding MovieTitle}" />
+                            <Label Margin="10,5,0,0" HorizontalOptions="Center" LineBreakMode="WordWrap" FontSize="Small" Text="{Binding MovieTitle}" />
 
                         </VerticalStackLayout>
                     </DataTemplate>

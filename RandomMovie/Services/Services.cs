@@ -178,6 +178,11 @@ namespace RandomMovie.Services
             var width = DeviceDisplay.Current.MainDisplayInfo.Width;
             var density = DeviceDisplay.Current.MainDisplayInfo.Density;
             width = width / density;
+            if (width is double.NaN)
+            {
+                m_width = 230;
+                return m_width.Value;
+            }
             m_width = width * 0.55;
             if (m_width.Value > 230)
                 m_width = 230;
