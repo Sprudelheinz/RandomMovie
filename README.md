@@ -3,15 +3,16 @@
 ## Features:
 - Scroll through a color sorted list with 30000+ movies
 - Search a movie by name or year (Searchbar)
-- Change sort direction (Icon next to the searhbar)
-- Reset the list to Default
+- Change sort direction (Icon next to the searchbar)
+- Reset the list to default
 - Generate a random movie (button below list)
+  - Generate a random movie by shaking the phone
 - Open the movie directly on letterboxd to get further information (button with movie name (year))
 - Enter your letterboxd username
 - Choose a list from your letterboxd lists (PopUp)
     - The choosen list is now the list and you can scroll through your color sorted list or pick a random movie
 - Menu on the upper left
-  - Rest your choosen list
+  - Reset your choosen list
   - Reset all cached posters
   - Change the app theme (light dark)
 ## Data Privacy
@@ -20,4 +21,4 @@
 - The list is cached for the next use
 - No other data is saved. No data is sent anywhere.
 ## Support
-- [Buy me a coffee](https://paypal.me/sprudelheinz?country.x=DE&locale.x=de_DE)
+- [Buy me a coffee](https://paypal.me/sprudelheinz)
