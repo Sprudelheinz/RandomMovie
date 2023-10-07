@@ -28,7 +28,7 @@ public partial class MainPage : ContentPage
 #else
         Carousel.HeightRequest = CAROUSEL_HEIGHTREQUEST;
 #endif
-        //ToggleShake();
+        ToggleShake();
         //int i = 0;
         //var timer = Application.Current.Dispatcher.CreateTimer();
         //timer.Interval = TimeSpan.FromSeconds(1);
@@ -207,28 +207,28 @@ public partial class MainPage : ContentPage
         this.ShowPopup(popUp);
     }
 
-    //private void ToggleShake()
-    //{
-    //    if (Accelerometer.Default.IsSupported)
-    //    {
-    //        if (!Accelerometer.Default.IsMonitoring)
-    //        {
-    //            // Turn on accelerometer
-    //            Accelerometer.Default.ShakeDetected += Accelerometer_ShakeDetected;
-    //            Accelerometer.Default.Start(SensorSpeed.Game);
-    //        }
-    //        else
-    //        {
-    //            // Turn off accelerometer
-    //            Accelerometer.Default.Stop();
-    //            Accelerometer.Default.ShakeDetected -= Accelerometer_ShakeDetected;
-    //        }
-    //    }
-    //}
+    private void ToggleShake()
+    {
+        if (Accelerometer.Default.IsSupported)
+        {
+            if (!Accelerometer.Default.IsMonitoring)
+            {
+                // Turn on accelerometer
+                Accelerometer.Default.ShakeDetected += Accelerometer_ShakeDetected;
+                Accelerometer.Default.Start(SensorSpeed.Game);
+            }
+            else
+            {
+                // Turn off accelerometer
+                Accelerometer.Default.Stop();
+                Accelerometer.Default.ShakeDetected -= Accelerometer_ShakeDetected;
+            }
+        }
+    }
 
-    //private void Accelerometer_ShakeDetected(object sender, EventArgs e)
-    //{
-    //    GenerateRandomMovie();
-    //}
+    private void Accelerometer_ShakeDetected(object sender, EventArgs e)
+    {
+        GenerateRandomMovie();
+    }
 }
 
