@@ -4,6 +4,7 @@ using RandomMovie.Resources;
 using RandomMovie.Services;
 using RandomMovie.ViewModels;
 using System;
+using System.Reflection.Metadata;
 
 namespace RandomMovie;
 
@@ -28,8 +29,8 @@ public partial class MainPage : ContentPage
 #else
         Carousel.HeightRequest = CAROUSEL_HEIGHTREQUEST;
 #endif
-        ToggleShake();
-        ToggleMagnetometer();
+        ToggleAcclerometer();
+        //ToggleMagnetometer();
     }
 
     private void Carousel_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
@@ -190,7 +191,7 @@ public partial class MainPage : ContentPage
         this.ShowPopup(popUp);
     }
 
-    private void ToggleShake()
+    private void ToggleAcclerometer()
     {
         if (Accelerometer.Default.IsSupported)
         {
@@ -198,12 +199,14 @@ public partial class MainPage : ContentPage
             {
                 // Turn on accelerometer
                 Accelerometer.Default.ShakeDetected += Accelerometer_ShakeDetected;
+                Accelerometer.Default.ReadingChanged += Default_ReadingChanged;
                 Accelerometer.Default.Start(SensorSpeed.Game);
             }
             else
             {
                 // Turn off accelerometer
                 Accelerometer.Default.Stop();
+                Accelerometer.Default.ReadingChanged -= Default_ReadingChanged;
                 Accelerometer.Default.ShakeDetected -= Accelerometer_ShakeDetected;
             }
         }
@@ -214,43 +217,28 @@ public partial class MainPage : ContentPage
         GenerateRandomMovie();
     }
 
-    private void ToggleMagnetometer()
+    private void Default_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
     {
-        if (Magnetometer.Default.IsSupported)
+        m_accelerometerFieldX = Math.Round(e.Reading.Acceleration.X, 2);
+        var magneticFieldY = Math.Round(e.Reading.Acceleration.Y, 2);
+        var magneticFieldZ = Math.Round(e.Reading.Acceleration.Z, 2);
+
+        AccelerometerLabel.Text = $"x: {m_accelerometerFieldX} y: {magneticFieldY} z: {magneticFieldZ}";
+        if (m_accelerometerFieldX < -0.15)
+            StartScroll();
+        if (m_accelerometerFieldX > 0.15)
+            StartScroll();
+        if (m_timer != null && m_timer.IsRunning && m_accelerometerFieldX > -0.15 && m_accelerometerFieldX < 0.15)
         {
-            if (!Magnetometer.Default.IsMonitoring)
-            {
-                // Turn on magnetometer
-                Magnetometer.Default.ReadingChanged += Magnetometer_ReadingChanged;
-                Magnetometer.Default.Start(SensorSpeed.UI);
-            }
-            else
-            {
-                // Turn off magnetometer
-                Magnetometer.Default.Stop();
-                Magnetometer.Default.ReadingChanged -= Magnetometer_ReadingChanged;
-            }
+            m_timer.Stop();
+            m_oldInterval = null;
         }
     }
+
+    
     private IDispatcherTimer m_timer;
-    private float m_magneticFieldX;
-    private void Magnetometer_ReadingChanged(object sender, MagnetometerChangedEventArgs e)
-    {
-        m_magneticFieldX = e.Reading.MagneticField.X;
-        MagnetometerLabel.Text = $"x: {m_magneticFieldX}";
-        if (Carousel.CurrentItem is Movie movie)
-        {
-            if (m_magneticFieldX < -10.0)
-                StartScroll();
-            if (m_magneticFieldX > 10.0)
-                StartScroll();
-            if (m_timer != null && m_timer.IsRunning && m_magneticFieldX > -10.0 && m_magneticFieldX < 10.0)
-            {
-                m_timer.Stop();
-                m_oldInterval = null;
-            }
-        }
-    }
+    private double m_accelerometerFieldX;
+
     public double Map(double value, double fromSource, double toSource, double fromTarget, double toTarget)
     {
         return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
@@ -259,23 +247,24 @@ public partial class MainPage : ContentPage
     private void StartScroll()
     {
         int i = 0;
-        if(m_timer ==null)
+        if (m_timer == null)
+        {
             m_timer = Application.Current.Dispatcher.CreateTimer();
-        var xAbsValue = Math.Abs(m_magneticFieldX);
-        double interval;
-        if (xAbsValue > 30)
-            interval = 0.2;
-        else
-            interval = Math.Round(Map(xAbsValue, 10, 30, 1.5, 0.2), 2);
-        if (m_oldInterval == null)
-        { 
-            m_timer.Interval = TimeSpan.FromSeconds(interval);
-            m_oldInterval = interval;
             m_timer.Tick += (s, e) =>
             {
                 SetNewMovie();
             };
-            SetNewMovie();
+        }
+        var xAbsValue = Math.Abs(m_accelerometerFieldX);
+        double interval;
+        if (xAbsValue > 0.6)
+            interval = 0.3;
+        else
+            interval = Math.Round(Map(xAbsValue, 0.15, 0.6, 0.8, 0.3), 1);
+        if (m_oldInterval == null)
+        { 
+            m_timer.Interval = TimeSpan.FromSeconds(interval);
+            m_oldInterval = interval;
             m_timer.Start();
         }
         else if (m_oldInterval != interval)
@@ -283,7 +272,6 @@ public partial class MainPage : ContentPage
             m_timer.Stop();
             m_timer.Interval = TimeSpan.FromSeconds(interval);
             m_oldInterval = interval;
-            SetNewMovie();
             m_timer.Start();
         }
     }
@@ -293,18 +281,17 @@ public partial class MainPage : ContentPage
         MainThread.BeginInvokeOnMainThread(() =>
         {
             if (m_mainPageViewModel.Movies.Any())
-        {
-            var movie = Carousel.CurrentItem as Movie;
-            var index = m_mainPageViewModel.Movies.IndexOf(movie);
-            Movie newMovie = null;
-            if (m_magneticFieldX < 0 && index > 0)
-                newMovie = m_mainPageViewModel.Movies[--index];
-            if (m_magneticFieldX > 0)
-                newMovie = m_mainPageViewModel.Movies[++index];
-            if (newMovie != null)
-                Carousel.ScrollTo(newMovie, animate: true, position: ScrollToPosition.Center);
-            //Carousel.CurrentItem = newMovie;
-        }
+            {
+                var movie = Carousel.CurrentItem as Movie;
+                var index = m_mainPageViewModel.Movies.IndexOf(movie);
+                Movie newMovie = null;
+                if (m_accelerometerFieldX < 0)
+                    newMovie = m_mainPageViewModel.Movies[++index];
+                if (m_accelerometerFieldX > 0 && index > 0)
+                    newMovie = m_mainPageViewModel.Movies[--index];
+                if (newMovie != null)
+                    Carousel.CurrentItem = newMovie;
+            }
         });
     }
 }
