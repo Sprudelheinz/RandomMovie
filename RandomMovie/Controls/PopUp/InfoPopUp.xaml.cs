@@ -1,4 +1,3 @@
-using Android.Graphics;
 using CommunityToolkit.Maui.Views;
 
 namespace RandomMovie.Controls.PopUp;
@@ -16,7 +15,7 @@ public partial class InfoPopUp : Popup
     }
     private async void Open_Github(object sender, EventArgs e)
     {
-        Uri uri = new Uri("https://github.com/Sprudelheinz/RandomMovie");
+        Uri uri = new("https://github.com/Sprudelheinz/RandomMovie");
         await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         await CloseAsync();
     }

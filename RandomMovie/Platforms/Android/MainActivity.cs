@@ -16,21 +16,21 @@ public class MainActivity : MauiAppCompatActivity
 
     }
 
-    protected override void OnPause()
-    {
-        base.OnPause();
-        if (Accelerometer.Default.IsMonitoring)
-        {
-            Accelerometer.Default.Stop();
-        }
-    }
+    //protected override void OnPause()
+    //{
+    //    if (Accelerometer.Default.IsSupported && Accelerometer.Default.IsMonitoring)
+    //    {
+    //        Accelerometer.Default.Stop();
+    //    }
+    //    base.OnPause();      
+    //}
 
-    protected override void OnResume()
-    {
-        base.OnResume();
-        if (!Accelerometer.Default.IsMonitoring)
-        {
-            Accelerometer.Default.Start(SensorSpeed.Default);
-        }
-    }
+    //protected override void OnResume()
+    //{
+    //    if (Accelerometer.Default.IsSupported && !Accelerometer.Default.IsMonitoring)
+    //    {
+    //        Accelerometer.Default.Start(SensorSpeed.Default);
+    //    }
+    //    base.OnResume();     
+    //}
 }
