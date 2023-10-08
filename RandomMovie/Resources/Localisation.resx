@@ -122,8 +122,7 @@
     <value>Close</value>
   </data>
   <data name="InfoText" xml:space="preserve">
-    <value>Features:
-- Scroll through a color sorted list with 30000+ movies
+    <value>- Scroll through a color sorted list with 30000+ movies
 - Search a movie by name or year (Searchbar)
 - Change sort direction (Icon next to the searchbar)
 - Reset the list to default
@@ -136,8 +135,7 @@
 - Menu on the upper left
   - Reset your choosen list
   - Reset all cached posters
-  - Change the app theme (light dark)
-Report Bugs / Comments / Support</value>
+  - Change the app theme (light dark)</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
@@ -153,5 +151,11 @@ e.g.: https://letterboxd.com/Sprudelheinz/</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="InfoText2" xml:space="preserve">
+    <value>Report Bugs / Comments / Support</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Rate App</value>
   </data>
 </root>

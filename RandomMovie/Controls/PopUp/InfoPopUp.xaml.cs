@@ -6,7 +6,7 @@ public partial class InfoPopUp : Popup
 {
 	public InfoPopUp()
 	{
-		InitializeComponent();    
+		InitializeComponent();
     }
 
     private async void Close_PopUp(object sender, EventArgs e)
@@ -16,6 +16,13 @@ public partial class InfoPopUp : Popup
     private async void Open_Github(object sender, EventArgs e)
     {
         Uri uri = new("https://github.com/Sprudelheinz/RandomMovie");
+        await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+        await CloseAsync();
+    }
+
+    private async void Open_Market(object sender, EventArgs e)
+    {
+        Uri uri = new("https://play.google.com/store/apps/details?id=com.sprudelheinz.randommovie");
         await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         await CloseAsync();
     }

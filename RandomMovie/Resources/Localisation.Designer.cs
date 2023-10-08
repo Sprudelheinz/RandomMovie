@@ -100,8 +100,7 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Features:
-        ///- Scroll through a color sorted list with 30000+ movies
+        ///   Sucht eine lokalisierte Zeichenfolge, die - Scroll through a color sorted list with 30000+ movies
         ///- Search a movie by name or year (Searchbar)
         ///- Change sort direction (Icon next to the searchbar)
         ///- Reset the list to default
@@ -110,11 +109,20 @@ namespace RandomMovie.Resources {
         ///- Open the movie directly on letterboxd to get further information (button with movie name (year))
         ///- Enter your letterboxd username
         ///- Choose a list from your letterboxd lists (PopUp)
-        ///    - The choosen list is now th [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///    - The choosen list is now the list and  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string InfoText {
             get {
                 return ResourceManager.GetString("InfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Report Bugs / Comments / Support ähnelt.
+        /// </summary>
+        internal static string InfoText2 {
+            get {
+                return ResourceManager.GetString("InfoText2", resourceCulture);
             }
         }
         
@@ -160,6 +168,15 @@ namespace RandomMovie.Resources {
         internal static string RandomMovie {
             get {
                 return ResourceManager.GetString("RandomMovie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rate App ähnelt.
+        /// </summary>
+        internal static string Rate {
+            get {
+                return ResourceManager.GetString("Rate", resourceCulture);
             }
         }
         

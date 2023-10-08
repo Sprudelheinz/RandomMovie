@@ -8,10 +8,20 @@
     <Frame CornerRadius="10" Margin="10" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
         <VerticalStackLayout>
             <ScrollView MaximumHeightRequest="400">
-                <Label VerticalOptions="StartAndExpand" Text="{x:Static resource:Localisation.InfoText}" LineBreakMode="WordWrap" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" FontAttributes="Bold" Text="Features:"  LineBreakMode="WordWrap" />
+                    <Label Grid.Row="1" Text="{x:Static resource:Localisation.InfoText}" LineBreakMode="WordWrap" />
+                    <Label Grid.Row="2" FontAttributes="Bold" Text="{x:Static resource:Localisation.InfoText2}" LineBreakMode="WordWrap" />
+                </Grid>
             </ScrollView>
             <HorizontalStackLayout HorizontalOptions="FillAndExpand">
                 <Button Margin="10" HorizontalOptions="Start" Text="GitHub" Clicked="Open_Github" />
+                <Button Margin="10" HorizontalOptions="Center" Text="{x:Static resource:Localisation.Rate}" Clicked="Open_Market" />
                 <Button Margin="10" HorizontalOptions="End" Text="{x:Static resource:Localisation.Close}" Clicked="Close_PopUp" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
