@@ -54,6 +54,19 @@ public partial class MainPage : ContentPage
         if (e.CurrentItem is Movie)
             LetterBoxd.Text = (e.CurrentItem as Movie)?.MovieTitle;
     }
+    protected override void OnDisappearing()
+    {
+        if (Accelerometer.Default.IsSupported)
+        {
+            if (Accelerometer.Default.IsMonitoring)
+            {
+                // Turn off accelerometer
+                Accelerometer.Default.Stop();
+                Accelerometer.Default.ShakeDetected -= Accelerometer_ShakeDetected;
+            }
+            base.OnDisappearing();
+        }
+    }
 
     void GenerateRandomMovie()
     {
@@ -215,7 +228,7 @@ public partial class MainPage : ContentPage
             {
                 // Turn on accelerometer
                 Accelerometer.Default.ShakeDetected += Accelerometer_ShakeDetected;
-                Accelerometer.Default.Start(SensorSpeed.Game);
+                Accelerometer.Default.Start(SensorSpeed.Default);
             }
             else
             {

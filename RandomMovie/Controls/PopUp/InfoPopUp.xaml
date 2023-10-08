@@ -5,10 +5,15 @@
              xmlns:resource="clr-namespace:RandomMovie.Resources"
              Color="Transparent"
              x:Class="RandomMovie.Controls.PopUp.InfoPopUp">
-    <Frame CornerRadius="10" Margin="10" HeightRequest="350" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
+    <Frame CornerRadius="10" Margin="10" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
         <VerticalStackLayout>
-            <Label VerticalOptions="StartAndExpand" Text="{x:Static resource:Localisation.InfoText}" LineBreakMode="WordWrap" />
-            <Button VerticalOptions="End" Text="{x:Static resource:Localisation.Close}" Clicked="Close_PopUp" />
+            <ScrollView MaximumHeightRequest="400">
+                <Label VerticalOptions="StartAndExpand" Text="{x:Static resource:Localisation.InfoText}" LineBreakMode="WordWrap" />
+            </ScrollView>
+            <HorizontalStackLayout HorizontalOptions="FillAndExpand">
+                <Button Margin="10" HorizontalOptions="Start" Text="GitHub" Clicked="Open_Github" />
+                <Button Margin="10" HorizontalOptions="End" Text="{x:Static resource:Localisation.Close}" Clicked="Close_PopUp" />
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </Frame>
 </toolkit:Popup>

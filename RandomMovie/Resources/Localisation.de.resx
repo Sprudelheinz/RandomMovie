@@ -136,4 +136,22 @@ z.B.: https://letterboxd.com/Sprudelheinz/</value>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="InfoText" xml:space="preserve">
+    <value>Features:
+- Scrollen Sie durch eine farblich sortierte Liste mit über 30000 Filmen
+- Suchen Sie einen Film nach Name oder Jahr (Suchleiste)
+- Sortierrichtung ändern (Icon neben der Suchleiste)
+- Zurücksetzen der Liste auf die Standardeinstellungen
+- Erzeugen eines Zufallsfilms (Button unter der Liste)
+  - Erzeugen eines Zufallsfilms durch Schütteln des Telefons
+- Öffnen Sie den Film direkt auf letterboxd, um weitere Informationen zu erhalten (Schaltfläche mit Filmname (Jahr))
+- Geben Sie Ihren letterboxd-Benutzernamen ein
+- Wählen Sie eine Liste aus Ihren letterboxd-Listen (PopUp)
+    - Die gewählte Liste ist nun die Liste und Sie können durch Ihre farblich sortierte Liste blättern oder einen beliebigen Film auswählen
+- Menü oben links
+  - Ausgewählte Liste zurücksetzen
+  - Alle zwischengespeicherten Poster zurücksetzen
+  - Ändern Sie das Thema der App (hell-dunkel)
+Bugs melden / Kommentare / Support</value>
+  </data>
 </root>

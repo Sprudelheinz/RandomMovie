@@ -12,7 +12,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto"/>
-                <!--<RowDefinition Height="Auto" />-->
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -53,7 +53,7 @@
                 <Entry Grid.Column="0" Text="{Binding LetterBoxdUserName}" Placeholder="{x:Static resource:Localisation.LetterboxdUsername}" />
                 <Button Grid.Column="1" Text="{x:Static resource:Localisation.ChooseList}" Clicked="ChooseList_Clicked" LineBreakMode="WordWrap" />
             </Grid>
-            <!--<ImageButton Grid.Row="5"
+            <ImageButton Grid.Row="5"
                 Margin="10"
                 BackgroundColor="Gray"
                 CornerRadius="20"
@@ -65,7 +65,7 @@
 	                    FontFamily="FASolid"
 	                    Glyph="&#x3f;" />
                 </ImageButton.Source>
-            </ImageButton>-->
+            </ImageButton>
         </Grid>
     </ScrollView>
 

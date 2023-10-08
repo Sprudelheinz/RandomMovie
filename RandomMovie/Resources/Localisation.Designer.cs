@@ -100,7 +100,17 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Features:
+        ///- Scroll through a color sorted list with 30000+ movies
+        ///- Search a movie by name or year (Searchbar)
+        ///- Change sort direction (Icon next to the searchbar)
+        ///- Reset the list to default
+        ///- Generate a random movie (button below list)
+        ///  - Generate a random movie by shaking the phone
+        ///- Open the movie directly on letterboxd to get further information (button with movie name (year))
+        ///- Enter your letterboxd username
+        ///- Choose a list from your letterboxd lists (PopUp)
+        ///    - The choosen list is now th [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string InfoText {
             get {
