@@ -35,7 +35,10 @@
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1" />
                             </VerticalStackLayout.GestureRecognizers>
                             <Frame Margin="5" HeightRequest="{Binding Height}" WidthRequest="{Binding Width}" BackgroundColor="{Binding MainColorMaui}" CornerRadius="10">
-                                <Image Source="{Binding PosterImageSource}" />
+                                <FlexLayout>
+                                    <Image Source="{Binding PosterImageSource}" />
+                                    <Label VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" IsVisible="{Binding PosterNotAvailable}" Text="{x:Static resource:Localisation.PosterNotAvailable}" />
+                                </FlexLayout>
                             </Frame>
                             <Label Margin="10,5,0,0" HorizontalOptions="Center" LineBreakMode="WordWrap" FontSize="Small" Text="{Binding MovieTitle}" />
 

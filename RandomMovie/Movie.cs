@@ -30,9 +30,13 @@ namespace RandomMovie
             {
                 posterImageSource = value;
                 RaisePropertyChanged(nameof(PosterImageSource));
+                RaisePropertyChanged(nameof(PosterNotAvailable));
             }
         }
-        
+
+        [JsonIgnore]
+        public bool PosterNotAvailable { get; set; }  = false;
+
         [JsonIgnore]
         public double Width => Services.Services.GetWidth();
 

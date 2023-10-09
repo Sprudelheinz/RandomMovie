@@ -158,4 +158,7 @@ e.g.: https://letterboxd.com/Sprudelheinz/</value>
   <data name="Rate" xml:space="preserve">
     <value>Rate App</value>
   </data>
+  <data name="PosterNotAvailable" xml:space="preserve">
+    <value>Poster error</value>
+  </data>
 </root>

@@ -25,11 +25,20 @@
             // Create file path and ensure directory exists
             var path = Path.Combine(directoryPath, $"{fileName}{fileExtension}");
             Directory.CreateDirectory(directoryPath);
-
-            // Download the image and write to the file
-            var imageBytes = await m_httpClient.GetByteArrayAsync(uri);
-            await File.WriteAllBytesAsync(path, imageBytes);
-            movie.PosterImageSource = ImageSource.FromFile(path);
+            try
+            {
+                // Download the image and write to the file
+                var imageBytes = await m_httpClient.GetByteArrayAsync(uri);
+                await File.WriteAllBytesAsync(path, imageBytes);
+                movie.PosterImageSource = ImageSource.FromFile(path);
+                movie.PosterNotAvailable = false;
+            }
+            catch
+            {
+                movie.PosterImageSource = null;
+                movie.PosterNotAvailable = true;
+            }
+            
         }
 
         public void Dispose()

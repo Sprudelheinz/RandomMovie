@@ -163,6 +163,15 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Poster error ähnelt.
+        /// </summary>
+        internal static string PosterNotAvailable {
+            get {
+                return ResourceManager.GetString("PosterNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Get Random Movie ähnelt.
         /// </summary>
         internal static string RandomMovie {

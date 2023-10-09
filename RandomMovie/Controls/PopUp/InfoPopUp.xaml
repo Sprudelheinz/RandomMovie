@@ -16,14 +16,19 @@
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" FontAttributes="Bold" Text="Features:"  LineBreakMode="WordWrap" />
                     <Label Grid.Row="1" Text="{x:Static resource:Localisation.InfoText}" LineBreakMode="WordWrap" />
-                    <Label Grid.Row="2" FontAttributes="Bold" Text="{x:Static resource:Localisation.InfoText2}" LineBreakMode="WordWrap" />
+              
                 </Grid>
             </ScrollView>
-            <HorizontalStackLayout HorizontalOptions="FillAndExpand">
-                <Button Margin="10" HorizontalOptions="Start" Text="GitHub" Clicked="Open_Github" />
-                <Button Margin="10" HorizontalOptions="Center" Text="{x:Static resource:Localisation.Rate}" Clicked="Open_Market" />
-                <Button Margin="10" HorizontalOptions="End" Text="{x:Static resource:Localisation.Close}" Clicked="Close_PopUp" />
-            </HorizontalStackLayout>
+            <Label Margin="0,10,0,0" Grid.Row="2" FontAttributes="Bold" Text="{x:Static resource:Localisation.InfoText2}" LineBreakMode="WordWrap" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Margin="5" Text="GitHub" Clicked="Open_Github" />
+                <Button Grid.Column="1" Margin="5" Text="{x:Static resource:Localisation.Rate}" Clicked="Open_Market" />
+            </Grid>
+            <Button Margin="5" HorizontalOptions="End" Text="{x:Static resource:Localisation.Close}" Clicked="Close_PopUp" />
         </VerticalStackLayout>
     </Frame>
 </toolkit:Popup>
