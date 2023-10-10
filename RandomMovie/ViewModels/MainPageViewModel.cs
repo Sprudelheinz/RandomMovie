@@ -42,20 +42,20 @@ namespace RandomMovie.ViewModels
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 AllTheMovies = await Services.Services.ReadJsonFromFileAsync("brightToDark.json");
-                var letterboxdListFileName = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.LETTERBOXDLIST_FILENAME);
-                if (File.Exists(letterboxdListFileName))
-                {
-                    try
-                    {
-                        var letterboxdListJson = Services.Services.ReadTextFile(letterboxdListFileName);
-                        SelectedLetterboxdList = Services.Services.ReadJson(letterboxdListJson);
-                    }
-                    catch
-                    {
-                        SelectedLetterboxdList = new List<Movie>();
-                        File.Delete(letterboxdListFileName);
-                    }
-                }
+                //var letterboxdListFileName = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.LETTERBOXDLIST_FILENAME);
+                //if (File.Exists(letterboxdListFileName))
+                //{
+                //    try
+                //    {
+                //        var letterboxdListJson = Services.Services.ReadTextFile(letterboxdListFileName);
+                //        SelectedLetterboxdList = Services.Services.ReadJson(letterboxdListJson);
+                //    }
+                //    catch
+                //    {
+                //        SelectedLetterboxdList = new List<Movie>();
+                //        File.Delete(letterboxdListFileName);
+                //    }
+                //}
                 Movies = AllTheMovies;
                 
                 LetterBoxdUserName = SettingsService.Instance.Settings.LetterBoxdUserName;

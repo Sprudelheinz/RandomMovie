@@ -93,7 +93,7 @@ namespace RandomMovie.Services
                     }
                 }
                 mainPageViewModel.SelectedLetterboxdList = mainPageViewModel.SelectedLetterboxdList.OrderBy(x => x.SortValue).Distinct().ToList();
-                SaveJson(mainPageViewModel.SelectedLetterboxdList);
+                //SaveJson(mainPageViewModel.SelectedLetterboxdList);
                 SettingsService.Instance.Settings.LetterBoxdUserName = mainPageViewModel.LetterBoxdUserName;
                 SettingsService.Instance.SaveSettingsAsync();
             }

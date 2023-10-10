@@ -5,9 +5,16 @@
              xmlns:resource="clr-namespace:RandomMovie.Resources"
              Color="Transparent"
              x:Class="RandomMovie.Controls.PopUp.InfoPopUp">
-    <Frame CornerRadius="10" Margin="10" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
-        <VerticalStackLayout>
-            <ScrollView MaximumHeightRequest="400">
+    <!--<Frame VerticalOptions="StartAndExpand" CornerRadius="10" Margin="10" BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">-->
+    <Border StrokeThickness="2" Padding="5" StrokeShape="RoundRectangle 5,5,5,5" Background="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -19,8 +26,8 @@
               
                 </Grid>
             </ScrollView>
-            <Label Margin="0,10,0,0" Grid.Row="2" FontAttributes="Bold" Text="{x:Static resource:Localisation.InfoText2}" LineBreakMode="WordWrap" />
-            <Grid>
+            <Label Margin="0,10,0,0" Grid.Row="1" FontAttributes="Bold" Text="{x:Static resource:Localisation.InfoText2}" LineBreakMode="WordWrap" />
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -28,7 +35,8 @@
                 <Button Grid.Column="0" Margin="5" Text="GitHub" Clicked="Open_Github" />
                 <Button Grid.Column="1" Margin="5" Text="{x:Static resource:Localisation.Rate}" Clicked="Open_Market" />
             </Grid>
-            <Button Margin="5" HorizontalOptions="End" Text="{x:Static resource:Localisation.Close}" Clicked="Close_PopUp" />
-        </VerticalStackLayout>
-    </Frame>
+            <Button Grid.Row="3" Margin="5,5,5,20" HorizontalOptions="End" Text="{x:Static resource:Localisation.Close}" Clicked="Close_PopUp" />
+        </Grid>
+    </Border>
+    <!--</Frame>-->
 </toolkit:Popup>
