@@ -100,6 +100,24 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Filter genre ähnelt.
+        /// </summary>
+        internal static string FilterGenre {
+            get {
+                return ResourceManager.GetString("FilterGenre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Genre ähnelt.
+        /// </summary>
+        internal static string Genre {
+            get {
+                return ResourceManager.GetString("Genre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die - Scroll through a color sorted list with 30000+ movies
         ///- Search a movie by name or year (Searchbar)
         ///- Change sort direction (Icon next to the searchbar)

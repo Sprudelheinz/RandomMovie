@@ -161,4 +161,10 @@ z.B.: https://letterboxd.com/Sprudelheinz/</value>
   <data name="PosterNotAvailable" xml:space="preserve">
     <value>Poster Fehler</value>
   </data>
+  <data name="FilterGenre" xml:space="preserve">
+    <value>Genre Filter</value>
+  </data>
+  <data name="Genre" xml:space="preserve">
+    <value>Genre</value>
+  </data>
 </root>

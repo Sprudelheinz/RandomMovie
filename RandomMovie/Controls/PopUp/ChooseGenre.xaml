@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:resource="clr-namespace:RandomMovie.Resources"
+             x:Class="RandomMovie.Controls.PopUp.ChooseGenre"
+             Color="Transparent">
+    <Border StrokeThickness="2" Padding="5" StrokeShape="RoundRectangle 5,5,5,5" Background="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="30" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Text="{x:Static resource:Localisation.FilterGenre}" FontSize="Medium" />
+                <ImageButton Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="ResetGenreFilter_Clicked" />
+            </Grid>
+            <ListView Margin="5,10,5,5" Grid.Column="0" Grid.Row="1" WidthRequest="200" HeightRequest="350" x:Name="listView" ItemsSource="{Binding GenresList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="50">
+                            <HorizontalStackLayout>
+                                <HorizontalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="HorizontalStackLayoutTapGestureRecognizer_Tapped" NumberOfTapsRequired="1" />
+                                </HorizontalStackLayout.GestureRecognizers>
+                                <Switch HorizontalOptions="Start" IsToggled="{Binding IsSelected}" Toggled="Switch_Toggled" />
+                                <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Genre}" />
+                            </HorizontalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Grid.Row="3" HorizontalOptions="Center" Text="{x:Static resource:Localisation.Close}" Clicked="Close_PopUp" />
+        </Grid>
+    </Border>
+</toolkit:Popup>

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Views;
 using RandomMovie.Controls.PopUp;
+using RandomMovie.Enums;
 using RandomMovie.Resources;
 using RandomMovie.Services;
 using RandomMovie.ViewModels;
@@ -210,6 +211,7 @@ public partial class MainPage : ContentPage
 
     private void RestoreButton_Clicked(object sender, EventArgs e)
     {
+        m_mainPageViewModel.SelectedLetterboxdList.Clear();
         m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies;
         SetCurrentItem(m_mainPageViewModel.Movies.First());
     }
@@ -242,6 +244,21 @@ public partial class MainPage : ContentPage
     private void Accelerometer_ShakeDetected(object sender, EventArgs e)
     {
         GenerateRandomMovie();
+    }
+
+    private async void ChooseGenre_Clicked(object sender, EventArgs e)
+    {
+        var chooseGenre = new ChooseGenre(m_mainPageViewModel);
+        var result = await this.ShowPopupAsync(chooseGenre);
+
+        var currentItem = Carousel.CurrentItem as Movie;
+        var selectedGenres = m_mainPageViewModel.GenresList.Where(x => x.IsSelected == true);
+        var moviesToFilter = m_mainPageViewModel.SelectedLetterboxdList.Any() ? m_mainPageViewModel.SelectedLetterboxdList : m_mainPageViewModel.AllTheMovies;
+        foreach (var selectedGenre in selectedGenres)
+        {
+            moviesToFilter = moviesToFilter.Where(x => x.Genres != null && x.Genres.Any(x => x == selectedGenre.Genre)).ToList();
+        }
+        m_mainPageViewModel.Movies = moviesToFilter;
     }
 }
 

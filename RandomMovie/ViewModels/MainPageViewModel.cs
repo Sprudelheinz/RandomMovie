@@ -1,6 +1,5 @@
-﻿using RandomMovie.Controls.PopUp;
+﻿using RandomMovie.Enums;
 using RandomMovie.Services;
-using System.ComponentModel;
 
 namespace RandomMovie.ViewModels
 {
@@ -16,6 +15,8 @@ namespace RandomMovie.ViewModels
             }
         }
         public List<Movie> SelectedLetterboxdList { get; set; } = new List<Movie>();
+
+        public List<GenreViewModel> GenresList { get; set; } = new List<GenreViewModel>();
         private string m_letterBoxdUserName;
 
         public string LetterBoxdUserName 
@@ -60,6 +61,12 @@ namespace RandomMovie.ViewModels
                 
                 LetterBoxdUserName = SettingsService.Instance.Settings.LetterBoxdUserName;
                 Application.Current.UserAppTheme = SettingsService.Instance.Settings.Theme;
+
+                var list = Enum.GetValues<Genre>();
+                foreach (var item in list)
+                {
+                    GenresList.Add(new GenreViewModel(item, false));
+                }
             });
         }
     }
