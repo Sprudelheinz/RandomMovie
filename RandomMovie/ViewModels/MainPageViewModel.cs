@@ -18,6 +18,7 @@ namespace RandomMovie.ViewModels
 
         public List<GenreViewModel> GenresList { get; set; } = new List<GenreViewModel>();
         private string m_letterBoxdUserName;
+        private string searchText;
 
         public string LetterBoxdUserName 
         { 
@@ -31,6 +32,15 @@ namespace RandomMovie.ViewModels
         public bool ActivityRunning { get; set; } = false;
         public List<Movie> AllTheMovies { get; set; }
         public bool SortAscending { get; set; } = true;
+        public string SearchText 
+        { 
+            get => searchText;
+            set
+            {
+                searchText = value;
+                RaisePropertyChanged(nameof(SearchText));
+            }
+        }
         public Dictionary<string, string> LetterboxdLists { get; internal set; }
 
         public MainPageViewModel()
@@ -63,7 +73,7 @@ namespace RandomMovie.ViewModels
                 Application.Current.UserAppTheme = SettingsService.Instance.Settings.Theme;
 
                 var list = Enum.GetValues<Genre>();
-                foreach (var item in list)
+                foreach (var item in list.OrderBy(x => x.ToString()))
                 {
                     GenresList.Add(new GenreViewModel(item, false));
                 }

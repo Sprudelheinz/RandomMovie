@@ -21,7 +21,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="30" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Text="{x:Static resource:Localisation.FilterGenre}" FontSize="Medium" />
+                <Label Margin="5" Grid.Column="0" Text="{x:Static resource:Localisation.FilterGenre}" FontSize="Medium" />
                 <ImageButton Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="ResetGenreFilter_Clicked" />
             </Grid>
             <ListView Margin="5,10,5,5" Grid.Column="0" Grid.Row="1" WidthRequest="200" HeightRequest="350" x:Name="listView" ItemsSource="{Binding GenresList}">

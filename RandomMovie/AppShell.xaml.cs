@@ -16,9 +16,11 @@ public partial class AppShell : Shell
         if (mainPage != null) 
         {
             var mainPageViewModel = mainPage.BindingContext as MainPageViewModel;
+            foreach (var genre in mainPageViewModel.GenresList)
+                genre.IsSelected = false;
+            mainPageViewModel.SortAscending = true;
             mainPageViewModel.SelectedLetterboxdList.Clear();
-            mainPageViewModel.Movies = mainPageViewModel.AllTheMovies;
-            mainPageViewModel.LetterBoxdUserName = string.Empty;
+            mainPageViewModel.Movies = mainPageViewModel.AllTheMovies;  
         }
 
         var letterboxdListFileName = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.LETTERBOXDLIST_FILENAME);

@@ -119,11 +119,25 @@ public partial class MainPage : ContentPage
 
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-        SearchBar searchBar = (SearchBar)sender;
+        FilterList();
+    }
+
+    private void FilterList()
+    {
         var currentItem = Carousel.CurrentItem as Movie;
-        m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies
-                                        .Where(x => x.MovieTitle.ToLowerInvariant().Contains(searchBar.Text.ToLowerInvariant())).ToList();
-        if (currentItem != null && string.IsNullOrEmpty(searchBar.Text))
+
+        var selectedGenres = m_mainPageViewModel.GenresList.Where(x => x.IsSelected == true);
+        var moviesToFilter = m_mainPageViewModel.SelectedLetterboxdList.Any() ? m_mainPageViewModel.SelectedLetterboxdList : m_mainPageViewModel.AllTheMovies;
+        foreach (var selectedGenre in selectedGenres)
+        {
+            moviesToFilter = moviesToFilter.Where(x => x.Genres != null && x.Genres.Any(x => x == selectedGenre.Genre)).ToList();
+        }
+        if (!string.IsNullOrEmpty(m_mainPageViewModel.SearchText))
+            moviesToFilter = moviesToFilter.Where(x => x.MovieTitle.ToLowerInvariant().Contains(m_mainPageViewModel.SearchText.ToLowerInvariant())).ToList();
+        
+        m_mainPageViewModel.Movies = moviesToFilter;
+
+        if (currentItem != null && string.IsNullOrEmpty(m_mainPageViewModel.SearchText))
         {
             SetCurrentItem(currentItem);
         }
@@ -211,6 +225,10 @@ public partial class MainPage : ContentPage
 
     private void RestoreButton_Clicked(object sender, EventArgs e)
     {
+        foreach (var genre in m_mainPageViewModel.GenresList)
+            genre.IsSelected = false;
+        m_mainPageViewModel.SearchText = null;
+        m_mainPageViewModel.SortAscending = true;
         m_mainPageViewModel.SelectedLetterboxdList.Clear();
         m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies;
         SetCurrentItem(m_mainPageViewModel.Movies.First());
@@ -250,15 +268,7 @@ public partial class MainPage : ContentPage
     {
         var chooseGenre = new ChooseGenre(m_mainPageViewModel);
         var result = await this.ShowPopupAsync(chooseGenre);
-
-        var currentItem = Carousel.CurrentItem as Movie;
-        var selectedGenres = m_mainPageViewModel.GenresList.Where(x => x.IsSelected == true);
-        var moviesToFilter = m_mainPageViewModel.SelectedLetterboxdList.Any() ? m_mainPageViewModel.SelectedLetterboxdList : m_mainPageViewModel.AllTheMovies;
-        foreach (var selectedGenre in selectedGenres)
-        {
-            moviesToFilter = moviesToFilter.Where(x => x.Genres != null && x.Genres.Any(x => x == selectedGenre.Genre)).ToList();
-        }
-        m_mainPageViewModel.Movies = moviesToFilter;
+        FilterList();  
     }
 }
 
