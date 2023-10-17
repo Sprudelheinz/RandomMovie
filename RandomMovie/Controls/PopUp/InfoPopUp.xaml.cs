@@ -4,9 +4,11 @@ namespace RandomMovie.Controls.PopUp;
 
 public partial class InfoPopUp : Popup
 {
-	public InfoPopUp()
+    public string Version => Resources.Localisation.Version + ": " + AppInfo.Current.VersionString;
+    public InfoPopUp()
 	{
 		InitializeComponent();
+        BindingContext = this;
     }
 
     private async void Close_PopUp(object sender, EventArgs e)

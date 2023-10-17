@@ -35,6 +35,7 @@
                 <Button Grid.Column="0" Margin="5" Text="GitHub" Clicked="Open_Github" />
                 <Button Grid.Column="1" Margin="5" Text="{x:Static resource:Localisation.Rate}" Clicked="Open_Market" />
             </Grid>
+            <Label Grid.Row="3" Margin="5,5,5,20" HorizontalOptions="Start" Text="{Binding Version}" />
             <Button Grid.Row="3" Margin="5,5,5,20" HorizontalOptions="End" Text="{x:Static resource:Localisation.Close}" Clicked="Close_PopUp" />
         </Grid>
     </Border>

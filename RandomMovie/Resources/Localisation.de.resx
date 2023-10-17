@@ -167,4 +167,7 @@ z.B.: https://letterboxd.com/Sprudelheinz/</value>
   <data name="Genre" xml:space="preserve">
     <value>Genre</value>
   </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
 </root>

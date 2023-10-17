@@ -226,6 +226,15 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Version ähnelt.
+        /// </summary>
+        internal static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Yes ähnelt.
         /// </summary>
         internal static string Yes {

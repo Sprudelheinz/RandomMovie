@@ -18,6 +18,7 @@ public partial class AppShell : Shell
             var mainPageViewModel = mainPage.BindingContext as MainPageViewModel;
             foreach (var genre in mainPageViewModel.GenresList)
                 genre.IsSelected = false;
+            mainPageViewModel.SearchText = null;
             mainPageViewModel.SortAscending = true;
             mainPageViewModel.SelectedLetterboxdList.Clear();
             mainPageViewModel.Movies = mainPageViewModel.AllTheMovies;  
