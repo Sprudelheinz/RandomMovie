@@ -137,7 +137,7 @@ public partial class MainPage : ContentPage
         
         m_mainPageViewModel.Movies = moviesToFilter;
 
-        if (currentItem != null && string.IsNullOrEmpty(m_mainPageViewModel.SearchText))
+        if (currentItem != null && m_mainPageViewModel.Movies.Contains(currentItem) && string.IsNullOrEmpty(m_mainPageViewModel.SearchText))
         {
             SetCurrentItem(currentItem);
         }
@@ -145,7 +145,7 @@ public partial class MainPage : ContentPage
 
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VerticalStackLayout vsl && vsl.BindingContext is Movie movie)
+        if (sender is VerticalStackLayout vsl && vsl.BindingContext is Movie movie && m_mainPageViewModel.Movies.Contains(movie))
         {
             Carousel.CurrentItem = movie;
         }
