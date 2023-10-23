@@ -21,6 +21,7 @@ public partial class AppShell : Shell
             mainPageViewModel.SearchText = null;
             mainPageViewModel.SortAscending = true;
             mainPageViewModel.SelectedLetterboxdList.Clear();
+            mainPageViewModel.Rating = null;
             mainPageViewModel.Movies = mainPageViewModel.AllTheMovies;  
         }
 

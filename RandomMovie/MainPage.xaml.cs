@@ -134,7 +134,8 @@ public partial class MainPage : ContentPage
         }
         if (!string.IsNullOrEmpty(m_mainPageViewModel.SearchText))
             moviesToFilter = moviesToFilter.Where(x => x.MovieTitle.ToLowerInvariant().Contains(m_mainPageViewModel.SearchText.ToLowerInvariant())).ToList();
-        
+        if (m_mainPageViewModel.Rating != null)
+            moviesToFilter = moviesToFilter.Where(x => x.Rating >= m_mainPageViewModel.Rating).ToList();
         m_mainPageViewModel.Movies = moviesToFilter;
 
         if (currentItem != null && m_mainPageViewModel.Movies.Contains(currentItem) && string.IsNullOrEmpty(m_mainPageViewModel.SearchText))
@@ -230,6 +231,7 @@ public partial class MainPage : ContentPage
         m_mainPageViewModel.SearchText = null;
         m_mainPageViewModel.SortAscending = true;
         m_mainPageViewModel.SelectedLetterboxdList.Clear();
+        m_mainPageViewModel.Rating = null;
         m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies;
         SetCurrentItem(m_mainPageViewModel.Movies.First());
     }
@@ -269,6 +271,13 @@ public partial class MainPage : ContentPage
         var chooseGenre = new ChooseGenre(m_mainPageViewModel);
         var result = await this.ShowPopupAsync(chooseGenre);
         FilterList();  
+    }
+
+    private async void RatingButton_Clicked(object sender, EventArgs e)
+    {
+        var chooseRatingFilter = new ChooseRatingFilter(m_mainPageViewModel);
+        var result = await this.ShowPopupAsync(chooseRatingFilter);
+        FilterList();
     }
 }
 

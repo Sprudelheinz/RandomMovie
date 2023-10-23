@@ -170,4 +170,7 @@ z.B.: https://letterboxd.com/Sprudelheinz/</value>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="RatingFilter" xml:space="preserve">
+    <value>Bewertungs Filter</value>
+  </data>
 </root>

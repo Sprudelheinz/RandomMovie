@@ -208,6 +208,15 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Filter rating ähnelt.
+        /// </summary>
+        internal static string RatingFilter {
+            get {
+                return ResourceManager.GetString("RatingFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Reset Letterboxd List ähnelt.
         /// </summary>
         internal static string ResetList {

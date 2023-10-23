@@ -20,6 +20,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="30" />
                 </Grid.ColumnDefinitions>
                 <SearchBar Placeholder="{x:Static resource:Localisation.MovieName}"  Grid.Column="0" Text="{Binding SearchText}" TextChanged="SearchBar_TextChanged" />
                 <Button 
@@ -30,8 +31,9 @@
                     Grid.Column="1" 
                     Text="{x:Static resource:Localisation.Genre}" 
                     Clicked="ChooseGenre_Clicked" />
-                <ImageButton Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=sort.png, Light=sort.png, Dark=sort_dark.png}"  Clicked="Button_Clicked" />
-                <ImageButton Grid.Column="3" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="RestoreButton_Clicked" />
+                <ImageButton x:Name="RatingButton" Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=star.png, Light=star.png, Dark=star_dark.png}"  Clicked="RatingButton_Clicked" />
+                <ImageButton Grid.Column="3" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=sort.png, Light=sort.png, Dark=sort_dark.png}"  Clicked="Button_Clicked" />
+                <ImageButton Grid.Column="4" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="RestoreButton_Clicked" />
             </Grid>
             <CarouselView Grid.Row="1" ItemsSource="{Binding Movies}" Loop="False" x:Name="Carousel">
                 <CarouselView.ItemsLayout>

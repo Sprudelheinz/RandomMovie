@@ -29,6 +29,16 @@ namespace RandomMovie.ViewModels
                 RaisePropertyChanged(nameof(LetterBoxdUserName));
             }
         }
+        private double? m_rating = null;
+        public double? Rating
+        {
+            get => m_rating;
+            set
+            {
+                m_rating = value;
+                RaisePropertyChanged(nameof(Rating));
+            }
+        }
         public bool ActivityRunning { get; set; } = false;
         public List<Movie> AllTheMovies { get; set; }
         public bool SortAscending { get; set; } = true;

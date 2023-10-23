@@ -16,6 +16,8 @@ namespace RandomMovie
         public bool IsDark { get; set; }
         public string FilmID { get; set; }
         public List<Genre> Genres { get; set; }
+        public double Rating { get; set; }
+
         [JsonIgnore]
         public string MovieTitle => Name + " (" + Year + ")";
 
