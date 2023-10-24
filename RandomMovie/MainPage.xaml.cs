@@ -3,8 +3,6 @@ using RandomMovie.Controls.PopUp;
 using RandomMovie.Resources;
 using RandomMovie.Services;
 using RandomMovie.ViewModels;
-using System;
-using System.Reflection.Metadata;
 
 namespace RandomMovie;
 
@@ -30,7 +28,6 @@ public partial class MainPage : ContentPage
         Carousel.HeightRequest = CAROUSEL_HEIGHTREQUEST;
 #endif
         ToggleAcclerometer();
-        //ToggleMagnetometer();
     }
 
     private void Carousel_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
@@ -235,7 +232,7 @@ public partial class MainPage : ContentPage
                 // Turn on accelerometer
                 Accelerometer.Default.ShakeDetected += Accelerometer_ShakeDetected;
                 Accelerometer.Default.ReadingChanged += Default_ReadingChanged;
-                Accelerometer.Default.Start(SensorSpeed.Game);
+                Accelerometer.Default.Start(SensorSpeed.Default);
             }
             else
             {
@@ -269,15 +266,13 @@ public partial class MainPage : ContentPage
     private void Default_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
     {
         m_accelerometerFieldX = Math.Round(e.Reading.Acceleration.X, 2);
-        var magneticFieldY = Math.Round(e.Reading.Acceleration.Y, 2);
-        var magneticFieldZ = Math.Round(e.Reading.Acceleration.Z, 2);
 
-        AccelerometerLabel.Text = $"x: {m_accelerometerFieldX} y: {magneticFieldY} z: {magneticFieldZ}";
+        //AccelerometerLabel.Text = $"x: {m_accelerometerFieldX} y: {magneticFieldY} z: {magneticFieldZ}";
         if (m_accelerometerFieldX < -0.15)
             StartScroll();
-        if (m_accelerometerFieldX > 0.15)
+        else if (m_accelerometerFieldX > 0.15)
             StartScroll();
-        if (m_timer != null && m_timer.IsRunning && m_accelerometerFieldX > -0.15 && m_accelerometerFieldX < 0.15)
+        else if (m_timer != null && m_timer.IsRunning)
         {
             m_timer.Stop();
             m_oldInterval = null;
@@ -295,7 +290,6 @@ public partial class MainPage : ContentPage
     private double? m_oldInterval = null;
     private void StartScroll()
     {
-        int i = 0;
         if (m_timer == null)
         {
             m_timer = Application.Current.Dispatcher.CreateTimer();
@@ -306,10 +300,10 @@ public partial class MainPage : ContentPage
         }
         var xAbsValue = Math.Abs(m_accelerometerFieldX);
         double interval;
-        if (xAbsValue > 0.6)
+        if (xAbsValue > 0.4)
             interval = 0.3;
         else
-            interval = Math.Round(Map(xAbsValue, 0.15, 0.6, 0.8, 0.3), 1);
+            interval = Math.Round(Map(xAbsValue, 0.15, 0.4, 0.5, 0.3), 1);
         if (m_oldInterval == null)
         { 
             m_timer.Interval = TimeSpan.FromSeconds(interval);
