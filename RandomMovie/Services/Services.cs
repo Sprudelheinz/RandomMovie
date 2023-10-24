@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using RandomMovie.ViewModels;
-using System.Linq.Expressions;
 
 namespace RandomMovie.Services
 {
@@ -206,6 +205,18 @@ namespace RandomMovie.Services
             if (m_height.Value > 345)
                 m_height = 345;
             return m_height.Value;
+        }
+
+        public static void ResetList(MainPageViewModel mainPageViewModel)
+        {
+            foreach (var genre in mainPageViewModel.GenresList)
+                genre.IsSelected = false;
+            mainPageViewModel.SearchText = null;
+            mainPageViewModel.SortAscending = true;
+            mainPageViewModel.SelectedLetterboxdList.Clear();
+            mainPageViewModel.Rating = null;
+            mainPageViewModel.Movies = mainPageViewModel.AllTheMovies;
+            mainPageViewModel.GreaterThanSmallerThan = true;
         }
     }
 }

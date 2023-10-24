@@ -17,9 +17,8 @@ namespace RandomMovie.ViewModels
         public List<Movie> SelectedLetterboxdList { get; set; } = new List<Movie>();
 
         public List<GenreViewModel> GenresList { get; set; } = new List<GenreViewModel>();
-        private string m_letterBoxdUserName;
-        private string searchText;
 
+        private string m_letterBoxdUserName;
         public string LetterBoxdUserName 
         { 
             get => m_letterBoxdUserName;
@@ -42,6 +41,8 @@ namespace RandomMovie.ViewModels
         public bool ActivityRunning { get; set; } = false;
         public List<Movie> AllTheMovies { get; set; }
         public bool SortAscending { get; set; } = true;
+
+        private string searchText;
         public string SearchText 
         { 
             get => searchText;
@@ -49,6 +50,24 @@ namespace RandomMovie.ViewModels
             {
                 searchText = value;
                 RaisePropertyChanged(nameof(SearchText));
+            }
+        }
+
+        private bool m_greaterThanSmallerThan = true;
+        public bool GreaterThanSmallerThan
+        {
+            get => m_greaterThanSmallerThan;
+            set
+            {
+                m_greaterThanSmallerThan = value;
+                RaisePropertyChanged(nameof(GreaterThanSmallerThanText));
+            }
+        }
+        public string GreaterThanSmallerThanText
+        {
+            get => GreaterThanSmallerThan ? Resources.Localisation.GreaterThan : Resources.Localisation.SmallerThan;
+            set
+            {     
             }
         }
         public Dictionary<string, string> LetterboxdLists { get; internal set; }

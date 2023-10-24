@@ -118,6 +118,15 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ratings greater than ähnelt.
+        /// </summary>
+        internal static string GreaterThan {
+            get {
+                return ResourceManager.GetString("GreaterThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die - Scroll through a color sorted list with 30000+ movies
         ///- Search a movie by name or year (Searchbar)
         ///- Change sort direction (Icon next to the searchbar)
@@ -208,7 +217,7 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Filter rating ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rating ähnelt.
         /// </summary>
         internal static string RatingFilter {
             get {
@@ -231,6 +240,15 @@ namespace RandomMovie.Resources {
         internal static string ResetPosterCache {
             get {
                 return ResourceManager.GetString("ResetPosterCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ratings smaller than ähnelt.
+        /// </summary>
+        internal static string SmallerThan {
+            get {
+                return ResourceManager.GetString("SmallerThan", resourceCulture);
             }
         }
         

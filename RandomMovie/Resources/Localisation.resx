@@ -171,6 +171,12 @@ e.g.: https://letterboxd.com/Sprudelheinz/</value>
     <value>Version</value>
   </data>
   <data name="RatingFilter" xml:space="preserve">
-    <value>Filter rating</value>
+    <value>Rating</value>
+  </data>
+  <data name="GreaterThan" xml:space="preserve">
+    <value>ratings greater than</value>
+  </data>
+  <data name="SmallerThan" xml:space="preserve">
+    <value>ratings smaller than</value>
   </data>
 </root>

@@ -1,8 +1,5 @@
 using CommunityToolkit.Maui.Views;
-using RandomMovie.Enums;
 using RandomMovie.ViewModels;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace RandomMovie.Controls.PopUp;
@@ -37,5 +34,10 @@ public partial class ChooseRatingFilter : Popup, INotifyPropertyChanged
     private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
         m_mainPageViewModel.Rating = Math.Round(e.NewValue, 1);
+    }
+
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+        m_mainPageViewModel.GreaterThanSmallerThan = !m_mainPageViewModel.GreaterThanSmallerThan;
     }
 }

@@ -1,10 +1,8 @@
 ﻿using CommunityToolkit.Maui.Views;
 using RandomMovie.Controls.PopUp;
-using RandomMovie.Enums;
 using RandomMovie.Resources;
 using RandomMovie.Services;
 using RandomMovie.ViewModels;
-using System;
 
 namespace RandomMovie;
 
@@ -135,7 +133,12 @@ public partial class MainPage : ContentPage
         if (!string.IsNullOrEmpty(m_mainPageViewModel.SearchText))
             moviesToFilter = moviesToFilter.Where(x => x.MovieTitle.ToLowerInvariant().Contains(m_mainPageViewModel.SearchText.ToLowerInvariant())).ToList();
         if (m_mainPageViewModel.Rating != null)
-            moviesToFilter = moviesToFilter.Where(x => x.Rating >= m_mainPageViewModel.Rating).ToList();
+        {
+            if (m_mainPageViewModel.GreaterThanSmallerThan)
+                moviesToFilter = moviesToFilter.Where(x => x.Rating >= m_mainPageViewModel.Rating).ToList();
+            else
+                moviesToFilter = moviesToFilter.Where(x => x.Rating <= m_mainPageViewModel.Rating).ToList();
+        }
         m_mainPageViewModel.Movies = moviesToFilter;
 
         if (currentItem != null && m_mainPageViewModel.Movies.Contains(currentItem) && string.IsNullOrEmpty(m_mainPageViewModel.SearchText))
@@ -226,15 +229,11 @@ public partial class MainPage : ContentPage
 
     private void RestoreButton_Clicked(object sender, EventArgs e)
     {
-        foreach (var genre in m_mainPageViewModel.GenresList)
-            genre.IsSelected = false;
-        m_mainPageViewModel.SearchText = null;
-        m_mainPageViewModel.SortAscending = true;
-        m_mainPageViewModel.SelectedLetterboxdList.Clear();
-        m_mainPageViewModel.Rating = null;
-        m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies;
+        Services.Services.ResetList(m_mainPageViewModel);
         SetCurrentItem(m_mainPageViewModel.Movies.First());
     }
+
+    
 
     private void ImageButton_Clicked(object sender, EventArgs e)
     {

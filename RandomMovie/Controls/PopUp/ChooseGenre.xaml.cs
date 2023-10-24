@@ -1,8 +1,5 @@
 using CommunityToolkit.Maui.Views;
-using RandomMovie.Enums;
 using RandomMovie.ViewModels;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace RandomMovie.Controls.PopUp;

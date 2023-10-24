@@ -25,8 +25,22 @@
                 <Label Margin="5" Grid.Column="0" Text="{x:Static resource:Localisation.RatingFilter}" FontSize="Medium" />
                 <ImageButton Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="ResetGenreFilter_Clicked" />
             </Grid>
-            <Label Grid.Row="1" HorizontalOptions="Center" Margin="5" Text="{Binding Rating}" FontSize="Medium" />
-            <Slider x:Name="RatingSlider" WidthRequest="300" HeightRequest="30" Grid.Row="2" Minimum="0" Maximum="5" ValueChanged="Slider_ValueChanged" />
+            <Grid Grid.Row="1" HorizontalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" StrokeThickness="2" Padding="5" StrokeShape="RoundRectangle 5,5,5,5" Background="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1" />
+                    </Border.GestureRecognizers>
+                    <Label Margin="10,0,0,0" FontSize="Small" Text="{Binding GreaterThanSmallerThanText}" />
+                </Border>
+                <Label VerticalOptions="Center" Grid.Column="1" Text="{Binding Rating}" FontSize="Small" />
+            </Grid>
+            <Label Grid.Row="2" Margin="10,0,10,0" Text="0.5" HorizontalOptions="Start"/>
+            <Label Grid.Row="2" Margin="10,0,10,0" Text="5" HorizontalOptions="End"/>
+            <Slider Margin="10" x:Name="RatingSlider" WidthRequest="300" HeightRequest="30" Grid.Row="2" Minimum="0.5" Maximum="5" ValueChanged="Slider_ValueChanged" />
             <Button Margin="10" Grid.Row="3" HorizontalOptions="Center" Text="{x:Static resource:Localisation.Close}" Clicked="Close_PopUp" />
         </Grid>
     </Border>
