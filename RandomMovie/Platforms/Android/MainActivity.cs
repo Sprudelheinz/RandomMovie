@@ -15,4 +15,22 @@ public class MainActivity : MauiAppCompatActivity
         RequestedOrientation = ScreenOrientation.Portrait;
 
     }
+
+    protected override void OnPause()
+    {
+        if (Accelerometer.Default.IsSupported && Accelerometer.Default.IsMonitoring)
+        {
+            Accelerometer.Default.Stop();
+        }
+        base.OnPause();      
+    }
+
+    protected override void OnResume()
+    {
+        if (Accelerometer.Default.IsSupported && !Accelerometer.Default.IsMonitoring)
+        {
+            Accelerometer.Default.Start(SensorSpeed.Default);
+        }
+        base.OnResume();     
+    }
 }

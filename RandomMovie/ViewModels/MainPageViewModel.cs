@@ -1,6 +1,5 @@
-﻿using RandomMovie.Controls.PopUp;
+﻿using RandomMovie.Enums;
 using RandomMovie.Services;
-using System.ComponentModel;
 
 namespace RandomMovie.ViewModels
 {
@@ -16,8 +15,10 @@ namespace RandomMovie.ViewModels
             }
         }
         public List<Movie> SelectedLetterboxdList { get; set; } = new List<Movie>();
-        private string m_letterBoxdUserName;
 
+        public List<GenreViewModel> GenresList { get; set; } = new List<GenreViewModel>();
+
+        private string m_letterBoxdUserName;
         public string LetterBoxdUserName 
         { 
             get => m_letterBoxdUserName;
@@ -27,9 +28,48 @@ namespace RandomMovie.ViewModels
                 RaisePropertyChanged(nameof(LetterBoxdUserName));
             }
         }
+        private double? m_rating = null;
+        public double? Rating
+        {
+            get => m_rating;
+            set
+            {
+                m_rating = value;
+                RaisePropertyChanged(nameof(Rating));
+            }
+        }
         public bool ActivityRunning { get; set; } = false;
         public List<Movie> AllTheMovies { get; set; }
         public bool SortAscending { get; set; } = true;
+
+        private string searchText;
+        public string SearchText 
+        { 
+            get => searchText;
+            set
+            {
+                searchText = value;
+                RaisePropertyChanged(nameof(SearchText));
+            }
+        }
+
+        private bool m_greaterThanSmallerThan = true;
+        public bool GreaterThanSmallerThan
+        {
+            get => m_greaterThanSmallerThan;
+            set
+            {
+                m_greaterThanSmallerThan = value;
+                RaisePropertyChanged(nameof(GreaterThanSmallerThanText));
+            }
+        }
+        public string GreaterThanSmallerThanText
+        {
+            get => GreaterThanSmallerThan ? Resources.Localisation.GreaterThan : Resources.Localisation.SmallerThan;
+            set
+            {     
+            }
+        }
         public Dictionary<string, string> LetterboxdLists { get; internal set; }
 
         public MainPageViewModel()
@@ -42,24 +82,30 @@ namespace RandomMovie.ViewModels
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 AllTheMovies = await Services.Services.ReadJsonFromFileAsync("brightToDark.json");
-                var letterboxdListFileName = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.LETTERBOXDLIST_FILENAME);
-                if (File.Exists(letterboxdListFileName))
-                {
-                    try
-                    {
-                        var letterboxdListJson = Services.Services.ReadTextFile(letterboxdListFileName);
-                        SelectedLetterboxdList = Services.Services.ReadJson(letterboxdListJson);
-                    }
-                    catch
-                    {
-                        SelectedLetterboxdList = new List<Movie>();
-                        File.Delete(letterboxdListFileName);
-                    }
-                }
+                //var letterboxdListFileName = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.LETTERBOXDLIST_FILENAME);
+                //if (File.Exists(letterboxdListFileName))
+                //{
+                //    try
+                //    {
+                //        var letterboxdListJson = Services.Services.ReadTextFile(letterboxdListFileName);
+                //        SelectedLetterboxdList = Services.Services.ReadJson(letterboxdListJson);
+                //    }
+                //    catch
+                //    {
+                //        SelectedLetterboxdList = new List<Movie>();
+                //        File.Delete(letterboxdListFileName);
+                //    }
+                //}
                 Movies = AllTheMovies;
                 
                 LetterBoxdUserName = SettingsService.Instance.Settings.LetterBoxdUserName;
                 Application.Current.UserAppTheme = SettingsService.Instance.Settings.Theme;
+
+                var list = Enum.GetValues<Genre>();
+                foreach (var item in list.OrderBy(x => x.ToString()))
+                {
+                    GenresList.Add(new GenreViewModel(item, false));
+                }
             });
         }
     }

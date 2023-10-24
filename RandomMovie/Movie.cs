@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RandomMovie.Enums;
 using RandomMovie.ViewModels;
 
 namespace RandomMovie
@@ -6,16 +8,19 @@ namespace RandomMovie
     public class Movie : ObservableViewModelBase
     {
         public int SortValue { get; set; }
-        public DateTime Date { get; set; }
         public string Name { get; set; }
         public int Year { get; set; }
         public string LetterboxdURI { get; set; }
-        public string FileName { get; set; }
         public string PosterWebsiteLink { get; set; }
         public System.Drawing.Color MainColor { get; set; }
         public bool IsDark { get; set; }
         public string FilmID { get; set; }
+        public List<Genre> Genres { get; set; }
+        public double Rating { get; set; }
+
+        [JsonIgnore]
         public string MovieTitle => Name + " (" + Year + ")";
+
         private ImageSource posterImageSource;
         [JsonIgnore]
         public ImageSource PosterImageSource 
@@ -30,9 +35,13 @@ namespace RandomMovie
             {
                 posterImageSource = value;
                 RaisePropertyChanged(nameof(PosterImageSource));
+                RaisePropertyChanged(nameof(PosterNotAvailable));
             }
         }
-        
+
+        [JsonIgnore]
+        public bool PosterNotAvailable { get; set; }  = false;
+
         [JsonIgnore]
         public double Width => Services.Services.GetWidth();
 
@@ -53,7 +62,7 @@ namespace RandomMovie
             }
             MainThread.BeginInvokeOnMainThread(async () => await Services.Services.ImageDownloaderInstance.DownloadImageAsync(cacheFolder, FilmID, new Uri(PosterWebsiteLink), this));
         }
-
+        [JsonIgnore]
         public Color MainColorMaui => GetColor(MainColor);
 
         private Color GetColor(System.Drawing.Color mainColor)

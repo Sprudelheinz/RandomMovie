@@ -136,4 +136,47 @@ z.B.: https://letterboxd.com/Sprudelheinz/</value>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="InfoText" xml:space="preserve">
+    <value>- Scrollen Sie durch eine farblich sortierte Liste mit über 30000 Filmen
+- Suchen Sie einen Film nach Name oder Jahr (Suchleiste)
+- Sortierrichtung ändern (Icon neben der Suchleiste)
+- Zurücksetzen der Liste auf die Standardeinstellungen
+- Erzeugen eines Zufallsfilms (Button unter der Liste)
+  - Erzeugen eines Zufallsfilms durch Schütteln des Telefons
+- Öffnen Sie den Film direkt auf letterboxd, um weitere Informationen zu erhalten (Schaltfläche mit Filmname (Jahr))
+- Geben Sie Ihren letterboxd-Benutzernamen ein
+- Wählen Sie eine Liste aus Ihren letterboxd-Listen (PopUp)
+    - Die gewählte Liste ist nun die Liste und Sie können durch Ihre farblich sortierte Liste blättern oder einen beliebigen Film auswählen
+- Menü oben links
+  - Ausgewählte Liste zurücksetzen
+  - Alle zwischengespeicherten Poster zurücksetzen
+  - Ändern Sie das Thema der App (hell-dunkel)</value>
+  </data>
+  <data name="InfoText2" xml:space="preserve">
+    <value>Bugs melden / Kommentare / Support</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Bewerte die App</value>
+  </data>
+  <data name="PosterNotAvailable" xml:space="preserve">
+    <value>Poster Fehler</value>
+  </data>
+  <data name="FilterGenre" xml:space="preserve">
+    <value>Genre Filter</value>
+  </data>
+  <data name="Genre" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="RatingFilter" xml:space="preserve">
+    <value>Bewertung</value>
+  </data>
+  <data name="GreaterThan" xml:space="preserve">
+    <value>Bewertungen größer als</value>
+  </data>
+  <data name="SmallerThan" xml:space="preserve">
+    <value>Bewertungen kleiner als</value>
+  </data>
 </root>

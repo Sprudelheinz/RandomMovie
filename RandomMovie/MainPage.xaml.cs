@@ -38,6 +38,19 @@ public partial class MainPage : ContentPage
         if (e.CurrentItem is Movie)
             LetterBoxd.Text = (e.CurrentItem as Movie)?.MovieTitle;
     }
+    protected override void OnDisappearing()
+    {
+        if (Accelerometer.Default.IsSupported)
+        {
+            if (Accelerometer.Default.IsMonitoring)
+            {
+                // Turn off accelerometer
+                Accelerometer.Default.Stop();
+                Accelerometer.Default.ShakeDetected -= Accelerometer_ShakeDetected;
+            }
+            base.OnDisappearing();
+        }
+    }
 
     void GenerateRandomMovie()
     {
@@ -89,11 +102,31 @@ public partial class MainPage : ContentPage
 
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-        SearchBar searchBar = (SearchBar)sender;
+        FilterList();
+    }
+
+    private void FilterList()
+    {
         var currentItem = Carousel.CurrentItem as Movie;
-        m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies
-                                        .Where(x => x.MovieTitle.ToLowerInvariant().Contains(searchBar.Text.ToLowerInvariant())).ToList();
-        if (currentItem != null && string.IsNullOrEmpty(searchBar.Text))
+
+        var selectedGenres = m_mainPageViewModel.GenresList.Where(x => x.IsSelected == true);
+        var moviesToFilter = m_mainPageViewModel.SelectedLetterboxdList.Any() ? m_mainPageViewModel.SelectedLetterboxdList : m_mainPageViewModel.AllTheMovies;
+        foreach (var selectedGenre in selectedGenres)
+        {
+            moviesToFilter = moviesToFilter.Where(x => x.Genres != null && x.Genres.Any(x => x == selectedGenre.Genre)).ToList();
+        }
+        if (!string.IsNullOrEmpty(m_mainPageViewModel.SearchText))
+            moviesToFilter = moviesToFilter.Where(x => x.MovieTitle.ToLowerInvariant().Contains(m_mainPageViewModel.SearchText.ToLowerInvariant())).ToList();
+        if (m_mainPageViewModel.Rating != null)
+        {
+            if (m_mainPageViewModel.GreaterThanSmallerThan)
+                moviesToFilter = moviesToFilter.Where(x => x.Rating >= m_mainPageViewModel.Rating).ToList();
+            else
+                moviesToFilter = moviesToFilter.Where(x => x.Rating <= m_mainPageViewModel.Rating).ToList();
+        }
+        m_mainPageViewModel.Movies = moviesToFilter;
+
+        if (currentItem != null && m_mainPageViewModel.Movies.Contains(currentItem) && string.IsNullOrEmpty(m_mainPageViewModel.SearchText))
         {
             SetCurrentItem(currentItem);
         }
@@ -101,7 +134,7 @@ public partial class MainPage : ContentPage
 
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        if (sender is VerticalStackLayout vsl && vsl.BindingContext is Movie movie)
+        if (sender is VerticalStackLayout vsl && vsl.BindingContext is Movie movie && m_mainPageViewModel.Movies.Contains(movie))
         {
             Carousel.CurrentItem = movie;
         }
@@ -181,9 +214,11 @@ public partial class MainPage : ContentPage
 
     private void RestoreButton_Clicked(object sender, EventArgs e)
     {
-        m_mainPageViewModel.Movies = m_mainPageViewModel.AllTheMovies;
+        Services.Services.ResetList(m_mainPageViewModel);
         SetCurrentItem(m_mainPageViewModel.Movies.First());
     }
+
+    
 
     private void ImageButton_Clicked(object sender, EventArgs e)
     {
@@ -215,6 +250,20 @@ public partial class MainPage : ContentPage
     private void Accelerometer_ShakeDetected(object sender, EventArgs e)
     {
         GenerateRandomMovie();
+    }
+
+    private async void ChooseGenre_Clicked(object sender, EventArgs e)
+    {
+        var chooseGenre = new ChooseGenre(m_mainPageViewModel);
+        var result = await this.ShowPopupAsync(chooseGenre);
+        FilterList();  
+    }
+
+    private async void RatingButton_Clicked(object sender, EventArgs e)
+    {
+        var chooseRatingFilter = new ChooseRatingFilter(m_mainPageViewModel);
+        var result = await this.ShowPopupAsync(chooseRatingFilter);
+        FilterList();
     }
 
     private void Default_ReadingChanged(object sender, AccelerometerChangedEventArgs e)

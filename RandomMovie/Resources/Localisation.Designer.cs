@@ -100,11 +100,56 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Filter genre ähnelt.
+        /// </summary>
+        internal static string FilterGenre {
+            get {
+                return ResourceManager.GetString("FilterGenre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Genre ähnelt.
+        /// </summary>
+        internal static string Genre {
+            get {
+                return ResourceManager.GetString("Genre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ratings greater than ähnelt.
+        /// </summary>
+        internal static string GreaterThan {
+            get {
+                return ResourceManager.GetString("GreaterThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die - Scroll through a color sorted list with 30000+ movies
+        ///- Search a movie by name or year (Searchbar)
+        ///- Change sort direction (Icon next to the searchbar)
+        ///- Reset the list to default
+        ///- Generate a random movie (button below list)
+        ///  - Generate a random movie by shaking the phone
+        ///- Open the movie directly on letterboxd to get further information (button with movie name (year))
+        ///- Enter your letterboxd username
+        ///- Choose a list from your letterboxd lists (PopUp)
+        ///    - The choosen list is now the list and  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string InfoText {
             get {
                 return ResourceManager.GetString("InfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Report Bugs / Comments / Support ähnelt.
+        /// </summary>
+        internal static string InfoText2 {
+            get {
+                return ResourceManager.GetString("InfoText2", resourceCulture);
             }
         }
         
@@ -145,11 +190,38 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Poster error ähnelt.
+        /// </summary>
+        internal static string PosterNotAvailable {
+            get {
+                return ResourceManager.GetString("PosterNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Get Random Movie ähnelt.
         /// </summary>
         internal static string RandomMovie {
             get {
                 return ResourceManager.GetString("RandomMovie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rate App ähnelt.
+        /// </summary>
+        internal static string Rate {
+            get {
+                return ResourceManager.GetString("Rate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rating ähnelt.
+        /// </summary>
+        internal static string RatingFilter {
+            get {
+                return ResourceManager.GetString("RatingFilter", resourceCulture);
             }
         }
         
@@ -168,6 +240,24 @@ namespace RandomMovie.Resources {
         internal static string ResetPosterCache {
             get {
                 return ResourceManager.GetString("ResetPosterCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die ratings smaller than ähnelt.
+        /// </summary>
+        internal static string SmallerThan {
+            get {
+                return ResourceManager.GetString("SmallerThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Version ähnelt.
+        /// </summary>
+        internal static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
         

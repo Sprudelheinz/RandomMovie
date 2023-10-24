@@ -21,7 +21,7 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-		SettingsService.Init();
+        SettingsService.Init();
 
         return builder.Build();
 	}

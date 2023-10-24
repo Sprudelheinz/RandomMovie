@@ -16,9 +16,7 @@ public partial class AppShell : Shell
         if (mainPage != null) 
         {
             var mainPageViewModel = mainPage.BindingContext as MainPageViewModel;
-            mainPageViewModel.SelectedLetterboxdList.Clear();
-            mainPageViewModel.Movies = mainPageViewModel.AllTheMovies;
-            mainPageViewModel.LetterBoxdUserName = string.Empty;
+            Services.Services.ResetList(mainPageViewModel);
         }
 
         var letterboxdListFileName = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.LETTERBOXDLIST_FILENAME);
