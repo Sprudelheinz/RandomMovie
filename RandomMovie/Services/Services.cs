@@ -1,4 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using CommunityToolkit.Maui.Views;
+using Microsoft.Maui.ApplicationModel;
+using Newtonsoft.Json;
+using RandomMovie.Controls.PopUp;
+using RandomMovie.Resources;
+using RandomMovie.Services.Interface;
 using RandomMovie.ViewModels;
 
 namespace RandomMovie.Services
@@ -61,14 +66,29 @@ namespace RandomMovie.Services
             return null;
         }
 
-        internal async static Task ReadListFromUri(string uri, MainPageViewModel mainPageViewModel)
+        internal async static Task ReadListFromUri(string uri, MainPageViewModel mainPageViewModel, ActivityIndicatorPopUp activityIndicatorPopUp)
         {        
             try
             {
+                SettingsService.Instance.Settings.LetterBoxdUserName = mainPageViewModel.LetterBoxdUserName;
+                SettingsService.Instance.SaveSettingsAsync();
                 using (var httpClient = new HttpClient())
                 {
                     var doc = new HtmlAgilityPack.HtmlDocument();
                     int pages = await GetPageNumbersAsync(httpClient, uri);
+                    //if (pages > 20)
+                    //{
+                    //    await activityIndicatorPopUp.CloseAsync();
+                    //    Thread.Sleep(100);
+                    //    var infoMessage = new InfoMessagePopUp(Localisation.WarnTooMuchToLoad, Enums.InfoMessageAnswer.YesNo);
+                    //    var popUpService = ServiceProvider.GetService<IPopupService>();
+                        
+                    //    var value = await popUpService.ShowPopupAsync(infoMessage);
+                    //    if (value is bool returnValue && !returnValue)
+                    //        return;
+                    //    activityIndicatorPopUp = new ActivityIndicatorPopUp();
+                    //    _ = popUpService.ShowPopupAsync(activityIndicatorPopUp);
+                    //}
                     mainPageViewModel.SelectedLetterboxdList = new List<Movie>();
                     var webStrings = await GetWebStrings(httpClient, uri, pages);
                     foreach (var webstring in webStrings)
@@ -91,10 +111,7 @@ namespace RandomMovie.Services
                             }
                     }
                 }
-                mainPageViewModel.SelectedLetterboxdList = mainPageViewModel.SelectedLetterboxdList.OrderBy(x => x.SortValue).Distinct().ToList();
-                //SaveJson(mainPageViewModel.SelectedLetterboxdList);
-                SettingsService.Instance.Settings.LetterBoxdUserName = mainPageViewModel.LetterBoxdUserName;
-                SettingsService.Instance.SaveSettingsAsync();
+                mainPageViewModel.SelectedLetterboxdList = mainPageViewModel.SelectedLetterboxdList.OrderBy(x => x.SortValue).Distinct().ToList();               
             }
             catch
             {

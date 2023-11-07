@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using RandomMovie.Services;
+using RandomMovie.Services.Interface;
 
 namespace RandomMovie;
 
@@ -22,7 +23,7 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
         SettingsService.Init();
-
+        builder.Services.AddTransient<IPopupService, PopupService>();
         return builder.Build();
 	}
 }

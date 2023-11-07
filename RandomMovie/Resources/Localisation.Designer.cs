@@ -118,7 +118,7 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ratings greater than ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die greater than ähnelt.
         /// </summary>
         internal static string GreaterThan {
             get {
@@ -244,7 +244,7 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die ratings smaller than ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die smaller than ähnelt.
         /// </summary>
         internal static string SmallerThan {
             get {
@@ -258,6 +258,18 @@ namespace RandomMovie.Resources {
         internal static string Version {
             get {
                 return ResourceManager.GetString("Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Attention.
+        ///There are more than 2000 movies in the list.
+        ///It can take a long time until the app responds again.
+        ///Continue? ähnelt.
+        /// </summary>
+        internal static string WarnTooMuchToLoad {
+            get {
+                return ResourceManager.GetString("WarnTooMuchToLoad", resourceCulture);
             }
         }
         

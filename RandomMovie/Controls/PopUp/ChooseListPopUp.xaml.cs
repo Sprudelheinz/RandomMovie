@@ -9,8 +9,8 @@ public partial class ChooseListPopUp : Popup, INotifyPropertyChanged
 {
     public Dictionary<string, string> List { get; internal set; }
     public ChooseListPopUp()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
     }
 
     public ChooseListPopUp(MainPageViewModel mainPageViewModel)

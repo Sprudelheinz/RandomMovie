@@ -174,9 +174,15 @@ e.g.: https://letterboxd.com/Sprudelheinz/</value>
     <value>Rating</value>
   </data>
   <data name="GreaterThan" xml:space="preserve">
-    <value>ratings greater than</value>
+    <value>greater than</value>
   </data>
   <data name="SmallerThan" xml:space="preserve">
-    <value>ratings smaller than</value>
+    <value>smaller than</value>
+  </data>
+  <data name="WarnTooMuchToLoad" xml:space="preserve">
+    <value>Attention.
+There are more than 2000 movies in the list.
+It can take a long time until the app responds again.
+Continue?</value>
   </data>
 </root>

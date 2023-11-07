@@ -174,9 +174,15 @@ z.B.: https://letterboxd.com/Sprudelheinz/</value>
     <value>Bewertung</value>
   </data>
   <data name="GreaterThan" xml:space="preserve">
-    <value>Bewertungen größer als</value>
+    <value>größer als</value>
   </data>
   <data name="SmallerThan" xml:space="preserve">
-    <value>Bewertungen kleiner als</value>
+    <value>kleiner als</value>
+  </data>
+  <data name="WarnTooMuchToLoad" xml:space="preserve">
+    <value>Achtung.
+Es sind mehr als 2000 Filme in der List.
+Es kann damit sehr lange Zeit in Anspruch nehmen bis die App wieder reagiert.
+Fortfahren?</value>
   </data>
 </root>

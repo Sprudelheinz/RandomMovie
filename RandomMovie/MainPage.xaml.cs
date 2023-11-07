@@ -199,7 +199,7 @@ public partial class MainPage : ContentPage
     {
         ActivityIndicatorPopUp popUp = new ActivityIndicatorPopUp();
         this.ShowPopup(popUp);
-        await Services.Services.ReadListFromUri(uri, m_mainPageViewModel);
+        await Services.Services.ReadListFromUri(uri, m_mainPageViewModel, popUp);
 
         if (m_mainPageViewModel.SelectedLetterboxdList.Any())
         {
@@ -212,7 +212,7 @@ public partial class MainPage : ContentPage
         }
         try
         {
-            popUp.Close();
+            await popUp.CloseAsync();
         }
         catch
         {

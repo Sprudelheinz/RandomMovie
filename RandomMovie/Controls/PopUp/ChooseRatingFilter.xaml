@@ -23,7 +23,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="30" />
                 </Grid.ColumnDefinitions>
-                <Label Margin="5" Grid.Column="0" Text="{x:Static resource:Localisation.RatingFilter}" FontSize="Medium" />
+                <Label HorizontalOptions="Center" Margin="30,0,0,0" Grid.Column="0" Text="{x:Static resource:Localisation.RatingFilter}" FontSize="Medium" />
                 <ImageButton Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="ResetGenreFilter_Clicked" />
             </Grid>
             <Border HorizontalOptions="Center" Grid.Row="1" StrokeThickness="2" StrokeShape="RoundRectangle 5,5,5,5" Background="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
