@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 using Android.Widget;
+using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 
 namespace RandomMovie;
@@ -20,7 +21,13 @@ public class MainApplication : MauiApplication
                 child.SetColorFilter(Colors.DarkGray.ToPlatform());
             }
         });
+        ImageHandler.Mapper.PrependToMapping(nameof(Microsoft.Maui.IImage.Source), (handler, view) => PrependToMappingImageSource(handler, view));
     }
 
-	protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+    public static void PrependToMappingImageSource(IImageHandler handler, Microsoft.Maui.IImage image)
+    {
+        handler.PlatformView?.Clear();
+    }
+
+    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 }

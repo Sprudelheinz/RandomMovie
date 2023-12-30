@@ -21,19 +21,19 @@ namespace RandomMovie
         [JsonIgnore]
         public string MovieTitle => Name + " (" + Year + ")";
 
-        private ImageSource posterImageSource;
+        private ImageSource m_posterImageSource;
         [JsonIgnore]
         public ImageSource PosterImageSource 
         {
             get
             {
-                if (posterImageSource == null)
+                if (m_posterImageSource == null)
                     GetImageSource();
-                return posterImageSource;
+                return m_posterImageSource;
             }
             set
             {
-                posterImageSource = value;
+                m_posterImageSource = value;
                 RaisePropertyChanged(nameof(PosterImageSource));
                 RaisePropertyChanged(nameof(PosterNotAvailable));
             }

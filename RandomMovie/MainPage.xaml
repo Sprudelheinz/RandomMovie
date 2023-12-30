@@ -47,7 +47,7 @@
                             </VerticalStackLayout.GestureRecognizers>
                             <Frame Margin="5" HeightRequest="{Binding Height}" WidthRequest="{Binding Width}" BackgroundColor="{Binding MainColorMaui}" CornerRadius="10">
                                 <FlexLayout>
-                                    <Image Source="{Binding PosterImageSource}" />
+                                    <Image MinimumHeightRequest="{Binding Height}" MinimumWidthRequest="{Binding Width}" Source="{Binding PosterImageSource}" />
                                     <Label VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" IsVisible="{Binding PosterNotAvailable}" Text="{x:Static resource:Localisation.PosterNotAvailable}" />
                                 </FlexLayout>
                             </Frame>
