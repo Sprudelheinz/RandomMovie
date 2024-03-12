@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.sprudelheinz.randommovie" android:versionCode="15" android:versionName="1.6.8">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.sprudelheinz.randommovie" android:versionCode="16" android:versionName="1.6.9">
 	<application android:allowBackup="true" android:icon="@mipmap/icon512" android:supportsRtl="true" android:label="Random Letterboxd Movie"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
