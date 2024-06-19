@@ -1,10 +1,11 @@
 using CommunityToolkit.Maui.Views;
+using RandomMovie.Resources;
 
 namespace RandomMovie.Controls.PopUp;
 
 public partial class InfoPopUp : Popup
 {
-    public string Version => Resources.Localisation.Version + ": " + AppInfo.Current.VersionString;
+    public string Version => Localisation.Version + ": " + AppInfo.Current.VersionString;
     public InfoPopUp()
 	{
 		InitializeComponent();

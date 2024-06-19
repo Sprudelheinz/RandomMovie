@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace RandomMovie.Controls.PopUp;
 
-public partial class ChooseListPopUp : Popup, INotifyPropertyChanged
+public partial class ChooseListPopUp : Popup
 {
     public Dictionary<string, string> List { get; internal set; }
     public ChooseListPopUp()
@@ -19,6 +19,7 @@ public partial class ChooseListPopUp : Popup, INotifyPropertyChanged
         List = mainPageViewModel.LetterboxdLists;
         BindingContext = this;
         ListChoosen = new Command<object>(OnTapped);
+        OnPropertyChanged(nameof(List));
     }
 
     public Command<object> ListChoosen { get; set; }

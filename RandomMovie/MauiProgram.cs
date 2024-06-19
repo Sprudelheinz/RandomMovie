@@ -23,7 +23,7 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
         SettingsService.Init();
-        builder.Services.AddTransient<IPopupService, PopupService>();
+        builder.Services.AddTransient<IPopupService, Services.PopupService>();
         return builder.Build();
 	}
 }

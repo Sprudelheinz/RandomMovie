@@ -18,7 +18,7 @@ namespace RandomMovie.ViewModels
 
         public List<GenreViewModel> GenresList { get; set; } = new List<GenreViewModel>();
 
-        private string m_letterBoxdUserName;
+        private string m_letterBoxdUserName = "Sprudelheinz";
         public string LetterBoxdUserName 
         { 
             get => m_letterBoxdUserName;
