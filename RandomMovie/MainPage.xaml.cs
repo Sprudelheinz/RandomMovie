@@ -185,6 +185,7 @@ public partial class MainPage : ContentPage
             }
             
             m_mainPageViewModel.LetterboxdLists = lists;
+            SettingsService.Instance.SaveSettingsAsync();
         }
         var chooseListPopUp = new ChooseListPopUp(m_mainPageViewModel);
         var result = await this.ShowPopupAsync(chooseListPopUp);

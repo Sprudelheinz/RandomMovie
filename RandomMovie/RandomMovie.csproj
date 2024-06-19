@@ -86,8 +86,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
-		<PackageReference Include="HtmlAgilityPack" Version="1.11.59" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.1" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.61" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
@@ -155,11 +155,11 @@
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionRandomMovieHideInfoBar="True" XamarinHotReloadGenericExceptionInfoBarRandomMovieHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 	<ItemGroup>
-	  <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.10" />
+	  <PackageReference Update="Microsoft.Maui.Controls" Version="8.0.60" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.10" />
+	  <PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.60" />
 	</ItemGroup>
 
 </Project>
