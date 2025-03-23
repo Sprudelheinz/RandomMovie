@@ -228,10 +228,12 @@ namespace RandomMovie.Services
         {
             foreach (var genre in mainPageViewModel.GenresList)
                 genre.IsSelected = false;
+            foreach (var country in mainPageViewModel.CountryList)
+                country.IsSelected = false;
             mainPageViewModel.SearchText = null;
             mainPageViewModel.SortAscending = true;
             mainPageViewModel.SelectedLetterboxdList.Clear();
-            mainPageViewModel.Rating = null;
+            mainPageViewModel.Rating = null;            
             mainPageViewModel.Movies = mainPageViewModel.AllTheMovies;
             mainPageViewModel.GreaterThanSmallerThan = true;
         }

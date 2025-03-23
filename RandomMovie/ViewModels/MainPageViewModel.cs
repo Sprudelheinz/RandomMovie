@@ -18,6 +18,8 @@ namespace RandomMovie.ViewModels
 
         public List<GenreViewModel> GenresList { get; set; } = new List<GenreViewModel>();
 
+        public List<CountryViewModel> CountryList { get; set; } = new List<CountryViewModel>();
+
         private string m_letterBoxdUserName = "Sprudelheinz";
         public string LetterBoxdUserName 
         { 
@@ -36,6 +38,17 @@ namespace RandomMovie.ViewModels
             {
                 m_rating = value;
                 RaisePropertyChanged(nameof(Rating));
+            }
+        }
+
+        private bool m_filterVisible = false;
+        public bool FilterVisible
+        {
+            get => m_filterVisible;
+            set
+            {
+                m_filterVisible = value;
+                RaisePropertyChanged(nameof(FilterVisible));
             }
         }
         public bool ActivityRunning { get; set; } = false;
@@ -105,6 +118,11 @@ namespace RandomMovie.ViewModels
                 foreach (var item in list.OrderBy(x => x.ToString()))
                 {
                     GenresList.Add(new GenreViewModel(item, false));
+                }
+
+                foreach (var country in Country.Countries)
+                {
+                    CountryList.Add(new CountryViewModel(country, false));
                 }
             });
         }

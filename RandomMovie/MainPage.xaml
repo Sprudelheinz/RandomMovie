@@ -5,24 +5,25 @@
              x:Class="RandomMovie.MainPage">
     <ScrollView 
         VerticalScrollBarVisibility="Default" Orientation="Vertical">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="30" />
-                    <ColumnDefinition Width="30" />
-                    <ColumnDefinition Width="30" />
-                </Grid.ColumnDefinitions>
-                <SearchBar Placeholder="{x:Static resource:Localisation.MovieName}"  Grid.Column="0" Text="{Binding SearchText}" TextChanged="SearchBar_TextChanged" />
+        <Grid 
+            RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+            ColumnDefinitions="*">
+            <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto,Auto">
+                <SearchBar Placeholder="{x:Static resource:Localisation.MovieName}" Text="{Binding SearchText}" TextChanged="SearchBar_TextChanged" />
+                <ImageButton Margin="5" Grid.Column="1" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=tune.png, Light=tune.png, Dark=tune_dark.png}"  Clicked="Filter_Clicked" />
+                <ImageButton Margin="5" Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=sort.png, Light=sort.png, Dark=sort_dark.png}"  Clicked="Button_Clicked" />
+                <ImageButton Margin="5" Grid.Column="3" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="RestoreButton_Clicked" />
+            </Grid>
+            <Grid IsVisible="{Binding FilterVisible}" Grid.Row="1" ColumnDefinitions="Auto,Auto,Auto" HorizontalOptions="End">
+                <Button 
+                 Background="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" 
+                 TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" 
+                 FontSize="Caption" 
+                 HeightRequest="40" 
+                 Grid.Column="0" 
+                 Text="{x:Static resource:Localisation.Country}" 
+                 Clicked="ChooseCountry_Clicked"
+                 Margin="5" />
                 <Button 
                     Background="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" 
                     TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" 
@@ -30,12 +31,19 @@
                     HeightRequest="40" 
                     Grid.Column="1" 
                     Text="{x:Static resource:Localisation.Genre}" 
-                    Clicked="ChooseGenre_Clicked" />
-                <ImageButton x:Name="RatingButton" Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=star.png, Light=star.png, Dark=star_dark.png}"  Clicked="RatingButton_Clicked" />
-                <ImageButton Grid.Column="3" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=sort.png, Light=sort.png, Dark=sort_dark.png}"  Clicked="Button_Clicked" />
-                <ImageButton Grid.Column="4" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="RestoreButton_Clicked" />
+                    Clicked="ChooseGenre_Clicked"
+                    Margin="5"/>
+                <Button 
+                    Background="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" 
+                    TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" 
+                    FontSize="Caption" 
+                    HeightRequest="40" 
+                    Grid.Column="2" 
+                    Text="{x:Static resource:Localisation.Rating}" 
+                    Clicked="RatingButton_Clicked"
+                    Margin="5"/>
             </Grid>
-            <CarouselView Grid.Row="1" ItemsSource="{Binding Movies}" Loop="False" x:Name="Carousel">
+            <CarouselView Grid.Row="2" ItemsSource="{Binding Movies}" Loop="False" x:Name="Carousel">
                 <CarouselView.ItemsLayout>
                     <LinearItemsLayout Orientation="Horizontal" />
                 </CarouselView.ItemsLayout>
@@ -57,9 +65,9 @@
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
-            <Button Grid.Row="2" Margin="10" x:Name="RandomMovie" Text="{x:Static resource:Localisation.RandomMovie}" Clicked="RandomMovie_Clicked" />
-            <Button Grid.Row="3" Margin="10" x:Name="LetterBoxd" Text="LetterBoxd Link" Clicked="LetterBoxd_Clicked" />
-            <Grid Grid.Row="4" Margin="10">
+            <Button Grid.Row="3" Margin="10" x:Name="RandomMovie" Text="{x:Static resource:Localisation.RandomMovie}" Clicked="RandomMovie_Clicked" />
+            <Button Grid.Row="4" Margin="10" x:Name="LetterBoxd" Text="LetterBoxd Link" Clicked="LetterBoxd_Clicked" />
+            <Grid Grid.Row="5" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -67,7 +75,7 @@
                 <Entry Grid.Column="0" Text="{Binding LetterBoxdUserName}" Placeholder="{x:Static resource:Localisation.LetterboxdUsername}" />
                 <Button Grid.Column="1" Text="{x:Static resource:Localisation.ChooseList}" Clicked="ChooseList_Clicked" LineBreakMode="WordWrap" />
             </Grid>
-            <ImageButton Grid.Row="5"
+            <ImageButton Grid.Row="6"
                 Margin="10"
                 BackgroundColor="Gray"
                 CornerRadius="20"

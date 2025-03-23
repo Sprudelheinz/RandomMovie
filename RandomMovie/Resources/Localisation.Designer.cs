@@ -88,6 +88,15 @@ namespace RandomMovie.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Country ähnelt.
+        /// </summary>
+        internal static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die No list could be found for the corresponding username. 
         ///Please check the name for the correct spelling.
         ///The username must be entered as it appears in the BrowserUrl. 
@@ -96,6 +105,24 @@ namespace RandomMovie.Resources {
         internal static string ErrorLetterboxdName {
             get {
                 return ResourceManager.GetString("ErrorLetterboxdName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Filter ähnelt.
+        /// </summary>
+        internal static string Filter {
+            get {
+                return ResourceManager.GetString("Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Filter Country ähnelt.
+        /// </summary>
+        internal static string FilterCountry {
+            get {
+                return ResourceManager.GetString("FilterCountry", resourceCulture);
             }
         }
         
@@ -219,9 +246,9 @@ namespace RandomMovie.Resources {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Rating ähnelt.
         /// </summary>
-        internal static string RatingFilter {
+        internal static string Rating {
             get {
-                return ResourceManager.GetString("RatingFilter", resourceCulture);
+                return ResourceManager.GetString("Rating", resourceCulture);
             }
         }
         

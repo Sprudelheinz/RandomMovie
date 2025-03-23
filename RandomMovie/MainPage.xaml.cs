@@ -130,6 +130,11 @@ public partial class MainPage : ContentPage
         {
             moviesToFilter = moviesToFilter.Where(x => x.Genres != null && x.Genres.Any(x => x == selectedGenre.Genre)).ToList();
         }
+
+        var selectedCountries = m_mainPageViewModel.CountryList.Where(x => x.IsSelected == true).Select(x => x.Country).ToList();
+        if (selectedCountries.Any())
+            moviesToFilter = moviesToFilter.Where(x => x.Countries != null && x.Countries.Any(y => selectedCountries.Contains(y))).ToList();
+
         if (!string.IsNullOrEmpty(m_mainPageViewModel.SearchText))
             moviesToFilter = moviesToFilter.Where(x => x.MovieTitle.ToLowerInvariant().Contains(m_mainPageViewModel.SearchText.ToLowerInvariant())).ToList();
         if (m_mainPageViewModel.Rating != null)
@@ -273,11 +278,23 @@ public partial class MainPage : ContentPage
         FilterList();  
     }
 
+    private async void ChooseCountry_Clicked(object sender, EventArgs e)
+    {
+        var chooseCountry = new ChooseCountry(m_mainPageViewModel);
+        var result = await this.ShowPopupAsync(chooseCountry);
+        FilterList();
+    }
+
     private async void RatingButton_Clicked(object sender, EventArgs e)
     {
         var chooseRatingFilter = new ChooseRatingFilter(m_mainPageViewModel);
         var result = await this.ShowPopupAsync(chooseRatingFilter);
         FilterList();
+    }
+
+    private void Filter_Clicked(object sender, EventArgs e)
+    {
+        m_mainPageViewModel.FilterVisible = !m_mainPageViewModel.FilterVisible;
     }
 }
 
