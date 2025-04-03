@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:resource="clr-namespace:RandomMovie.Resources"
+             xmlns:localViewModels="clr-namespace:RandomMovie.ViewModels"
              x:Class="RandomMovie.Controls.PopUp.ChooseCountry"
+             x:DataType="localViewModels:MainPageViewModel"
              Color="Transparent">
     <Border StrokeThickness="2" Padding="5" StrokeShape="RoundRectangle 5,5,5,5" Background="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
         <Grid>
@@ -22,11 +24,11 @@
                     <ColumnDefinition Width="30" />
                 </Grid.ColumnDefinitions>
                 <Label Margin="5" Grid.Column="0" Text="{x:Static resource:Localisation.FilterCountry}" FontSize="Medium" />
-                <ImageButton Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="ResetCountryFilter_Clicked" />
+                <ImageButton Margin="0,0,10,0" Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="ResetCountryFilter_Clicked" />
             </Grid>
             <ListView Margin="5,10,5,5" Grid.Column="0" Grid.Row="1" WidthRequest="200" HeightRequest="350" x:Name="listView" ItemsSource="{Binding CountryList}">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="localViewModels:CountryViewModel">
                         <ViewCell Height="50">
                             <HorizontalStackLayout>
                                 <HorizontalStackLayout.GestureRecognizers>

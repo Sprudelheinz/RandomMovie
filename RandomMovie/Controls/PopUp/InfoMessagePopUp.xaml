@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:resource="clr-namespace:RandomMovie.Resources"
+             xmlns:localViewModels="clr-namespace:RandomMovie.ViewModels"
+             x:DataType="localViewModels:InfoMessagePopUpViewModel"
              Color="Transparent"
              x:Class="RandomMovie.Controls.PopUp.InfoMessagePopUp">
     <Border StrokeThickness="2" Padding="5" StrokeShape="RoundRectangle 5,5,5,5" Background="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">

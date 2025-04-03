@@ -1,9 +1,4 @@
-﻿using CommunityToolkit.Maui.Views;
-using Microsoft.Maui.ApplicationModel;
-using Newtonsoft.Json;
-using RandomMovie.Controls.PopUp;
-using RandomMovie.Resources;
-using RandomMovie.Services.Interface;
+﻿using RandomMovie.Controls.PopUp;
 using RandomMovie.ViewModels;
 
 namespace RandomMovie.Services
@@ -17,7 +12,7 @@ namespace RandomMovie.Services
         public static ImageDownloader ImageDownloaderInstance { get; set; } = new ImageDownloader();
         internal static void SaveJson(List<Movie> letterboxdList)
         {
-            var json = JsonConvert.SerializeObject(letterboxdList);
+            var json = Utf8Json.JsonSerializer.ToJsonString(letterboxdList);
             WriteTextToFileAsync(json, LETTERBOXDLIST_FILENAME);
         }
 
@@ -34,7 +29,7 @@ namespace RandomMovie.Services
         }
         internal static List<Movie> ReadJson(string json)
         {
-            var movies = JsonConvert.DeserializeObject<List<Movie>>(json);
+            var movies = Utf8Json.JsonSerializer.Deserialize<List<Movie>>(json);
             return movies.ToList();
         }
 

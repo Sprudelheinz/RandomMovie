@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:resource="clr-namespace:RandomMovie.Resources"
+             xmlns:localViewModels="clr-namespace:RandomMovie.ViewModels"
              x:Class="RandomMovie.Controls.PopUp.ChooseRatingFilter"
+             x:DataType="localViewModels:MainPageViewModel"
              Color="Transparent">
     <Border StrokeThickness="2" Padding="5" StrokeShape="RoundRectangle 5,5,5,5" Background="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
         <Grid>
@@ -24,7 +26,7 @@
                     <ColumnDefinition Width="30" />
                 </Grid.ColumnDefinitions>
                 <Label HorizontalOptions="Center" Margin="30,0,0,0" Grid.Column="0" Text="{x:Static resource:Localisation.Rating}" FontSize="Medium" />
-                <ImageButton Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="ResetGenreFilter_Clicked" />
+                <ImageButton Margin="0,0,10,0" Grid.Column="2" HeightRequest="30" WidthRequest="30" Source="{AppThemeBinding Default=restore.png, Light=restore.png, Dark=restore_dark.png}"  Clicked="ResetGenreFilter_Clicked" />
             </Grid>
             <Border HorizontalOptions="Center" Grid.Row="1" StrokeThickness="2" StrokeShape="RoundRectangle 5,5,5,5" Background="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
                 <Border.GestureRecognizers>

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace RandomMovie.Services
+﻿namespace RandomMovie.Services
 {
     internal class SettingsService
     {
@@ -14,7 +12,7 @@ namespace RandomMovie.Services
 
         public void SaveSettingsAsync()
         {
-            var json = JsonConvert.SerializeObject(Settings);
+            var json = Utf8Json.JsonSerializer.ToJsonString(Settings);
             Services.WriteTextToFileAsync(json, SETTINGS_FILE);
         }
 
@@ -25,7 +23,7 @@ namespace RandomMovie.Services
             {
                 try
                 {
-                    return JsonConvert.DeserializeObject<Settings>(settingsJson);
+                    return Utf8Json.JsonSerializer.Deserialize<Settings>(settingsJson);
                 }
                 catch
                 {

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using RandomMovie.Enums;
+﻿using RandomMovie.Enums;
 using RandomMovie.ViewModels;
 
 namespace RandomMovie
@@ -12,18 +10,16 @@ namespace RandomMovie
         public int Year { get; set; }
         public string LetterboxdURI { get; set; }
         public string PosterWebsiteLink { get; set; }
-        public System.Drawing.Color MainColor { get; set; }
+        public string MainColor { get; set; }
         public bool IsDark { get; set; }
         public string FilmID { get; set; }
         public List<Genre> Genres { get; set; }
         public List<string> Countries { get; set; }
         public double Rating { get; set; }
 
-        [JsonIgnore]
         public string MovieTitle => Name + " (" + Year + ")";
 
         private ImageSource m_posterImageSource;
-        [JsonIgnore]
         public ImageSource PosterImageSource 
         {
             get
@@ -39,14 +35,10 @@ namespace RandomMovie
                 RaisePropertyChanged(nameof(PosterNotAvailable));
             }
         }
-
-        [JsonIgnore]
         public bool PosterNotAvailable { get; set; }  = false;
 
-        [JsonIgnore]
         public double Width => Services.Services.GetWidth();
 
-        [JsonIgnore]
         public double Height => Services.Services.GetHeight();        
 
         private void GetImageSource()
@@ -63,12 +55,20 @@ namespace RandomMovie
             }
             MainThread.BeginInvokeOnMainThread(async () => await Services.Services.ImageDownloaderInstance.DownloadImageAsync(cacheFolder, FilmID, new Uri(PosterWebsiteLink), this));
         }
-        [JsonIgnore]
         public Color MainColorMaui => GetColor(MainColor);
 
-        private Color GetColor(System.Drawing.Color mainColor)
+        private Color GetColor(string mainColor)
         {
-            return Color.FromRgba(mainColor.R, mainColor.G, mainColor.B, mainColor.A);
+            var parts = mainColor.Split(',');
+            if (parts.Length == 4 &&
+                byte.TryParse(parts[0], out var r) &&
+                byte.TryParse(parts[1], out var g) &&
+                byte.TryParse(parts[2], out var b) &&
+                byte.TryParse(parts[3], out var a))
+            {
+                return Color.FromRgba(r, g, b, a);
+            }
+            return Colors.Transparent;
         }
     }
 }

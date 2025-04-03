@@ -7,13 +7,13 @@ namespace RandomMovie.Services
     {
         public void ShowPopup(Popup popup)
         {
-            Page page = Application.Current?.MainPage ?? throw new NullReferenceException();
+            Page page = Application.Current.Windows[0]?.Page ?? throw new NullReferenceException();
             page.ShowPopup(popup);
         }
 
         public Task<object> ShowPopupAsync(Popup popup)
         {
-            Page page = Application.Current?.MainPage ?? throw new NullReferenceException();
+            Page page = Application.Current.Windows[0]?.Page ?? throw new NullReferenceException();
             return page.ShowPopupAsync(popup);
         }
     }
