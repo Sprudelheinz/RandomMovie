@@ -39,10 +39,17 @@ namespace RandomMovie
 
         public double Width => Services.Services.GetWidth();
 
-        public double Height => Services.Services.GetHeight();        
+        public double Height => Services.Services.GetHeight();
 
         private void GetImageSource()
         {
+            if (string.IsNullOrEmpty(PosterWebsiteLink))
+            {
+                PosterImageSource = null;
+                PosterNotAvailable = true;
+                return;
+            }
+
             var cacheFolder = Path.Combine(FileSystem.Current.AppDataDirectory, Services.Services.POSTER_CACHE_FOLDER);
             if (!Directory.Exists(cacheFolder))
                 Directory.CreateDirectory(cacheFolder);
@@ -50,10 +57,31 @@ namespace RandomMovie
             var fullFileName = Path.Combine(cacheFolder, fileName);
             if (File.Exists(fullFileName))
             {
-                PosterImageSource = ImageSource.FromFile(fullFileName);
+                var imageSource = ImageSource.FromFile(fullFileName);
+                if (imageSource != null)
+                {
+                    PosterImageSource = imageSource;
+                }
+                else
+                {
+                    PosterImageSource = null;
+                    PosterNotAvailable = true;
+                }
                 return;
             }
-            MainThread.BeginInvokeOnMainThread(async () => await Services.Services.ImageDownloaderInstance.DownloadImageAsync(cacheFolder, FilmID, new Uri(PosterWebsiteLink), this));
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                try
+                {
+                    var uri = new Uri(PosterWebsiteLink);
+                    await Services.Services.ImageDownloaderInstance.DownloadImageAsync(cacheFolder, FilmID, uri, this);
+                }
+                catch
+                {
+                    PosterImageSource = null;
+                    PosterNotAvailable = true;
+                }
+            });
         }
         public Color MainColorMaui => GetColor(MainColor);
 
