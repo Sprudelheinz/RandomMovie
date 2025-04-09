@@ -86,9 +86,7 @@
                 VerticalOptions="End"
                 Clicked="ImageButton_Clicked">
                 <ImageButton.Source>
-                    <FontImageSource
-	                    FontFamily="FASolid"
-	                    Glyph="&#x3f;" />
+                    <FontImageSource Glyph="&#x3f;" />
                 </ImageButton.Source>
             </ImageButton>
         </Grid>

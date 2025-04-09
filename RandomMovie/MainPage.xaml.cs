@@ -79,20 +79,21 @@ public partial class MainPage : ContentPage
 
     private void SetCurrentItem(Movie movie)
     {
-        if (m_mainPageViewModel.Movies.Count > MAX_MOVIES_FOR_ANIMATE)
-        {
-            Carousel.IsScrollAnimated = false;
-            //Carousel.SetBinding(CarouselView.CurrentItemProperty, "Current", BindingMode.TwoWay);
-            Carousel.CurrentItem = movie;
-            Carousel.ScrollTo(movie, animate: false, position: ScrollToPosition.Center);
-            Carousel.IsScrollAnimated = true;
-        }
-        else
-        { 
-            //Carousel.SetBinding(CarouselView.CurrentItemProperty, "Current", BindingMode.TwoWay);
-            Carousel.CurrentItem = movie;
-            Carousel.ScrollTo(movie, animate: true, position: ScrollToPosition.Center);
-        }
+        Carousel.IsScrollAnimated = false;
+        //Carousel.SetBinding(CarouselView.CurrentItemProperty, "Current", BindingMode.TwoWay);
+        Carousel.CurrentItem = movie;
+        Carousel.ScrollTo(movie, animate: false, position: ScrollToPosition.Center);
+        Carousel.IsScrollAnimated = true;
+        //if (m_mainPageViewModel.Movies.Count > MAX_MOVIES_FOR_ANIMATE)
+        //{
+            
+        //}
+        //else
+        //{ 
+        //    //Carousel.SetBinding(CarouselView.CurrentItemProperty, "Current", BindingMode.TwoWay);
+        //    Carousel.CurrentItem = movie;
+        //    Carousel.ScrollTo(movie, animate: false, position: ScrollToPosition.Center);
+        //}
     }
 
     private void RandomMovie_Clicked(object sender, EventArgs e)
