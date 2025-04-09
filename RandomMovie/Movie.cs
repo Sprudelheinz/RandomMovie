@@ -19,20 +19,25 @@ namespace RandomMovie
 
         public string MovieTitle => Name + " (" + Year + ")";
 
+        private bool isLoadingImage = false;
+
         private ImageSource m_posterImageSource;
         public ImageSource PosterImageSource 
         {
             get
             {
-                if (m_posterImageSource == null)
+                if (m_posterImageSource == null && !isLoadingImage)
                     GetImageSource();
                 return m_posterImageSource;
             }
             set
             {
-                m_posterImageSource = value;
-                RaisePropertyChanged(nameof(PosterImageSource));
-                RaisePropertyChanged(nameof(PosterNotAvailable));
+                if (m_posterImageSource != value)
+                {
+                    m_posterImageSource = value;
+                    RaisePropertyChanged(nameof(PosterImageSource));
+                    RaisePropertyChanged(nameof(PosterNotAvailable));
+                }
             }
         }
         public bool PosterNotAvailable { get; set; }  = false;
@@ -45,7 +50,6 @@ namespace RandomMovie
         {
             if (string.IsNullOrEmpty(PosterWebsiteLink))
             {
-                PosterImageSource = null;
                 PosterNotAvailable = true;
                 return;
             }
@@ -73,6 +77,7 @@ namespace RandomMovie
             {
                 try
                 {
+                    isLoadingImage = true;
                     var uri = new Uri(PosterWebsiteLink);
                     await Services.Services.ImageDownloaderInstance.DownloadImageAsync(cacheFolder, FilmID, uri, this);
                 }
@@ -80,6 +85,10 @@ namespace RandomMovie
                 {
                     PosterImageSource = null;
                     PosterNotAvailable = true;
+                }
+                finally
+                {
+                    isLoadingImage = false;
                 }
             });
         }
