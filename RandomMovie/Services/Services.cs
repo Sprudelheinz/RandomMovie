@@ -89,7 +89,7 @@ namespace RandomMovie.Services
                     foreach (var webstring in webStrings)
                     {
                         doc.LoadHtml(webstring);
-                        var ul = doc.DocumentNode.SelectSingleNode("//ul[contains(@class,'poster-list')]");
+                        var ul = doc.DocumentNode.SelectSingleNode("//ul[contains(@class,'poster-list')] | //ul[contains(@class,'grid')]");
                         if (ul == null)
                             break;
                         var divs = ul.Descendants("div");
@@ -97,7 +97,7 @@ namespace RandomMovie.Services
                             foreach (var div in divs)
                             {
                                 var value = div.GetAttributes();
-                                var part = value.First(x => x.Name == "data-film-id").Value;
+                                var part = value.FirstOrDefault(x => x.Name == "data-film-id")?.Value;
                                 var movie = mainPageViewModel.AllTheMovies.FirstOrDefault(x => x.FilmID == part);
                                 if (movie != null)
                                 {
@@ -108,7 +108,7 @@ namespace RandomMovie.Services
                 }
                 mainPageViewModel.SelectedLetterboxdList = mainPageViewModel.SelectedLetterboxdList.OrderBy(x => x.SortValue).Distinct().ToList();               
             }
-            catch
+            catch (Exception ex)
             {
             }
         }
@@ -131,7 +131,7 @@ namespace RandomMovie.Services
                     foreach (var webstring in webstrings)
                     {
                         doc.LoadHtml(webstring);
-                        var headlines = doc.DocumentNode.SelectNodes("//h2[contains(@class,'title-2 title prettify')]");
+                        var headlines = doc.DocumentNode.SelectNodes("//h2[contains(@class,'name prettify')]");
                         foreach (var headline in headlines)
                         {
                             var a = headline.ChildNodes.First(x => x.Name == "a");

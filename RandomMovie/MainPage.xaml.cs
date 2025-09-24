@@ -3,6 +3,7 @@ using RandomMovie.Controls.PopUp;
 using RandomMovie.Resources;
 using RandomMovie.Services;
 using RandomMovie.ViewModels;
+using System.Threading;
 
 namespace RandomMovie;
 
@@ -12,6 +13,8 @@ public partial class MainPage : ContentPage
     private const int MAX_MOVIES_FOR_ANIMATE = 200;
     private const int MARGIN_PEEK = 20;
     private MainPageViewModel m_mainPageViewModel;
+    private CancellationTokenSource _searchDelayTokenSource;
+
     public MainPage()
 	{
 		InitializeComponent();
@@ -118,7 +121,24 @@ public partial class MainPage : ContentPage
 
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-        FilterList();
+        // Cancel the previous token if it exists
+        _searchDelayTokenSource?.Cancel();
+
+        // Create a new token source
+        _searchDelayTokenSource = new CancellationTokenSource();
+        var token = _searchDelayTokenSource.Token;
+
+        // Delay execution
+        Task.Delay(500, token).ContinueWith(t =>
+        {
+            if (!t.IsCanceled)
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    FilterList();
+                });
+            }
+        }, token);
     }
 
     private void FilterList()
