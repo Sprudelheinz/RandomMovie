@@ -1,9 +1,10 @@
-﻿using RandomMovie.Controls.PopUp;
+﻿using System.Net;
+using System.Text.RegularExpressions;
+using RandomMovie.Controls.PopUp;
 using RandomMovie.ViewModels;
 
 namespace RandomMovie.Services
 {
-   
     public static class Services
     {
         public const string LETTERBOXDLIST_FILENAME = "watchlist.json";
@@ -56,13 +57,13 @@ namespace RandomMovie.Services
                     {
                         return reader.ReadToEnd();
                     }
-                }        
+                }
             }
             return null;
         }
 
         internal async static Task ReadListFromUri(string uri, MainPageViewModel mainPageViewModel, ActivityIndicatorPopUp activityIndicatorPopUp)
-        {        
+        {
             try
             {
                 SettingsService.Instance.Settings.LetterBoxdUserName = mainPageViewModel.LetterBoxdUserName;
@@ -71,34 +72,110 @@ namespace RandomMovie.Services
                 {
                     var doc = new HtmlAgilityPack.HtmlDocument();
                     int pages = await GetPageNumbersAsync(httpClient, uri);
-                    //if (pages > 20)
-                    //{
-                    //    await activityIndicatorPopUp.CloseAsync();
-                    //    Thread.Sleep(100);
-                    //    var infoMessage = new InfoMessagePopUp(Localisation.WarnTooMuchToLoad, Enums.InfoMessageAnswer.YesNo);
-                    //    var popUpService = ServiceProvider.GetService<IPopupService>();
-                        
-                    //    var value = await popUpService.ShowPopupAsync(infoMessage);
-                    //    if (value is bool returnValue && !returnValue)
-                    //        return;
-                    //    activityIndicatorPopUp = new ActivityIndicatorPopUp();
-                    //    _ = popUpService.ShowPopupAsync(activityIndicatorPopUp);
-                    //}
                     mainPageViewModel.SelectedLetterboxdList = new List<Movie>();
                     var webStrings = await GetWebStrings(httpClient, uri, pages);
                     foreach (var webstring in webStrings)
                     {
                         doc.LoadHtml(webstring);
-                        var ul = doc.DocumentNode.SelectSingleNode("//ul[contains(@class,'poster-list')] | //ul[contains(@class,'grid')]");
+                        var ul = doc.DocumentNode.SelectSingleNode("//ul[contains(@class,'poster-list')]");
                         if (ul == null)
                             break;
+
                         var divs = ul.Descendants("div");
                         if (divs.Any())
                             foreach (var div in divs)
                             {
-                                var value = div.GetAttributes();
-                                var part = value.FirstOrDefault(x => x.Name == "data-film-id")?.Value;
-                                var movie = mainPageViewModel.AllTheMovies.FirstOrDefault(x => x.FilmID == part);
+                                var componentClass = div.GetAttributeValue("data-component-class", null);
+                                if (!string.Equals(componentClass, "LazyPoster", StringComparison.OrdinalIgnoreCase))
+                                    continue;
+
+                                string part = null;
+                                var filmIdAttr = div.GetAttributeValue("data-film-id", null);
+                                if (!string.IsNullOrEmpty(filmIdAttr))
+                                {
+                                    part = filmIdAttr;
+                                }
+
+                                if (part == null)
+                                {
+                                    var postered = div.GetAttributeValue("data-postered-identifier", null);
+                                    if (!string.IsNullOrEmpty(postered))
+                                    {
+                                        try
+                                        {
+                                            var decoded = WebUtility.HtmlDecode(postered);
+                                            var m = Regex.Match(decoded, "\"uid\"\\s*:\\s*\"film:(\\d+)\"");
+                                            if (m.Success)
+                                                part = m.Groups[1].Value;
+                                        }
+                                        catch
+                                        {
+                                            // ignore parse errors
+                                        }
+                                    }
+                                }
+
+                                if (part == null)
+                                {
+                                    var resolvable = div.GetAttributeValue("data-resolvable-poster-path", null);
+                                    if (!string.IsNullOrEmpty(resolvable))
+                                    {
+                                        try
+                                        {
+                                            var decoded = WebUtility.HtmlDecode(resolvable);
+                                            var m = Regex.Match(decoded, "\"uid\"\\s*:\\s*\"film:(\\d+)\"");
+                                            if (m.Success)
+                                                part = m.Groups[1].Value;
+                                        }
+                                        catch
+                                        {
+                                            // ignore
+                                        }
+                                    }
+                                }
+
+                                string itemName = null;
+                                int? itemYear = null;
+                                if (part == null)
+                                {
+                                    var nameAttr = div.GetAttributeValue("data-item-name", null) ?? div.GetAttributeValue("data-item-full-display-name", null);
+                                    if (!string.IsNullOrEmpty(nameAttr))
+                                    {
+                                        var decodedName = WebUtility.HtmlDecode(nameAttr).Trim();
+                                        var mName = Regex.Match(decodedName, "^(.*)\\s*\\((\\d{4})\\)\\s*$");
+                                        if (mName.Success)
+                                        {
+                                            itemName = mName.Groups[1].Value.Trim();
+                                            if (int.TryParse(mName.Groups[2].Value, out var y))
+                                                itemYear = y;
+                                        }
+                                        else
+                                        {
+                                            itemName = decodedName;
+                                        }
+                                    }
+                                }
+
+                                Movie movie = null;
+                                if (!string.IsNullOrEmpty(part))
+                                {
+                                    movie = mainPageViewModel.AllTheMovies.FirstOrDefault(x => x.FilmID == part);
+                                }
+
+                                if (movie == null && !string.IsNullOrEmpty(itemName))
+                                {
+                                    if (itemYear.HasValue)
+                                    {
+                                        movie = mainPageViewModel.AllTheMovies.FirstOrDefault(x =>
+                                            string.Equals(x.Name?.Trim(), itemName, StringComparison.OrdinalIgnoreCase) && x.Year == itemYear.Value);
+                                    }
+                                    else
+                                    {
+                                        movie = mainPageViewModel.AllTheMovies.FirstOrDefault(x =>
+                                            string.Equals(x.Name?.Trim(), itemName, StringComparison.OrdinalIgnoreCase));
+                                    }
+                                }
+
                                 if (movie != null)
                                 {
                                     mainPageViewModel.SelectedLetterboxdList.Add(movie);
@@ -106,7 +183,7 @@ namespace RandomMovie.Services
                             }
                     }
                 }
-                mainPageViewModel.SelectedLetterboxdList = mainPageViewModel.SelectedLetterboxdList.OrderBy(x => x.SortValue).Distinct().ToList();               
+                mainPageViewModel.SelectedLetterboxdList = mainPageViewModel.SelectedLetterboxdList.OrderBy(x => x.SortValue).Distinct().ToList();
             }
             catch (Exception ex)
             {
@@ -124,7 +201,7 @@ namespace RandomMovie.Services
             {
                 using (var httpClient = new HttpClient())
                 {
-                    
+
                     var listsUri = $"https://letterboxd.com/" + mainPageViewModel.LetterBoxdUserName + $"/lists";
                     var pages = await GetPageNumbersAsync(httpClient, listsUri);
                     var webstrings = await GetWebStrings(httpClient, listsUri, pages);
@@ -152,7 +229,7 @@ namespace RandomMovie.Services
         public static async Task<IEnumerable<string>> GetWebStrings(HttpClient client, string letterboxdUri, int pages)
         {
             var getWebStringTasks = new List<Task<string>>();
-            for (int i = 1;i <= pages; i++)
+            for (int i = 1; i <= pages; i++)
             {
                 var uri = letterboxdUri + "/page/" + i;
                 getWebStringTasks.Add(client.GetStringAsync(uri));
@@ -207,7 +284,7 @@ namespace RandomMovie.Services
                 return m_height.Value;
             if (m_width != null && m_width.HasValue)
             {
-                m_height = m_width * 1.5; 
+                m_height = m_width * 1.5;
             }
             else
             {
@@ -228,7 +305,7 @@ namespace RandomMovie.Services
             mainPageViewModel.SearchText = null;
             mainPageViewModel.SortAscending = true;
             mainPageViewModel.SelectedLetterboxdList.Clear();
-            mainPageViewModel.Rating = null;            
+            mainPageViewModel.Rating = null;
             mainPageViewModel.Movies = mainPageViewModel.AllTheMovies;
             mainPageViewModel.GreaterThanSmallerThan = true;
         }

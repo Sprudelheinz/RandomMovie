@@ -2,8 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-android35.0</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
 		<RootNamespace>RandomMovie</RootNamespace>
 		<UseMaui>true</UseMaui>
