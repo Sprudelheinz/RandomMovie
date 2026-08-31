@@ -77,9 +77,9 @@ namespace RandomMovie.Services
                     foreach (var webstring in webStrings)
                     {
                         doc.LoadHtml(webstring);
-                        var ul = doc.DocumentNode.SelectSingleNode("//ul[contains(@class,'poster-list')]");
+                        var ul = doc.DocumentNode.SelectSingleNode("//ul[contains(@class,'poster-list')] | //ul[contains(@class,'grid')]");
                         if (ul == null)
-                            break;
+                            continue;
 
                         var divs = ul.Descendants("div");
                         if (divs.Any())
